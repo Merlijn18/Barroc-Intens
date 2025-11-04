@@ -30,7 +30,6 @@ namespace BarrocIntens.Pages.Inlog
         public InlogOverViewPage()
         {
             InitializeComponent();
-            TitleText.Text = "BarrocIntens";
         }
 
         private void InlogButton_Click(object sender, RoutedEventArgs e)
@@ -46,7 +45,7 @@ namespace BarrocIntens.Pages.Inlog
             {
                 if (password == user.Password && nameEmail == user.Username || nameEmail == user.Email)
                 {
-                    if (user.role == "beheer")
+                    if (user.Role == "beheer")
                     {
                         Frame.Navigate(typeof(BeheerOverViewPage), user.Id);
 

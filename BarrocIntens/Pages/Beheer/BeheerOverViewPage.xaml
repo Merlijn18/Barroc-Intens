@@ -9,7 +9,41 @@
     mc:Ignorable="d">
 
     <Grid>
-        <TextBlock x:Name="BeheerText" Width="460" FontSize="80" HorizontalAlignment="Center"/>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        
+        <Grid Grid.Row="0" Background="Black" Height="100">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
 
+            <TextBlock Text="Beheer Overzicht"
+                       Foreground="#FDD716"
+                       FontSize="40"
+                       FontFamily="Segoe UI"
+                       FontWeight="Bold"
+                       VerticalAlignment="Center"
+                       Margin="30,0,0,0"/>
+
+            <StackPanel Orientation="Horizontal" Grid.Column="1" VerticalAlignment="Center" Margin="0,0,20,0" Spacing="10">
+                <Button x:Name="Logout"
+                        Content="Uitloggen"
+                        Click="Logout_Click"
+                        Background="#FDD716"
+                        Foreground="Black"
+                        FontSize="16"
+                        FontWeight="Bold"
+                        Padding="12,6"
+                        BorderThickness="0"/>
+            </StackPanel>
+        </Grid>
+        <StackPanel x:Name="BeheerPanal" Orientation="Horizontal" HorizontalAlignment="Center" Spacing="30" Grid.Row="1" Margin="0,0,10,0">
+            <Button x:Name="AccountBeheer" Content="AccountBeheer" Click="AccountBeheer_Click" HorizontalAlignment="Center"         Width="200"
+         Height="45"   Background="#FDD716" Foreground="Black" FontSize="16" FontWeight="Bold" BorderThickness="0"/>
+        </StackPanel>
+        
     </Grid>
 </Page>

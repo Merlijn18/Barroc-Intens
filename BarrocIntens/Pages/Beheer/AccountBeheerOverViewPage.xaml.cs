@@ -1,3 +1,5 @@
+using BarrocIntens.Data;
+using BarrocIntens.Models;
 using BarrocIntens.Pages.Inlog;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
@@ -13,6 +15,7 @@ using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.UI.WebUI;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -22,21 +25,38 @@ namespace BarrocIntens.Pages.Beheer
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.
     /// </summary>
-    public sealed partial class BeheerOverViewPage : Page
+    public sealed partial class AccountBeheerOverViewPage : Page
     {
-        public BeheerOverViewPage()
+        public AccountBeheerOverViewPage()
         {
             InitializeComponent();
+            LoadChat(); 
         }
 
-        private void AccountBeheer_Click(object sender, RoutedEventArgs e)
+        private void LoadChat()
         {
-            Frame.Navigate(typeof(AccountBeheerOverViewPage));
-        }
+            using var db = new AppDbContext();
 
+            var user = db.Users
+                .ToList();
+
+            AccountListView.ItemsSource = user;
+        }
         private void Logout_Click(object sender, RoutedEventArgs e)
         {
             Frame.Navigate(typeof(InlogOverViewPage));
+        }
+
+        private void AccountListView_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            var userId = (User)e.ClickedItem;
+
+            Frame.Navigate(typeof(AccountBeheerEditPage), userId);
+        }
+
+        private void Back_Click(object sender, RoutedEventArgs e)
+        {
+            Frame.GoBack();
         }
     }
 }

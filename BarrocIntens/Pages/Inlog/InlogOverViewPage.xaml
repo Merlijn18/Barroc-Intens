@@ -6,33 +6,91 @@
     xmlns:local="using:BarrocIntens.Pages.Inlog"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d">
-    <Grid Padding="20">
+    mc:Ignorable="d"
+    Background="White">
+
+    <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="auto"/>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <StackPanel x:Name="InlogPanel" Orientation="Vertical" VerticalAlignment="Center" Spacing="20" Grid.Row="0" Margin="0,130,0,10">
-            <TextBlock x:Name="TitleText" Width="460" FontFamily="Forte" FontSize="80" HorizontalAlignment="Center"/>
-            <TextBox x:Name="NameEmailTextBox" Width="200" PlaceholderText="Naam/email" />
-            <PasswordBox x:Name="PasswordTextBox" Width="200" PlaceholderText="Password" />
-            <Button x:Name="InlogButton" Content="Inloggen" Click="InlogButton_Click" HorizontalAlignment="Center"/>
-            <TextBlock x:Name="MessageText" Foreground="Red" Grid.Row="3" HorizontalAlignment="Center" FontWeight="Bold" />
-        </StackPanel>
+        <Grid Grid.Row="0" Background="Black" Height="100">
+            <TextBlock Text="BARROC INTENS"
+                       Foreground="#FDD716"
+                       FontSize="42"
+                       FontFamily="Segoe UI Black"
+                       VerticalAlignment="Center"
+                       HorizontalAlignment="Center"
+                       TextAlignment="Center"
+                       TextWrapping="Wrap"/>
+        </Grid>
 
+        <Grid Grid.Row="1" Background="White">
+            <StackPanel x:Name="InlogPanel"
+                        VerticalAlignment="Center"
+                        HorizontalAlignment="Center"
+                        Spacing="25"
+                        Width="400"
+                        Margin="0,20,0,0">
 
+                <TextBlock Text="Inloggen"
+                           FontFamily="Segoe UI Semibold"
+                           FontSize="36"
+                           Foreground="Black"
+                           HorizontalAlignment="Center"
+                           Margin="0,0,0,5"/>
 
+                <TextBlock Text="Voer uw gegevens in om verder te gaan"
+                           FontFamily="Segoe UI"
+                           FontSize="16"
+                           Foreground="Gray"
+                           HorizontalAlignment="Center"
+                           Margin="0,0,0,20"/>
 
+                <TextBox x:Name="NameEmailTextBox"
+                         Height="48"
+                         PlaceholderText="Naam of e-mailadres"
+                         FontSize="16"
+                         BorderBrush="Black"
+                         BorderThickness="1"
+                         Background="White"
+                         Foreground="Black"
+                         Padding="10"
+                         HorizontalAlignment="Stretch"/>
 
-        <ListView x:Name="inlogListView" Grid.Row="1">
-            <ListView.ItemTemplate>
-                <DataTemplate>
-                    <StackPanel Orientation="Horizontal" Padding="5">
-                    </StackPanel>
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
+                <PasswordBox x:Name="PasswordTextBox"
+                             Height="48"
+                             PlaceholderText="Wachtwoord"
+                             FontSize="16"
+                             BorderBrush="Black"
+                             BorderThickness="1"
+                             Background="White"
+                             Foreground="Black"
+                             Padding="10"
+                             HorizontalAlignment="Stretch"/>
 
+                <Button x:Name="InlogButton"
+                        Content="INLOGGEN"
+                        Click="InlogButton_Click"
+                        Height="50"
+                        Background="#FDD716"
+                        Foreground="Black"
+                        FontSize="18"
+                        FontWeight="Bold"
+                        BorderThickness="0"
+                        CornerRadius="6"
+                        HorizontalAlignment="Stretch">
+                </Button>
+
+                <TextBlock x:Name="MessageText"
+                           Foreground="Red"
+                           FontWeight="Bold"
+                           FontSize="14"
+                           TextAlignment="Center"
+                           TextWrapping="Wrap"
+                           Margin="0,10,0,0"/>
+            </StackPanel>
+        </Grid>
     </Grid>
 </Page>
