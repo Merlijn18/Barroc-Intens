@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="utf-8"?>
 <Page
     x:Class="BarrocIntens.Pages.Beheer.BeheerOverViewPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
@@ -6,15 +5,16 @@
     xmlns:local="using:BarrocIntens.Pages.Beheer"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d">
+    mc:Ignorable="d"
+    Background="White">
 
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        
-        <Grid Grid.Row="0" Background="Black" Height="100">
+
+        <Grid Grid.Row="0" Background="Black" Height="90">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="Auto"/>
@@ -22,30 +22,113 @@
 
             <TextBlock Text="Beheer Overzicht"
                        Foreground="#FDD716"
-                       FontSize="40"
-                       FontFamily="Segoe UI"
-                       FontWeight="Bold"
+                       FontSize="36"
+                       FontFamily="Segoe UI Black"
                        VerticalAlignment="Center"
-                       Margin="30,0,0,0"/>
+                       Margin="40,0,0,0"/>
 
-            <StackPanel Orientation="Horizontal" Grid.Column="1" VerticalAlignment="Center" Margin="0,0,20,0" Spacing="10">
-                <Button x:Name="Logout"
-                        Content="Uitloggen"
-                        Click="Logout_Click"
-                        Background="#FDD716"
-                        Foreground="Black"
-                        FontSize="16"
-                        FontWeight="Bold"
-                        Padding="12,6"
-                        BorderThickness="0"/>
+            <Button x:Name="Logout"
+                    Content="Uitloggen"
+                    Click="Logout_Click"
+                    Grid.Column="1"
+                    Background="#FDD716"
+                    Foreground="Black"
+                    FontSize="16"
+                    FontWeight="Bold"
+                    Padding="10,6"
+                    CornerRadius="6"
+                    BorderThickness="0"
+                    Margin="0,0,40,0"
+                    Width="130"/>
+        </Grid>
+
+        <Grid Grid.Row="1" Background="#FFFDFDFD">
+            <StackPanel VerticalAlignment="Center"
+                        HorizontalAlignment="Center"
+                        Spacing="30">
+
+                <TextBlock Text="Kies een Afdeling"
+                           FontSize="24"
+                           FontFamily="Segoe UI Semibold"
+                           Foreground="Black"
+                           HorizontalAlignment="Center"/>
+
+                <Grid ColumnSpacing="20" RowSpacing="20">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    
+                    <Button x:Name="SalesOverView_Button"
+                            Content="Sales"
+                            Click="SalesOverView_Button_Click"
+                            Grid.Column="0" 
+                            Background="#FDD716"
+                            Foreground="Black"
+                            FontWeight="Bold"
+                            FontSize="16"
+                            Width="200" Height="60"
+                            CornerRadius="8"
+                            BorderThickness="0"/>
+                    <Button x:Name="FinancienOverView_Button"
+                            Content="Financiën"
+                            Click="FinancienOverView_Button_Click"
+                            Grid.Column="1"
+                            Background="#FDD716"
+                            Foreground="Black"
+                            FontWeight="Bold"
+                            FontSize="16"
+                            Width="200" Height="60"
+                            CornerRadius="8"
+                            BorderThickness="0"/>
+
+                    <Button x:Name="MonteurOverView_Button"
+                            Content="Monteur"
+                            Click="MonteurOverView_Button_Click"
+                            Grid.Column="2"
+                            Background="#FDD716"
+                            Foreground="Black"
+                            FontWeight="Bold"
+                            FontSize="16"
+                            Width="200" Height="60"
+                            CornerRadius="8"
+                            BorderThickness="0"/>
+                    <Button x:Name="InkoopOverView_Button"
+                            Content="Inkoop"
+                            Click="InkoopOverView_Button_Click"
+                            Grid.Column="3"
+                            Background="#FDD716"
+                            Foreground="Black"
+                            FontWeight="Bold"
+                            FontSize="16"
+                            Width="200" Height="60"
+                            CornerRadius="8"
+                            BorderThickness="0"/>
+                </Grid>
+
+
+                
+                <Button x:Name="AccountBeheerOverView_Button"
+                        Margin="0,20,0,0"
+                            Content="Accountbeheer"
+                            HorizontalAlignment="Center"
+                            Click="AccountBeheerOverView_Button_Click"
+                            Grid.Column="0" Grid.Row="0"
+                            Background="#FDD716"
+                            Foreground="Black"
+                            FontWeight="Bold"
+                            FontSize="16"
+                            Width="200" Height="60"
+                            CornerRadius="8"
+                            BorderThickness="0"/>
+
             </StackPanel>
         </Grid>
-        <StackPanel x:Name="BeheerPanal" Orientation="Horizontal" HorizontalAlignment="Center" Spacing="30" Grid.Row="1" Margin="0,0,10,0">
-            <Button x:Name="AccountBeheer" Content="AccountBeheer" Click="AccountBeheer_Click" HorizontalAlignment="Center"         Width="200"
-         Height="45"   Background="#FDD716" Foreground="Black" FontSize="16" FontWeight="Bold" BorderThickness="0"/>
-            <Button x:Name="Sales" Content="Sales" Click="Sales_Click" HorizontalAlignment="Center" Width="200"
-         Height="45"   Background="#FDD716" Foreground="Black" FontSize="16" FontWeight="Bold" BorderThickness="0"/>
-        </StackPanel>
-        
     </Grid>
 </Page>

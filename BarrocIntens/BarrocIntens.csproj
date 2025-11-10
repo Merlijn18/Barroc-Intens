@@ -16,7 +16,10 @@
     <None Remove="Pages\Beheer\AccountBeheerEditPage.xaml" />
     <None Remove="Pages\Beheer\AccountBeheerOverViewPage.xaml" />
     <None Remove="Pages\Beheer\BeheerOverViewPage.xaml" />
+    <None Remove="Pages\Financien\FinancienOverViewPage.xaml" />
+    <None Remove="Pages\Inkoop\InkoopOverViewPage.xaml" />
     <None Remove="Pages\Inlog\InlogOverViewPage.xaml" />
+    <None Remove="Pages\Monteur\MonteurOverViewPage.xaml" />
     <None Remove="Pages\Sales\SalesOverViewPage.xaml" />
   </ItemGroup>
 
@@ -68,9 +71,19 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Pages\Monteur\" />
-    <Folder Include="Pages\Inkoop\" />
-    <Folder Include="Pages\financien\" />
+    <Page Update="Pages\Monteur\MonteurOverViewPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Pages\Financien\FinancienOverViewPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Pages\Inkoop\InkoopOverViewPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Page Update="Pages\Sales\SalesOverViewPage.xaml">
