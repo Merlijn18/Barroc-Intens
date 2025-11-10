@@ -1,4 +1,7 @@
+using BarrocIntens.Pages.Financien;
+using BarrocIntens.Pages.Inkoop;
 using BarrocIntens.Pages.Inlog;
+using BarrocIntens.Pages.Monteur;
 using BarrocIntens.Pages.Sales;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
@@ -30,19 +33,37 @@ namespace BarrocIntens.Pages.Beheer
             InitializeComponent();
         }
 
-        private void AccountBeheer_Click(object sender, RoutedEventArgs e)
+
+
+        private void MonteurOverView_Button_Click(object sender, RoutedEventArgs e)
+        {
+            Frame.Navigate(typeof(MonteurOverViewPage));
+
+        }
+
+        private void FinancienOverView_Button_Click(object sender, RoutedEventArgs e)
+        {
+            Frame.Navigate(typeof(FinancienOverViewPage));
+        }
+
+        private void SalesOverView_Button_Click(object sender, RoutedEventArgs e)
+        {
+            Frame.Navigate(typeof(SalesOverViewPage));
+        }
+
+        private void AccountBeheerOverView_Button_Click(object sender, RoutedEventArgs e)
         {
             Frame.Navigate(typeof(AccountBeheerOverViewPage));
         }
-
         private void Logout_Click(object sender, RoutedEventArgs e)
         {
             Frame.Navigate(typeof(InlogOverViewPage));
         }
 
-        private void Sales_Click(object sender, RoutedEventArgs e)
+        private void InkoopOverView_Button_Click(object sender, RoutedEventArgs e)
         {
-            Frame.Navigate(typeof(SalesOverViewPage));
+            Frame.Navigate(typeof(InkoopOverViewPage));
+
         }
     }
 }
