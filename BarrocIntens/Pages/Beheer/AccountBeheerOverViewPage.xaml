@@ -21,13 +21,22 @@
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
 
-            <TextBlock Text="Account Overview"
-                       Foreground="#FDD716"
-                       FontSize="40"
-                       FontFamily="Segoe UI"
-                       FontWeight="Bold"
-                       VerticalAlignment="Center"
-                       Margin="30,0,0,0"/>
+            <StackPanel Orientation="Vertical" VerticalAlignment="Center" Margin="30,0,0,0">
+                <TextBlock Text="Account Overview"
+                           Foreground="#FDD716"
+                           FontSize="40"
+                           FontFamily="Segoe UI"
+                           FontWeight="Bold"/>
+
+                <TextBox x:Name="userSearchTextBox"
+                         Header="Search:"
+                         Width="500"
+                         PlaceholderText="Zoeken:" 
+                         TextChanged="UserSearchTextBox_TextChanged"
+                         Background="White"
+                         Foreground="Black"
+                         />
+            </StackPanel>
 
             <StackPanel Orientation="Horizontal" Grid.Column="1" VerticalAlignment="Center" Margin="0,0,20,0" Spacing="10">
                 <Button x:Name="Back"
@@ -37,9 +46,9 @@
                         Foreground="White"
                         FontSize="16"
                         FontWeight="SemiBold"
-                        Padding="12,6"
                         BorderBrush="White"
-                        BorderThickness="1"/>
+                        BorderThickness="1"
+                        Padding="12,6"/>
 
                 <Button x:Name="Logout"
                         Content="Uitloggen"
@@ -48,8 +57,7 @@
                         Foreground="Black"
                         FontSize="16"
                         FontWeight="Bold"
-                        Padding="12,6"
-                        BorderThickness="0"/>
+                        Padding="12,6"/>
             </StackPanel>
         </Grid>
 
@@ -66,7 +74,7 @@
             <ListView.ItemTemplate>
                 <DataTemplate x:DataType="localData:User">
                     <Border BorderThickness="1"
-                            BorderBrush="Black"
+                            BorderBrush="#CCCCCC"
                             Background="White"
                             CornerRadius="4"
                             Padding="10"

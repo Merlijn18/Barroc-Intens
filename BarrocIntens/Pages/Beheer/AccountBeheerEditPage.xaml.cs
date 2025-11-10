@@ -55,12 +55,11 @@ namespace BarrocIntens.Pages.Beheer
                 user.Username = NameTextBox.Text.Trim();
                 user.Email = EmailTextBox.Text.Trim();
                 user.Password = PasswordTextBox.Password.Trim();
-
                 db.SaveChanges();
 
                 var dialog = new ContentDialog
                 {
-                    Title = "Succes",
+                    Title = "Gelukt!",
                     Content = "Gebruiker is bijgewerkt.",
                     CloseButtonText = "OK",
                     XamlRoot = this.XamlRoot

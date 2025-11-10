@@ -26,7 +26,7 @@ namespace BarrocIntens.Data
         {
             base.OnModelCreating(modelBuilder);
             modelBuilder.Entity<User>().HasData(
-                new User { Id = 1, Username = "Harry", Email = "Harry@gmail.com", Password = "Harry123", Role = "beheer" },
+                new User { Id = 1, Username = "Harry", Email = "Harry@gmail.com", Password = "123", Role = "beheer" },
                 new User { Id = 2, Username = "Emma", Email = "Emma@gmail.com", Password = "Emma123", Role = "gebruiker" },
                 new User { Id = 3, Username = "Lucas", Email = "Lucas@gmail.com", Password = "Lucas123", Role = "beheer" },
                 new User { Id = 4, Username = "Sophie", Email = "Sophie@gmail.com", Password = "Sophie123", Role = "gebruiker" },

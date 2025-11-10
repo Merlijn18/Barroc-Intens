@@ -58,5 +58,18 @@ namespace BarrocIntens.Pages.Beheer
         {
             Frame.GoBack();
         }
+
+        private void UserSearchTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            var searchQuery = userSearchTextBox.Text;
+
+            using var db = new AppDbContext();
+
+            AccountListView.ItemsSource = db.Users
+                .Where(c => c.Username.Contains(searchQuery) || c.Role.Contains(searchQuery))
+                .OrderByDescending(c => c.Username)
+                .ToList();
+
+        }
     }
 }

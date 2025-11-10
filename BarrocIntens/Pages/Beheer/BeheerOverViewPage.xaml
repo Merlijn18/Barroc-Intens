@@ -43,6 +43,8 @@
         <StackPanel x:Name="BeheerPanal" Orientation="Horizontal" HorizontalAlignment="Center" Spacing="30" Grid.Row="1" Margin="0,0,10,0">
             <Button x:Name="AccountBeheer" Content="AccountBeheer" Click="AccountBeheer_Click" HorizontalAlignment="Center"         Width="200"
          Height="45"   Background="#FDD716" Foreground="Black" FontSize="16" FontWeight="Bold" BorderThickness="0"/>
+            <Button x:Name="Sales" Content="Sales" Click="Sales_Click" HorizontalAlignment="Center" Width="200"
+         Height="45"   Background="#FDD716" Foreground="Black" FontSize="16" FontWeight="Bold" BorderThickness="0"/>
         </StackPanel>
         
     </Grid>
