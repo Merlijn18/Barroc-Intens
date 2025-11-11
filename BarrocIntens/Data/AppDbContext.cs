@@ -10,7 +10,8 @@ namespace BarrocIntens.Data
 {
     internal class AppDbContext : DbContext
     {
-        public DbSet<User> Users {  get; set; }
+        public DbSet<User> Users { get; set; }
+        public DbSet<Product> Products { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseMySql(
@@ -48,7 +49,23 @@ namespace BarrocIntens.Data
                 new User { Id = 20, Username = "Lotte", Email = "Lotte@gmail.com", Password = "Lotte123", Role = "gebruiker" },
                 new User { Id = 21, Username = "Bas", Email = "Bas@gmail.com", Password = "Bas123", Role = "admin" }
             );
+
+            modelBuilder.Entity<Product>().HasData(
+                new Product { Id = 1, Productname = "Rubber (10 mm)", Price = 039, Stock = 10, OrderQuantity = 0 },
+                new Product { Id = 2, Productname = "Rubber (14 mm)", Price = 045, Stock = 10, OrderQuantity = 0 }
+            
+            );
         }
 
     }
 }
+
+
+
+
+
+    
+
+
+
+
