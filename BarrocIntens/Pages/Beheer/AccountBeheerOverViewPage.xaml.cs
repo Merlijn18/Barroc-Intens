@@ -71,5 +71,21 @@ namespace BarrocIntens.Pages.Beheer
                 .ToList();
 
         }
+
+        private void DeleteButton_Click(object sender, RoutedEventArgs e)
+        {
+            using var db = new AppDbContext();
+
+            var button = sender as Button;
+            var userId = button?.DataContext as User;
+
+            if (userId != null)
+            {
+                db.Users.Remove(userId);
+                db.SaveChanges();
+                LoadChat();
+               
+            }
+        }
     }
 }
