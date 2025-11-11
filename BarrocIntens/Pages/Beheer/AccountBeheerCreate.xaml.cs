@@ -42,16 +42,23 @@ namespace BarrocIntens.Pages.Beheer
             Frame.Navigate(typeof(InlogOverViewPage));
         }
 
+        //DropDownMenu for Role
         private void MenuFlyoutItem_Click(object sender, RoutedEventArgs e)
         {
             var item = sender as MenuFlyoutItem;
             if (item != null)
             {
-                string selectedRole = item.Text;
+               
+                string selectedRole = item.Text; 
+
+                //Save Choices
                 RoleDropDownButton.Tag = item.Text;
+
+                //Shows Choices
                 RoleDropDownButton.Content = selectedRole;
             }
         }
+
         private void Create_Account_Click(object sender, RoutedEventArgs e)
         {
 
@@ -62,6 +69,7 @@ namespace BarrocIntens.Pages.Beheer
 
             using var db = new AppDbContext();
 
+            //Check if Username/Email, Password, Role is not Empty
             if (InputUsername != null && InputEmail != null && InputPassword != null && InputRole != null)
             {
                 var user = new User
@@ -77,6 +85,7 @@ namespace BarrocIntens.Pages.Beheer
                 db.Users.Add(user);
                 db.SaveChanges();
 
+                //Show Pop-Up Message
                 var dialog = new ContentDialog
                 {
                     Title = "Gelukt!",
@@ -89,6 +98,7 @@ namespace BarrocIntens.Pages.Beheer
 
                 Frame.GoBack();
             }
+
             else
             {
                 MessageText.Text = "Username/Email of Wachtwoord is niet ingevuld!";

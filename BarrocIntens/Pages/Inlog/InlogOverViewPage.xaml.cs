@@ -36,10 +36,13 @@ namespace BarrocIntens.Pages.Inlog
             InitializeComponent();
         }
 
-        private void InlogButton_Click(object sender, RoutedEventArgs e)
+        //Dev Inlog !Remove Before Publish!
+        private void DevInlogButton_Click(object sender, RoutedEventArgs e)
         {
-            var nameEmail = NameEmailTextBox.Text.Trim();
-            var password = PasswordTextBox.Password.Trim();
+            //To Do: Password Hash
+            var nameEmail = "Harry";
+            var password = "123";
+
 
             using var db = new AppDbContext();
 
@@ -47,6 +50,44 @@ namespace BarrocIntens.Pages.Inlog
 
             if (user != null && password != null)
             {
+                //Checked User/Email,Paswoord
+                if (password == user.Password && nameEmail == user.Username || nameEmail == user.Email)
+                {
+                    if (user.Role == "Beheer")
+                    {
+                        Frame.Navigate(typeof(BeheerOverViewPage), user.Id);
+                    }
+                    else
+                    {
+                        Frame.Navigate(typeof(InlogOverViewPage));
+                    }
+                }
+                else
+                {
+                    MessageText.Text = "Wachtwoord of Gebruikersnaam/Email is niet geldig!";
+                }
+            }
+            else
+            {
+                MessageText.Text = "Email/Gebruikersnaam of Wachtwoord is niet Ingevuld!";
+            }
+        }
+
+        //Inlog Users Account
+        private void InlogButton_Click(object sender, RoutedEventArgs e)
+        {
+            //To Do: Password Hash
+            var nameEmail = NameEmailTextBox.Text.Trim();
+            var password = PasswordTextBox.Password.Trim();
+
+
+            using var db = new AppDbContext();
+
+            var user = db.Users.FirstOrDefault(u => u.Username == nameEmail || u.Email == nameEmail);
+
+            if (user != null && password != null)
+            {
+                //Checked User/Email,Paswoord
                 if (password == user.Password && nameEmail == user.Username || nameEmail == user.Email)
                 {
                     if (user.Role == "Beheer")
@@ -84,5 +125,7 @@ namespace BarrocIntens.Pages.Inlog
                 MessageText.Text = "Email/Gebruikersnaam of Wachtwoord is niet Ingevuld!";
             }
         }
+
+
     }
 }
