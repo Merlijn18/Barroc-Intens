@@ -50,6 +50,17 @@
                         BorderThickness="1"
                         Padding="12,6"/>
 
+                <Button x:Name="AccountCreate"
+                        Content="Account Aanmaken"
+                        Click="AccountCreate_Click"
+                        Background="Black"
+                        Foreground="White"
+                        FontSize="16"
+                        FontWeight="SemiBold"
+                        BorderBrush="White"
+                        BorderThickness="1"
+                        Padding="12,6"/>
+
                 <Button x:Name="Logout"
                         Content="Uitloggen"
                         Click="Logout_Click"

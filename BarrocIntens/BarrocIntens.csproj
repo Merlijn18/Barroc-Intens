@@ -13,6 +13,7 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
   <ItemGroup>
+    <None Remove="Pages\Beheer\AccountBeheerCreate.xaml" />
     <None Remove="Pages\Beheer\AccountBeheerEditPage.xaml" />
     <None Remove="Pages\Beheer\AccountBeheerOverViewPage.xaml" />
     <None Remove="Pages\Beheer\BeheerOverViewPage.xaml" />
@@ -49,6 +50,11 @@
     <PackageReference Include="Microsoft.Windows.SDK.BuildTools" Version="10.0.26100.6584" />
     <PackageReference Include="Microsoft.WindowsAppSDK" Version="1.8.250916003" />
     <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="8.0.3" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Pages\Beheer\AccountBeheerCreate.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Page Update="Pages\Beheer\AccountBeheerEditPage.xaml">

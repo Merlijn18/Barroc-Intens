@@ -8,6 +8,8 @@ using Microsoft.UI.Xaml.Data;
 using Microsoft.UI.Xaml.Input;
 using Microsoft.UI.Xaml.Media;
 using Microsoft.UI.Xaml.Navigation;
+using Microsoft.Windows.AppNotifications;
+using Microsoft.Windows.AppNotifications.Builder;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -70,6 +72,11 @@ namespace BarrocIntens.Pages.Beheer
                 .OrderByDescending(c => c.Username)
                 .ToList();
 
+        }
+
+        private void AccountCreate_Click(object sender, RoutedEventArgs e)
+        {
+            Frame.Navigate(typeof(AccountBeheerCreate));
         }
     }
 }

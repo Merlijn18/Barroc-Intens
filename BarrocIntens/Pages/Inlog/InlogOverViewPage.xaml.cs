@@ -1,6 +1,10 @@
 using BarrocIntens.Data;
 using BarrocIntens.Pages.Beheer;
+using BarrocIntens.Pages.Financien;
+using BarrocIntens.Pages.Inkoop;
 using BarrocIntens.Pages.Inlog;
+using BarrocIntens.Pages.Monteur;
+using BarrocIntens.Pages.Sales;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Controls.Primitives;
@@ -45,10 +49,25 @@ namespace BarrocIntens.Pages.Inlog
             {
                 if (password == user.Password && nameEmail == user.Username || nameEmail == user.Email)
                 {
-                    if (user.Role == "beheer")
+                    if (user.Role == "Beheer")
                     {
                         Frame.Navigate(typeof(BeheerOverViewPage), user.Id);
-
+                    }
+                    else if (user.Role == "Sales")
+                    {
+                        Frame.Navigate(typeof(SalesOverViewPage), user.Id);
+                    }
+                    else if(user.Role == "Inkoop")
+                    {
+                        Frame.Navigate(typeof(InkoopOverViewPage), user.Id);
+                    }
+                    else if(user.Role == "Financien")
+                    {
+                        Frame.Navigate(typeof(FinancienOverViewPage), user.Id);
+                    }
+                    else if(user.Role == "Monteur")
+                    {
+                        Frame.Navigate(typeof(MonteurOverViewPage), user.Id);
                     }
                     else
                     {
