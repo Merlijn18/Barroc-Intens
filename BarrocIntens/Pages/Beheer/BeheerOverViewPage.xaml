@@ -13,7 +13,8 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-
+        
+        <!--Header-->
         <Grid Grid.Row="0" Background="Black" Height="90">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
@@ -64,7 +65,7 @@
                         <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
 
-                    
+                    <!--DashBoard Buttons-->
                     <Button x:Name="SalesOverView_Button"
                             Content="Sales"
                             Click="SalesOverView_Button_Click"
@@ -113,7 +114,6 @@
                 </Grid>
 
 
-                
                 <Button x:Name="AccountBeheerOverView_Button"
                         Margin="0,20,0,0"
                             Content="Accountbeheer"
