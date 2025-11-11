@@ -33,6 +33,7 @@ namespace BarrocIntens.Pages.Beheer
             InitializeComponent();
         }
 
+        // Get UserInformation 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             var user = (User)e.Parameter;
@@ -57,6 +58,7 @@ namespace BarrocIntens.Pages.Beheer
                 user.Password = PasswordTextBox.Password.Trim();
                 db.SaveChanges();
 
+                //Pop-Up Message 
                 var dialog = new ContentDialog
                 {
                     Title = "Gelukt!",

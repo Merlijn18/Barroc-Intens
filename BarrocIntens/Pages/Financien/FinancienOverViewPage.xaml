@@ -12,7 +12,8 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-
+        
+            <!--Header-->
         <Grid Grid.Row="0" Background="Black" Height="100">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
@@ -50,5 +51,7 @@
                      BorderThickness="0"/>
             </StackPanel>
         </Grid>
+        
+        <!--Main-->
     </Grid>
 </Page>

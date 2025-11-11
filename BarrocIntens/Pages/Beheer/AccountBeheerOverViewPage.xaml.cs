@@ -35,6 +35,7 @@ namespace BarrocIntens.Pages.Beheer
             LoadChat(); 
         }
 
+        //Load all Users in AccountListView
         private void LoadChat()
         {
             using var db = new AppDbContext();
@@ -44,11 +45,13 @@ namespace BarrocIntens.Pages.Beheer
 
             AccountListView.ItemsSource = user;
         }
+
         private void Logout_Click(object sender, RoutedEventArgs e)
         {
             Frame.Navigate(typeof(InlogOverViewPage));
         }
 
+        //Navigate to AccountBeheerEditPage with UserId
         private void AccountListView_ItemClick(object sender, ItemClickEventArgs e)
         {
             var userId = (User)e.ClickedItem;
@@ -79,6 +82,7 @@ namespace BarrocIntens.Pages.Beheer
             Frame.Navigate(typeof(AccountBeheerCreate));
         }
             
+        // Remove User Account
         private void DeleteButton_Click(object sender, RoutedEventArgs e)
         {
             using var db = new AppDbContext();

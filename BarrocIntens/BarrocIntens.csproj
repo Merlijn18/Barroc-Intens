@@ -13,6 +13,7 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
   <ItemGroup>
+    <None Remove="Image\Logo6_klein.png" />
     <None Remove="Pages\Beheer\AccountBeheerCreate.xaml" />
     <None Remove="Pages\Beheer\AccountBeheerEditPage.xaml" />
     <None Remove="Pages\Beheer\AccountBeheerOverViewPage.xaml" />
@@ -32,6 +33,7 @@
     <Content Include="Assets\Square44x44Logo.targetsize-24_altform-unplated.png" />
     <Content Include="Assets\StoreLogo.png" />
     <Content Include="Assets\Wide310x150Logo.scale-200.png" />
+    <Content Include="Image\Logo6_klein.png" />
   </ItemGroup>
 
   <ItemGroup>

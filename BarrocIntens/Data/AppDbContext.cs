@@ -11,6 +11,8 @@ namespace BarrocIntens.Data
     internal class AppDbContext : DbContext
     {
         public DbSet<User> Users {  get; set; }
+
+        //Connection to DataBase
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseMySql(
@@ -25,6 +27,8 @@ namespace BarrocIntens.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+
+            //Seeders For user Accounts
             modelBuilder.Entity<User>().HasData(
                 new User { Id = 1, Username = "Harry", Email = "Harry@gmail.com", Password = "123", Role = "Beheer" },
                 new User { Id = 2, Username = "Emma", Email = "emma@gmail.com", Password = "123", Role = "Financien" },
