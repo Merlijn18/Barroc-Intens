@@ -43,6 +43,23 @@ namespace BarrocIntens.Pages.Beheer
             NameTextBox.Text = user.Username;
             EmailTextBox.Text = user.Email;
             PasswordTextBox.Password = user.Password;
+            RoleDropDownButton.Content = user.Role;
+        }
+
+        private void MenuFlyoutItem_Click(object sender, RoutedEventArgs e)
+        {
+            var item = sender as MenuFlyoutItem;
+            if (item != null)
+            {
+
+                string selectedRole = item.Text;
+
+                //Save Choices
+                RoleDropDownButton.Tag = item.Text;
+
+                //Shows Choices
+                RoleDropDownButton.Content = selectedRole;
+            }
         }
 
         private void SaveChange_Click(object sender, RoutedEventArgs e)
@@ -56,6 +73,8 @@ namespace BarrocIntens.Pages.Beheer
                 user.Username = NameTextBox.Text.Trim();
                 user.Email = EmailTextBox.Text.Trim();
                 user.Password = PasswordTextBox.Password.Trim();
+                user.Role = RoleDropDownButton.Tag as string;
+
                 db.SaveChanges();
 
                 //Pop-Up Message 
