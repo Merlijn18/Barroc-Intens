@@ -17,60 +17,66 @@
 
         <Grid Grid.Row="0" Background="Black" Height="100">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
 
-            <StackPanel Orientation="Vertical" VerticalAlignment="Center" Margin="30,0,0,0">
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="30,0,0,0" Spacing="20">
                 <TextBlock Text="Account Overview"
-                           Foreground="#FDD716"
-                           FontSize="40"
-                           FontFamily="Segoe UI"
-                           FontWeight="Bold"/>
-
+                   Foreground="#FDD716"
+                   FontSize="40"
+                   FontFamily="Segoe UI"
+                   FontWeight="Bold"
+                   VerticalAlignment="Center"/>
+                
                 <TextBox x:Name="userSearchTextBox"
-                         Header="Search:"
-                         Width="500"
-                         PlaceholderText="Zoeken:" 
-                         TextChanged="UserSearchTextBox_TextChanged"
-                         Background="White"
-                         Foreground="Black"
-                         />
+                 Width="700"
+                 PlaceholderText="Zoeken:"
+                 TextChanged="UserSearchTextBox_TextChanged"
+                 Background="White"
+                 Foreground="Black"
+                 VerticalAlignment="Center"/>
             </StackPanel>
 
-            <StackPanel Orientation="Horizontal" Grid.Column="1" VerticalAlignment="Center" Margin="0,0,20,0" Spacing="10">
+            <StackPanel Orientation="Horizontal"
+                Grid.Column="1"
+                VerticalAlignment="Center"
+                Margin="0,0,20,0"
+                Spacing="10">
+                
                 <Button x:Name="Back"
-                        Content="Terug"
-                        Click="Back_Click"
-                        Background="Black"
-                        Foreground="White"
-                        FontSize="16"
-                        FontWeight="SemiBold"
-                        BorderBrush="White"
-                        BorderThickness="1"
-                        Padding="12,6"/>
-
+                Content="Terug"
+                Click="Back_Click"
+                Background="Black"
+                Foreground="White"
+                FontSize="16"
+                FontWeight="SemiBold"
+                BorderBrush="White"
+                BorderThickness="1"
+                Padding="12,6"/>
+                
                 <Button x:Name="AccountCreate"
-                        Content="Account Aanmaken"
-                        Click="AccountCreate_Click"
-                        Background="Black"
-                        Foreground="White"
-                        FontSize="16"
-                        FontWeight="SemiBold"
-                        BorderBrush="White"
-                        BorderThickness="1"
-                        Padding="12,6"/>
-
+                Content="Account Aanmaken"
+                Click="AccountCreate_Click"
+                Background="Black"
+                Foreground="White"
+                FontSize="16"
+                FontWeight="SemiBold"
+                BorderBrush="White"
+                BorderThickness="1"
+                Padding="12,6"/>
+                
                 <Button x:Name="Logout"
-                        Content="Uitloggen"
-                        Click="Logout_Click"
-                        Background="#FDD716"
-                        Foreground="Black"
-                        FontSize="16"
-                        FontWeight="Bold"
-                        Padding="12,6"/>
+                Content="Uitloggen"
+                Click="Logout_Click"
+                Background="#FDD716"
+                Foreground="Black"
+                FontSize="16"
+                FontWeight="Bold"
+                Padding="12,6"/>
             </StackPanel>
         </Grid>
+
 
         <ListView x:Name="AccountListView"
                   Grid.Row="1"
