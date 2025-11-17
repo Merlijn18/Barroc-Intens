@@ -40,10 +40,15 @@ namespace BarrocIntens.Pages.Beheer
 
             using var db = new AppDbContext();
             _userId = user.Id;
+
+            //Shows information in TextBox
             NameTextBox.Text = user.Username;
             EmailTextBox.Text = user.Email;
             PasswordTextBox.Password = user.Password;
             RoleDropDownButton.Content = user.Role;
+
+            //Saves Role in tag
+            RoleDropDownButton.Tag = user.Role;
         }
 
         private void MenuFlyoutItem_Click(object sender, RoutedEventArgs e)
