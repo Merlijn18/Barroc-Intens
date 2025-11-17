@@ -13,6 +13,7 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
+
         <!-- Header -->
         <Grid Grid.Row="0" Background="Black" Height="100">
             <Grid.ColumnDefinitions>
@@ -21,17 +22,20 @@
             </Grid.ColumnDefinitions>
 
 
+            <TextBlock Text="Search:" Margin="300,0,0,0"/>
             <TextBox x:Name="productSearchTextBox"
-                     Header="Search:"
-                     Width="500"
-                     PlaceholderText="Zoeken:" 
-                     TextChanged="productSearchTextBox_TextChanged"
-                     Background="White"
-                     Foreground="Black"/>
+                      Width="500"
+                      Height="35"
+                      PlaceholderText="Zoeken:"
+                      Background="White"
+                      Foreground="Black"
+                      Margin="300,0,0,0"/>              
 
 
 
-            <TextBlock Text="Inkoop "
+
+
+                <TextBlock Text="Inkoop "
                     Foreground="#FDD716"
                     FontSize="40"
                     FontFamily="Segoe UI"
@@ -66,30 +70,62 @@
         <!-- Product Overzicht -->
         <Border Grid.Row="1" Margin="30" Background="White" CornerRadius="10" Padding="20" 
         BorderBrush="#DDD" BorderThickness="1">
-            <StackPanel>
-                <TextBlock Text="Beschikbare producten" FontSize="24" FontWeight="Bold" Margin="0,0,0,10"/>
+            <StackPanel Margin="40,20,40,20">
 
-                <ListView x:Name="ProductListView" Margin="0,10,0,0" ItemsSource="{Binding Products}">
-                    <ListView.ItemsPanel>
-                        <ItemsPanelTemplate>
-                            <!-- ItemsWrapGrid zorgt voor een raster -->
-                            <ItemsWrapGrid Orientation="Horizontal" MaximumRowsOrColumns="3"/>
-                        </ItemsPanelTemplate>
-                    </ListView.ItemsPanel>
+    <TextBlock Text="Beschikbare producten"
+               FontSize="28"
+               FontWeight="Bold"
+               Margin="0,0,0,20"/>
 
-                    <ListView.ItemTemplate>
-                        <DataTemplate>
-                            <Border BorderBrush="#DDD" BorderThickness="1" CornerRadius="5" Padding="10" Margin="5" Background="White" Width="200">
-                                <StackPanel>
-                                    <TextBlock Text="{Binding Productname}" FontWeight="Bold" FontSize="16" Margin="0,0,0,5"/>
-                                    <TextBlock Text="Prijs: {Binding Price} cent" Margin="0,0,0,5"/>
-                                    <TextBlock Text="Voorraad: {Binding Stock}" Margin="0,0,0,5"/>
-                                </StackPanel>
+    <ListView x:Name="ProductListView"
+              ItemsSource="{Binding Products}"
+              HorizontalContentAlignment="Stretch"
+              Margin="0,0,0,0">
+
+        <!-- Raster -->
+        <ListView.ItemsPanel>
+            <ItemsPanelTemplate>
+                <ItemsWrapGrid Orientation="Horizontal"
+                               MaximumRowsOrColumns="4"
+                               HorizontalAlignment="Stretch" />
+            </ItemsPanelTemplate>
+        </ListView.ItemsPanel>
+
+        <!-- Kaart template -->
+        <ListView.ItemTemplate>
+            <DataTemplate>
+                <Border BorderBrush="#CCCCCC"
+                        BorderThickness="1"
+                        CornerRadius="8"
+                        Padding="12"
+                        Margin="10"
+                        Background="White"
+                        Width="260">
+
+                <StackPanel>
+                    <TextBlock Text="{Binding Productname}"
+                       FontWeight="Bold"
+                       FontSize="14"
+                       Margin="0,0,0,4" />
+
+                <TextBlock>
+                    <Run Text="Prijs: €" />
+                    <Run Text="{Binding Price}" /> 
+                </TextBlock>
+
+                <TextBlock>
+                    <Run Text="Voorraad: " />
+                    <Run Text="{Binding Stock}" />  
+                </TextBlock>
+                </StackPanel>
+
+
                             </Border>
-                        </DataTemplate>
-                    </ListView.ItemTemplate>
-                </ListView>
-            </StackPanel>
+            </DataTemplate>
+        </ListView.ItemTemplate>
+    </ListView>
+</StackPanel>
+
         </Border>
     </Grid>
 </Page>
