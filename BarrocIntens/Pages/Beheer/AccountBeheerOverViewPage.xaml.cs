@@ -15,6 +15,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using System.Threading.Tasks;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.WebUI;
@@ -83,7 +84,7 @@ namespace BarrocIntens.Pages.Beheer
         }
             
         // Remove User Account
-        private void DeleteButton_Click(object sender, RoutedEventArgs e)
+        private async void DeleteButton_Click(object sender, RoutedEventArgs e)
         {
             using var db = new AppDbContext();
 
@@ -92,10 +93,34 @@ namespace BarrocIntens.Pages.Beheer
 
             if (userId != null)
             {
-                db.Users.Remove(userId);
-                db.SaveChanges();
-                LoadChat();
-               
+                //Show Pop-Up Message
+                var confirmDialog = new ContentDialog
+                {
+                    Title = "Weet je het zeker?",
+                    Content = "Weet je zeker dat je deze gebruiker wilt verwijderen?",
+                    PrimaryButtonText = "Ja",
+                    CloseButtonText = "Nee",
+                    XamlRoot = this.XamlRoot
+                };
+
+                var result = await confirmDialog.ShowAsync();
+
+                //If oke
+                if (result == ContentDialogResult.Primary)
+                {
+                    db.Users.Remove(userId);
+                    db.SaveChanges();
+                    LoadChat();
+                    var dialog = new ContentDialog
+                    {
+                        Title = "Verwijderd!",
+                        Content = "Gebruiker is verwijderd.",
+                        CloseButtonText = "OK",
+                        XamlRoot = this.XamlRoot
+                    };
+
+                    await dialog.ShowAsync();     
+                }
             }
         }
     }
