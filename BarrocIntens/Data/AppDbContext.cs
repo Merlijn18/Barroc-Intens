@@ -12,6 +12,7 @@ namespace BarrocIntens.Data
     {
         public DbSet<User> Users { get; set; }
         public DbSet<Product> Products { get; set; }
+        public DbSet<Bestelling> Bestellingen { get; set; }
         
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -121,7 +122,27 @@ namespace BarrocIntens.Data
                  new Product { Id = 15, Productname = "Reinigingsborsteltjes", Price = 8.45f, Stock = 10, OrderQuantity = 0 },
                  new Product { Id = 16, Productname = "Ontkalkingspijp", Price = 21.70f, Stock = 10, OrderQuantity = 0 }
              );
-
+            modelBuilder.Entity<Bestelling>().HasData(
+                new Bestelling
+                {
+                    Id = 1,
+                    Ordernumber = 1001,
+                    Date_Of_Order = DateTime.Now.AddDays(-10),
+                    Customername = "Jan Jansen",
+                    Customer_Email = "jan.jansen@example.com",
+                    Customer_Phonenumber = 0612345678,
+                    Order_Status = true
+                },
+                new Bestelling
+                {
+                    Id = 2,
+                    Ordernumber = 1002,
+                    Date_Of_Order = DateTime.Now.AddDays(-7),
+                    Customername = "Piet Pietersen",
+                    Customer_Email = "piet.pietersen@example.com",
+                    Customer_Phonenumber = 0687654321,
+                    Order_Status = false
+                });
 
         }
 
