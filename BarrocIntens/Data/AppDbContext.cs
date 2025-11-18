@@ -12,7 +12,11 @@ namespace BarrocIntens.Data
     {
         public DbSet<User> Users { get; set; }
         public DbSet<Product> Products { get; set; }
-        
+        public DbSet<Offer> Offers { get; set; }
+        public DbSet<Customer> customers { get; set; }
+        public DbSet<Machine> Machines { get; set; }
+        public DbSet<CoffeeBean> CoffeeBeans { get; set; }
+        public DbSet<OfferItem> OfferItems { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseMySql(
@@ -107,9 +111,75 @@ namespace BarrocIntens.Data
                 new Product { Id = 2, Productname = "Rubber (14 mm)", Price = 045, Stock = 10, OrderQuantity = 0 }
             
             );
-        }
 
+            base.OnModelCreating(modelBuilder);
+
+            // ===== Customers =====
+            modelBuilder.Entity<Customer>().HasData(
+                new Customer
+                {
+                    Id = 1,
+                    Name = "Prof. Willard Spinka MD",
+                    Street = "989 Reichel Pine Suite 978",
+                    PostalCode = "84026",
+                    City = "North Michelle"
+                }
+            );
+
+            // ===== Offers =====
+            modelBuilder.Entity<Offer>().HasData(
+                new Offer
+                {
+                    Id = 1,
+                    OfferNumber = "65283424",
+                    Date = new DateTime(2025, 02, 01),
+                    CustomerId = 1,
+                    CustomerNumber = "12345",
+                    ContractNumber = "CN-001"
+                }
+            );
+
+
+            // ===== OfferItems =====
+            modelBuilder.Entity<OfferItem>().HasData(
+                new OfferItem
+                {
+                    Id = 1,
+                    OfferId = 1,
+                    ProductName = "Koffiemachine 1",
+                    ProductNumber = "1",
+                    Quantity = 2,
+                    UnitPrice = 2600.75
+                },
+                new OfferItem
+                {
+                    Id = 2,
+                    OfferId = 1,
+                    ProductName = "Koffieboon type 1",
+                    ProductNumber = "2",
+                    Quantity = 10,
+                    UnitPrice = 43.55
+                }
+            );
+            // ======= Machines =======
+            modelBuilder.Entity<Machine>().HasData(
+                new Machine { Id = 1, Name = "Barroc Intens Italian Light", ArticleNumber = "S234FREKT", LeasePrice = 499, InstallationCost = 289 },
+                new Machine { Id = 2, Name = "Barroc Intens Italian", ArticleNumber = "S234KNDPF", LeasePrice = 599, InstallationCost = 289 },
+                new Machine { Id = 3, Name = "Barroc Intens Italian Deluxe", ArticleNumber = "S234NNBMV", LeasePrice = 799, InstallationCost = 375 },
+                new Machine { Id = 4, Name = "Barroc Intens Italian Deluxe Special", ArticleNumber = "S234MMPLA", LeasePrice = 999, InstallationCost = 375 }
+            );
+
+            // ======= CoffeeBeans =======
+            modelBuilder.Entity<CoffeeBean>().HasData(
+                new CoffeeBean { Id = 1, Name = "Espresso Beneficio", ArticleNumber = "S239KLIUP", Description = "Een toegankelijke en zachte koffie. Hij is afkomstig van de Finca El Limoncillo, een weelderige plantage aan de rand van het regenwoud in de Matagalpa regio in Nicaragua.", PricePerKg = 21.60 },
+                new CoffeeBean { Id = 2, Name = "Yellow Bourbon Brasil", ArticleNumber = "S239MNKLL", Description = "Koffie van de oorspronkelijke koffiestruik (de Bourbon) met gele koffiebessen. Deze zeldzame koffie heeft de afgelopen 20 jaar steeds meer erkenning gekregen en vele prijzen gewonnen.", PricePerKg = 23.20 },
+                new CoffeeBean { Id = 3, Name = "Espresso Roma", ArticleNumber = "S239IPPSD", Description = "Een Italiaanse espresso met een krachtig karakter en een aromatische afdronk.", PricePerKg = 20.80 },
+                new CoffeeBean { Id = 4, Name = "Red Honey Honduras", ArticleNumber = "S239EVVFS", Description = "De koffie is geproduceerd volgens de honey-methode. Hierbij wordt de koffieboon in haar vruchtvlees gedroogd, waardoor de zoete fruitsmaak diep in de boon trekt. Dit levert een éxtra zoete koffie op.", PricePerKg = 27.80 }
+            );
+        }
     }
+
+    
 }
 
 
