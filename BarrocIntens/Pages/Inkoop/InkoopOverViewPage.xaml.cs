@@ -27,8 +27,9 @@ namespace BarrocIntens.Pages.Inkoop
     {
         public InkoopOverViewPage()
         {
-            InitializeComponent();
+            this.InitializeComponent();
             LoadProduct();
+
 
         }
         private void LoadProduct()
@@ -67,8 +68,34 @@ namespace BarrocIntens.Pages.Inkoop
 
         }
 
+        private void ShowProducts_Click(object sender, RoutedEventArgs e)
+        {
+            using (var context = new AppDbContext())
+            {
+                var products = context.Products.ToList();
 
+                ProductListView.ItemsSource = products;
+                ProductListView.Visibility = Visibility.Visible;
 
+                // Toon de terug-knop
+                HideProductsButton.Visibility = Visibility.Visible;
+
+                // Verberg de ShowProductsButton
+                ShowProductsButton.Visibility = Visibility.Collapsed;
+
+                ((Button)sender).Visibility = Visibility.Collapsed;
+            }
+        }
+        
+
+        private void HideProductsButton_Click(object sender, RoutedEventArgs e)
+        {
+            ProductListView.Visibility = Visibility.Collapsed;
+
+            HideProductsButton.Visibility = Visibility.Collapsed;
+
+            ShowProductsButton.Visibility = Visibility.Visible;
+        }
     }
 }
 
