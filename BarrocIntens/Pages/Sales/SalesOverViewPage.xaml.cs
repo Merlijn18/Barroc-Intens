@@ -1,4 +1,7 @@
+using BarrocIntens.Data;
+using BarrocIntens.Models;
 using BarrocIntens.Pages.Inlog;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Controls.Primitives;
@@ -8,9 +11,11 @@ using Microsoft.UI.Xaml.Media;
 using Microsoft.UI.Xaml.Navigation;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using System.Threading.Tasks;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 
@@ -19,25 +24,136 @@ using Windows.Foundation.Collections;
 
 namespace BarrocIntens.Pages.Sales
 {
-    /// <summary>
-    /// An empty page that can be used on its own or navigated to within a Frame.
-    /// </summary>
-    public sealed partial class SalesOverViewPage : Page
+
+    public class CurrencyConverter : IValueConverter
     {
-        public SalesOverViewPage()
+        public object Convert(object value, Type targetType, object parameter, string language)
         {
-            InitializeComponent();
+            if (value is double d)
+                return $"€{d:N2}";
+            if (value is decimal dec)
+                return $"€{dec:N2}";
+            return value?.ToString() ?? string.Empty;
         }
 
-        private void Logout_Click(object sender, RoutedEventArgs e)
+        public object ConvertBack(object value, Type targetType, object parameter, string language)
         {
-            Frame.Navigate(typeof(InlogOverViewPage));
+            throw new NotImplementedException();
+        }
+    }
+    public sealed partial class SalesOverViewPage : Page
+    {
+        private ObservableCollection<Offer> Offers = new ObservableCollection<Offer>();
+        private Offer SelectedOffer;
+
+        public SalesOverViewPage()
+        {
+            this.InitializeComponent();
+
+            // Zet de ObservableCollection als ItemsSource voor de ListView
+            OfferListView.ItemsSource = Offers;
+
+            // Laad data uit database
+            LoadOffersFromDatabase();
+        }
+
+        private async void LoadOffersFromDatabase()
+        {
+            using (var db = new AppDbContext())
+            {
+                // Include Customer en Items zodat alles geladen wordt
+                var offersFromDb = await db.Offers
+                    .Include(o => o.Customer)
+                    .Include(o => o.Items)
+                    .ToListAsync();
+
+                Offers.Clear();
+                foreach (var offer in offersFromDb)
+                {
+                    Offers.Add(offer);
+                }
+            }
         }
 
         private void Back_Click(object sender, RoutedEventArgs e)
         {
-            Frame.GoBack();
-
+            if (Frame.CanGoBack)
+                Frame.GoBack();
         }
+
+        private void Logout_Click(object sender, RoutedEventArgs e)
+        {
+            Frame.Navigate(typeof(Inlog.InlogOverViewPage));
+        }
+
+        private void CreateOffer_Click(object sender, RoutedEventArgs e)
+        {
+            // Frame.Navigate(typeof(NewOfferPage));
+        }
+
+        private async void FilterConcept_Click(object sender, RoutedEventArgs e)
+        {
+            await LoadOffersByStatus(OfferStatus.Concept);
+        }
+
+        private async void FilterVerstuurd_Click(object sender, RoutedEventArgs e)
+        {
+            await LoadOffersByStatus(OfferStatus.Verstuurd);
+        }
+        private async void FilterAll_Click(object sender, RoutedEventArgs e)
+        {
+            await LoadAllOffers();
+        }
+        private async Task LoadAllOffers()
+        {
+            using (var db = new AppDbContext())
+            {
+                var allOffers = await db.Offers
+                    .Include(o => o.Customer)
+                    .Include(o => o.Items)
+                    .ToListAsync();
+
+                Offers.Clear();
+                foreach (var offer in allOffers)
+                    Offers.Add(offer);
+            }
+
+            OfferListView.ItemsSource = Offers;
+        }
+        private async Task LoadOffersByStatus(OfferStatus status)
+        {
+            using (var db = new AppDbContext())
+            {
+                var filteredOffers = await db.Offers
+                    .Include(o => o.Customer)
+                    .Include(o => o.Items)
+                    .Where(o => o.Status == status)
+                    .ToListAsync();
+
+                Offers.Clear();
+                foreach (var offer in filteredOffers)
+                {
+                    Offers.Add(offer);
+                }
+            }
+        }
+
+        private void EditOffer_Click(object sender, RoutedEventArgs e)
+        {
+            //if (sender is Button button && button.Tag is Offer selectedOffer)
+            //{
+            //    Frame.Navigate(typeof(OfferDetailsPage), selectedOffer);
+            //}
+        }
+
+        private void OfferListView_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            if (e.ClickedItem is Offer selectedOffer)
+            {
+                Frame.Navigate(typeof(OfferDetailsPage), selectedOffer);
+            }
+        }
+
     }
+
 }
