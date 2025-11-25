@@ -62,10 +62,10 @@ namespace BarrocIntens.Pages.Inkoop
         {
             // Controleer of alle verplichte velden zijn ingevuld
             if (string.IsNullOrWhiteSpace(ProductNameTextBox.Text) ||
-                string.IsNullOrWhiteSpace(SupplierNameTextBox.Text) ||
-                string.IsNullOrWhiteSpace(QuantityTextBox.Text) ||
-                string.IsNullOrWhiteSpace(UnitPriceTextBox.Text) ||
-                StatusComboBox.SelectedIndex < 0)
+            string.IsNullOrWhiteSpace(SupplierNameTextBox.Text) ||
+            string.IsNullOrWhiteSpace(QuantityTextBox.Text) ||
+            string.IsNullOrWhiteSpace(UnitPriceTextBox.Text) ||
+            StatusComboBox.SelectedIndex < 0)
             {
                 // Toon waarschuwing als iets niet is ingevuld
                 ContentDialog warningDialog = new ContentDialog
@@ -77,19 +77,52 @@ namespace BarrocIntens.Pages.Inkoop
                     XamlRoot = this.XamlRoot
                 };
 
-                await warningDialog.ShowAsync();
+
+            await warningDialog.ShowAsync();
                 return; // Stop de methode zodat er niet wordt opgeslagen
             }
 
-            // Alles is ingevuld, sla de bestelling op
+            // Controleer of Quantity een geldig geheel getal is
+            if (!int.TryParse(QuantityTextBox.Text.Trim(), out int quantity))
+            {
+                ContentDialog invalidNumberDialog = new ContentDialog
+                {
+                    Title = "Ongeldige invoer",
+                    Content = "Quantity moet een geheel getal zijn.",
+                    CloseButtonText = "OK",
+                    DefaultButton = ContentDialogButton.Close,
+                    XamlRoot = this.XamlRoot
+                };
+
+                await invalidNumberDialog.ShowAsync();
+                return;
+            }
+
+            // Controleer of UnitPrice een geldig decimaal getal is
+            if (!decimal.TryParse(UnitPriceTextBox.Text.Trim(), out decimal unitPrice))
+            {
+                ContentDialog invalidPriceDialog = new ContentDialog
+                {
+                    Title = "Ongeldige invoer",
+                    Content = "Unit Price moet een geldig getal zijn.",
+                    CloseButtonText = "OK",
+                    DefaultButton = ContentDialogButton.Close,
+                    XamlRoot = this.XamlRoot
+                };
+
+                await invalidPriceDialog.ShowAsync();
+                return;
+            }
+
+            // Alles is geldig, sla de bestelling op
             using var db = new AppDbContext();
 
             var newOrder = new Bestelling
             {
                 Productname = ProductNameTextBox.Text.Trim(),
                 Suppliername = SupplierNameTextBox.Text.Trim(),
-                OrderQuantity = int.Parse(QuantityTextBox.Text.Trim()),
-                UnitPrice = decimal.Parse(UnitPriceTextBox.Text.Trim()),
+                OrderQuantity = quantity,
+                UnitPrice = unitPrice,
                 Status = (StatusComboBox.SelectedItem as ComboBoxItem)?.Content.ToString(),
                 Remark = NotesTextBox.Text.Trim(),
                 OrderDate = DateTime.Now,
@@ -115,8 +148,10 @@ namespace BarrocIntens.Pages.Inkoop
             };
 
             await confirmationDialog.ShowAsync();
-        }
 
+        }
     }
+
 }
+
 
