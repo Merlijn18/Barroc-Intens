@@ -1,3 +1,4 @@
+using BarrocIntens.Data;
 using BarrocIntens.Pages.Inlog;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
@@ -27,6 +28,12 @@ namespace BarrocIntens.Pages.Financien
         public FinancienOverViewPage()
         {
             InitializeComponent();
+
+            using (var context = new AppDbContext())
+            {
+                var facturen = context.Factuurs.ToList();
+                FacturenList.ItemsSource = facturen;
+            }
         }
         private void Logout_Click(object sender, RoutedEventArgs e)
         {
