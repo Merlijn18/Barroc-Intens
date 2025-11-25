@@ -21,7 +21,9 @@
     <None Remove="Pages\Financien\FinancienOverViewPage.xaml" />
     <None Remove="Pages\Inkoop\InkoopOverViewPage.xaml" />
     <None Remove="Pages\Inlog\InlogOverViewPage.xaml" />
-    <None Remove="Pages\Monteur\MonteurOverViewPage.xaml" />
+    <None Remove="Pages\Maintenance\MaintenanceInspectionPage.xaml" />
+    <None Remove="Pages\Maintenance\MaintenanceOverviewPage.xaml" />
+    <None Remove="Pages\Maintenance\MaintenanceReportPage.xaml" />
     <None Remove="Pages\Sales\SalesOverViewPage.xaml" />
   </ItemGroup>
 
@@ -54,6 +56,26 @@
     <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="8.0.3" />
   </ItemGroup>
   <ItemGroup>
+    <Page Update="Pages\Maintenance\MaintenanceOverviewPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Pages\Maintenance\MaintenanceReportPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Pages\Maintenance\MaintenanceInspectionPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Pages\Maintenance\MaintenanceCalendarPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
     <Page Update="Pages\Beheer\AccountBeheerCreate.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -79,11 +101,6 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Page Update="Pages\Monteur\MonteurOverViewPage.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-  </ItemGroup>
-  <ItemGroup>
     <Page Update="Pages\Financien\FinancienOverViewPage.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -95,6 +112,11 @@
   </ItemGroup>
   <ItemGroup>
     <Page Update="Pages\Sales\SalesOverViewPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Pages\Maintenace\MaintenanceCalendarPage!.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>

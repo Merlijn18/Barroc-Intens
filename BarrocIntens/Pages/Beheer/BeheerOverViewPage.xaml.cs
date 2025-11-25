@@ -1,7 +1,7 @@
 using BarrocIntens.Pages.Financien;
 using BarrocIntens.Pages.Inkoop;
 using BarrocIntens.Pages.Inlog;
-using BarrocIntens.Pages.Monteur;
+using BarrocIntens.Pages.Maintenance;
 using BarrocIntens.Pages.Sales;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
@@ -35,9 +35,9 @@ namespace BarrocIntens.Pages.Beheer
 
 
 
-        private void MonteurOverView_Button_Click(object sender, RoutedEventArgs e)
+        private void MaintenanceOverview_Button_Click(object sender, RoutedEventArgs e)
         {
-            Frame.Navigate(typeof(MonteurOverViewPage));
+            Frame.Navigate(typeof(MaintenanceOverviewPage));
 
         }
 
