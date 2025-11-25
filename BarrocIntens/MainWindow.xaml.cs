@@ -1,4 +1,5 @@
 using BarrocIntens.Data;
+using BarrocIntens.Models;
 using BarrocIntens.Pages.Inlog;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;

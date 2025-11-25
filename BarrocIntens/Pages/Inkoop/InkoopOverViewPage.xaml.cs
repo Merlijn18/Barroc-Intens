@@ -37,7 +37,7 @@ namespace BarrocIntens.Pages.Inkoop
         {
             using var db = new AppDbContext();
             var bestellingenList = db.Bestellingen
-                                     .OrderByDescending(b => b.Date_Of_Order)
+                                     .OrderByDescending(b => b.OrderDate)
                                      .ToList();
 
             Bestellingen = new ObservableCollection<Bestelling>(bestellingenList);
@@ -86,6 +86,13 @@ namespace BarrocIntens.Pages.Inkoop
             ProductListView.Visibility = Visibility.Collapsed;
             HideProductsButton.Visibility = Visibility.Collapsed;
             ShowProductsButton.Visibility = Visibility.Visible;
+        }
+
+        private void CreateOrder_Click(object sender, RoutedEventArgs e)
+        {
+            Frame.Navigate(typeof(BestellingAanmaken));
+            
+            
         }
     }
 }

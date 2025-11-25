@@ -126,23 +126,18 @@ namespace BarrocIntens.Data
                 new Bestelling
                 {
                     Id = 1,
-                    Ordernumber = 1001,
-                    Date_Of_Order = DateTime.Now.AddDays(-10),
-                    Customername = "Jan Jansen",
-                    Customer_Email = "jan.jansen@example.com",
-                    Customer_Phonenumber = 0612345678,
-                    Order_Status = true
-                },
-                new Bestelling
-                {
-                    Id = 2,
-                    Ordernumber = 1002,
-                    Date_Of_Order = DateTime.Now.AddDays(-7),
-                    Customername = "Piet Pietersen",
-                    Customer_Email = "piet.pietersen@example.com",
-                    Customer_Phonenumber = 0687654321,
-                    Order_Status = false
-                });
+                    OrderId = 1001,
+                    Productname = "Sample Product",
+                    Suppliername = "Sample Supplier",
+                    OrderQuantity = 1,
+                    OrderDate = DateTime.Now.AddDays(-10),
+                    ExpectedDeliveryDate = null,
+                    UnitPrice = 0,
+                    Status = true ? "Approved" : "Requested",
+                    Remark = "Customer: Jan Jansen, Email: jan.jansen@example.com, Phone: 0612345678"
+                }
+            );
+               
 
         }
 
