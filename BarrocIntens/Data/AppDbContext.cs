@@ -116,6 +116,7 @@ namespace BarrocIntens.Data
             base.OnModelCreating(modelBuilder);
 
             // ===== Customers =====
+            modelBuilder.Entity<Customer>().Property(c => c.PaymentTermDays).HasDefaultValue(30);
             modelBuilder.Entity<Customer>().HasData(
                 new Customer
                 {

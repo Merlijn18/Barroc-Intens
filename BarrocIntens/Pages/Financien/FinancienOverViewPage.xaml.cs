@@ -29,10 +29,13 @@ namespace BarrocIntens.Pages.Financien
         {
             InitializeComponent();
 
+            LoadFacturen();
+        }
+        private void LoadFacturen()
+        {
             using (var context = new AppDbContext())
             {
-                var facturen = context.Factuurs.ToList();
-                FacturenList.ItemsSource = facturen;
+                FacturenListView.ItemsSource = context.Factuurs.ToList();
             }
         }
         private void Logout_Click(object sender, RoutedEventArgs e)
