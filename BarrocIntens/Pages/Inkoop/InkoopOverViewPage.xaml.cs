@@ -94,5 +94,10 @@ namespace BarrocIntens.Pages.Inkoop
             
             
         }
+
+        private void LeverancierBeheer_Click(object sender, RoutedEventArgs e)
+        {
+            Frame.Navigate(typeof(LeverancierBeheer));
+        }
     }
 }

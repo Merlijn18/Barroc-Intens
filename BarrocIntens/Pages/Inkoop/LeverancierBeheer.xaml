@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Page
+    x:Class="BarrocIntens.Pages.Inkoop.LeverancierBeheer"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:BarrocIntens.Pages.Inkoop"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <Grid Background="#f5f5f5">
+        <!-- Rows: header + content -->
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- ===========================
+             Header (bovenste rij)
+             =========================== -->
+        <Grid Grid.Row="0" Background="Black" Height="100">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+
+            <TextBlock Text="Inkoop"
+                       Foreground="#FDD716"
+                       FontSize="40"
+                       FontFamily="Segoe UI"
+                       FontWeight="Bold"
+                       VerticalAlignment="Center"
+                       Margin="30,0,0,0"/>
+
+            <StackPanel Orientation="Horizontal"
+                        Grid.Column="1"
+                        VerticalAlignment="Center"
+                        Margin="0,0,20,0"
+                        Spacing="10">
+                <Button x:Name="Back"
+                        Content="Terug"
+                        Click="Back_Click"
+                        Background="Black"
+                        Foreground="White"
+                        FontSize="16"
+                        FontWeight="SemiBold"
+                        Padding="12,6"
+                        BorderBrush="White"
+                        BorderThickness="1"/>
+                <Button x:Name="Logout"
+                        Content="Uitloggen"
+                        Click="Logout_Click"
+                        Background="#FDD716"
+                        Foreground="Black"
+                        FontSize="16"
+                        FontWeight="Bold"
+                        Padding="12,6"
+                        BorderThickness="0"/>
+            </StackPanel>
+        </Grid>
+
+        <Grid Grid.Row="1" Padding="24" Margin="8,16,8,16">
+            <Grid Background="#F3F4F6" Padding="18" CornerRadius="8">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+                <Border Grid.Column="0"
+                        Margin="10"
+                        Padding="20"
+                        Background="White"
+                        CornerRadius="10"
+                        BorderBrush="#D0D0D0"
+                        BorderThickness="1">
+                    <StackPanel>
+                        <TextBlock Text="Leveranciersbeheer"
+                                   FontSize="20"
+                                   FontWeight="Bold"
+                                   Foreground="#222"/>
+                        <TextBlock Text="Beheer leveranciers: contactgegevens, status en historie."
+                                   Margin="0,8,0,0"
+                                   Foreground="#555"
+                                   TextWrapping="Wrap"/>
+                    </StackPanel>
+                </Border>
+
+                <Border Grid.Column="1"
+                        Margin="10"
+                        Padding="20"
+                        Background="White"
+                        CornerRadius="10"
+                        BorderBrush="#D0D0D0"
+                        BorderThickness="1">
+                    <StackPanel>
+                        <TextBlock Text="Goederenontvangst"
+                                   FontSize="20"
+                                   FontWeight="Bold"
+                                   Foreground="#222"/>
+                        <TextBlock Text="Registreer ontvangst: aantallen, condities en opmerkingen."
+                                   Margin="0,8,0,0"
+                                   Foreground="#555"
+                                   TextWrapping="Wrap"/>
+                    </StackPanel>
+                </Border>
+
+                <Border Grid.Column="2"
+                        Margin="10"
+                        Padding="20"
+                        Background="White"
+                        CornerRadius="10"
+                        BorderBrush="#D0D0D0"
+                        BorderThickness="1">
+                    <StackPanel>
+                        <TextBlock Text="Dashboard meldingen"
+                                   FontSize="20"
+                                   FontWeight="Bold"
+                                   Foreground="#222"/>
+                        <TextBlock Text="Overzicht van openstaande bestellingen en waarschuwingen."
+                                   Margin="0,8,0,0"
+                                   Foreground="#555"
+                                   TextWrapping="Wrap"/>
+                    </StackPanel>
+                </Border>
+            </Grid>
+        </Grid>
+    </Grid>
+</Page>
