@@ -14,7 +14,7 @@ namespace BarrocIntens.Data
         public DbSet<Product> Products { get; set; }
         public DbSet<Bestelling> Bestellingen { get; set; }
 
-        public DbSet<Leverancier>Leveranciers { get; set; }
+        public DbSet<Leverancier> Leveranciers { get; set; }
         
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

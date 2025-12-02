@@ -15,6 +15,6 @@ namespace BarrocIntens.Models
         public string Email { get; set; }
         public string Adres { get; set; }
 
-        public Boolean Kwaliteit { get; set; }
+      
     }
 }

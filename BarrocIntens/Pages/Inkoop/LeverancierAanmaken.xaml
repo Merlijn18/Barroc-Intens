@@ -51,6 +51,51 @@
                      BorderThickness="0"/>
             </StackPanel>
         </Grid>
+        <ScrollViewer Grid.Row="1">
+            <StackPanel x:Name="LeverancierFormPanel"
+                Visibility="Visible"
+                Spacing="8"
+                Padding="20"
+                Background="White"
+                Margin="30"
+                CornerRadius="10">
+
+                <TextBlock Text="Leveranciername" />
+                <TextBox x:Name="LeverancierNameTextBox"
+                PlaceholderText="Voer de leveranciersnaam in" />
+
+                <TextBlock Text="Contactpersoon" />
+                <TextBox x:Name="ContactpersoonTextBox"
+                 PlaceholderText="Naam van de contactpersoon" />
+
+                <TextBlock Text="Telefoonnummer" />
+                <TextBox x:Name="TelefoonnummerTextBox"
+                 PlaceholderText="Voer het telefoonnummer in"
+                InputScope="Number" />
+
+                <TextBlock Text="E-mail" />
+                <TextBox x:Name="EmailTextBox"
+                PlaceholderText="Voer het e-mailadres in"
+                InputScope="EmailNameOrAddress" />
+
+                <TextBlock Text="Adres" />
+                <TextBox x:Name="AdresTextBox"
+                PlaceholderText="Straat, nummer, stad..."
+                AcceptsReturn="True"
+                Height="80" />
+
+                <Button x:Name="SaveNewSupplier"
+                Content="Opslaan"
+                Width="150"
+                Height="40"
+                Background="#FDD716"
+                Foreground="White"
+                FontSize="16"
+                CornerRadius="8"
+                Click="SaveNewSupplier_Click"/>
+
+            </StackPanel>
+        </ScrollViewer>
     </Grid>
 </Page>
     

@@ -60,7 +60,6 @@ namespace BarrocIntens.Pages.Inkoop
 
         private async void SaveNewOrder_Click(object sender, RoutedEventArgs e)
         {
-            // Controleer of alle verplichte velden zijn ingevuld
             if (string.IsNullOrWhiteSpace(ProductNameTextBox.Text) ||
             string.IsNullOrWhiteSpace(SupplierNameTextBox.Text) ||
             string.IsNullOrWhiteSpace(QuantityTextBox.Text) ||
@@ -79,10 +78,9 @@ namespace BarrocIntens.Pages.Inkoop
 
 
             await warningDialog.ShowAsync();
-                return; // Stop de methode zodat er niet wordt opgeslagen
+                return; 
             }
 
-            // Controleer of Quantity een geldig geheel getal is
             if (!int.TryParse(QuantityTextBox.Text.Trim(), out int quantity))
             {
                 ContentDialog invalidNumberDialog = new ContentDialog
@@ -97,8 +95,6 @@ namespace BarrocIntens.Pages.Inkoop
                 await invalidNumberDialog.ShowAsync();
                 return;
             }
-
-            // Controleer of UnitPrice een geldig decimaal getal is
             if (!decimal.TryParse(UnitPriceTextBox.Text.Trim(), out decimal unitPrice))
             {
                 ContentDialog invalidPriceDialog = new ContentDialog

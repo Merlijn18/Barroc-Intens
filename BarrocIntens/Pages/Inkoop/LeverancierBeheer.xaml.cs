@@ -1,3 +1,5 @@
+using BarrocIntens.Data;
+using BarrocIntens.Pages.Inkoop;
 using BarrocIntens.Pages.Inlog;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
@@ -27,6 +29,7 @@ namespace BarrocIntens.Pages.Inkoop
         public LeverancierBeheer()
         {
             InitializeComponent();
+            LoadLeveranciers();
         }
         private void Logout_Click(object sender, RoutedEventArgs e)
         {
@@ -39,5 +42,18 @@ namespace BarrocIntens.Pages.Inkoop
             Frame.GoBack();
         }
 
+        private void LoadLeveranciers()
+        {
+            using var db = new AppDbContext();
+
+            var leveranciers = db.Leveranciers.ToList();
+           
+            LeverancierListView.ItemsSource = leveranciers;
+        }
+
+        private void LeverancierAanmaken_Click(object sender, RoutedEventArgs e)
+        {
+            Frame.Navigate(typeof(LeverancierAanmaken));
+        }
     }
 }
