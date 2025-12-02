@@ -94,34 +94,8 @@
                                    Foreground="#222"/>
 
                             <ListView x:Name="LeverancierListView">
-                                <ListView.ItemContainerStyle>
-                                    <Style TargetType="ListViewItem">
-                                        <Setter Property="Padding" Value="0"/>
-                                        <Setter Property="Margin" Value="0"/>
-                                        <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
-                                        <Setter Property="VerticalContentAlignment" Value="Stretch"/>
-
-                                        <Setter Property="Template">
-                                            <Setter.Value>
-                                                <ControlTemplate TargetType="ListViewItem">
-                                                    <Grid x:Name="RootGrid">
-                                                        <ContentPresenter/>
-                                                    </Grid>
-
-                                                    <ControlTemplate.Triggers>
-                                                        <!-- Highlight card when selected -->
-                                                        <Trigger Property="IsSelected" Value="True">
-                                                            <Setter TargetName="RootGrid" Property="Background" Value="#DDEBFF"/>
-                                                            <Setter TargetName="RootGrid" Property="BorderBrush" Value="#4A90E2"/>
-                                                            <Setter TargetName="RootGrid" Property="BorderThickness" Value="2"/>
-                                                        </Trigger>
-                                                    </ControlTemplate.Triggers>
-                                                </ControlTemplate>
-                                            </Setter.Value>
-                                        </Setter>
-                                    </Style>
-                                </ListView.ItemContainerStyle>
-
+                                
+                                
                                 <ListView.ItemTemplate>
                                     <DataTemplate x:DataType="localData:Leverancier">
                                         <Grid>
@@ -131,10 +105,10 @@
                                             </Grid.RowDefinitions>
 
                                             <Grid Background="#F7F7F7"
-                      CornerRadius="10"
-                      Padding="16"
-                      BorderThickness="1"
-                      BorderBrush="#E0E0E0"
+                                                  CornerRadius="10"
+                                                  Padding="16"
+                                                  BorderThickness="1"
+                                                  BorderBrush="#E0E0E0"
                       >
                                                 <Grid.ColumnDefinitions>
                                                     <ColumnDefinition Width="2*"/>
@@ -144,13 +118,11 @@
                                                     <ColumnDefinition Width="*"/>
                                                 </Grid.ColumnDefinitions>
 
-                                                <!-- Leveranciernaam -->
                                                 <TextBlock Text="{x:Bind Leveranciernaam}"
-                               Grid.Column="0"
-                               FontWeight="SemiBold"
-                               FontSize="16"/>
+                                                           Grid.Column="0"
+                                                           FontWeight="SemiBold"
+                                                           FontSize="16"/>          
 
-                                                <!-- Contactpersoon -->
                                                 <StackPanel Grid.Column="1">
                                                     <TextBlock Text="Contact" Foreground="Gray" FontSize="12"/>
                                                     <TextBlock Text="{x:Bind Contactpersoon}" FontSize="14"/>

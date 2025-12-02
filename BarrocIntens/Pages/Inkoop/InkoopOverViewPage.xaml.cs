@@ -64,17 +64,31 @@ namespace BarrocIntens.Pages.Inkoop
             using var db = new AppDbContext();
             var filteredProducts = db.Products
                                      .Where(p => p.Productname.Contains(searchQuery) ||
-                                                 p.Stock.ToString().Contains(searchQuery))
+                                               p.Stock.ToString().Contains(searchQuery))
                                      .OrderByDescending(p => p.Productname)
                                      .ToList();
-
-            Products = new ObservableCollection<Product>(filteredProducts);
-            ProductListView.ItemsSource = Products;
+         
         }
 
         // Toon producten knop
         private void ShowProducts_Click(object sender, RoutedEventArgs e)
         {
+            using var db = new AppDbContext();
+            var lowStockProducts = db.Products
+                            .Where(p => p.Stock < 3)
+                            .ToList();
+            if (lowStockProducts.Any())
+            {
+                LowStockWarning.Text = "De volgende producten zijn laag in voorraad:\n" +
+                                       string.Join("\n", lowStockProducts.Select(p => $"{p.Productname} (Stock: {p.Stock})"));
+
+                LowStockWarning.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                LowStockWarning.Visibility = Visibility.Collapsed;
+            }
+
             ProductListView.Visibility = Visibility.Visible;
             HideProductsButton.Visibility = Visibility.Visible;
             ShowProductsButton.Visibility = Visibility.Collapsed;
@@ -98,6 +112,11 @@ namespace BarrocIntens.Pages.Inkoop
         private void LeverancierBeheer_Click(object sender, RoutedEventArgs e)
         {
             Frame.Navigate(typeof(LeverancierBeheer));
+        }
+
+        private void productSearchTextBox_TextChanged_1(object sender, TextChangedEventArgs e)
+        {
+
         }
     }
 }

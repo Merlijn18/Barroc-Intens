@@ -107,10 +107,10 @@ namespace BarrocIntens.Data
 
             modelBuilder.Entity<Product>().HasData(
                  new Product { Id = 1, Productname = "Rubber (10 mm)", Price = 0.39f, Stock = 10, OrderQuantity = 0 },
-                 new Product { Id = 2, Productname = "Rubber (14 mm)", Price = 0.45f, Stock = 10, OrderQuantity = 0 },
+                 new Product { Id = 2, Productname = "Rubber (14 mm)", Price = 0.45f, Stock = 2, OrderQuantity = 0 },
 
                  new Product { Id = 3, Productname = "Slang", Price = 4.45f, Stock = 10, OrderQuantity = 0 },
-                 new Product { Id = 4, Productname = "Voeding (elektra)", Price = 68.69f, Stock = 10, OrderQuantity = 0 },
+                 new Product { Id = 4, Productname = "Voeding (elektra)", Price = 68.69f, Stock = 4, OrderQuantity = 0 },
                  new Product { Id = 5, Productname = "Ontkalker", Price = 4.00f, Stock = 10, OrderQuantity = 0 },
                  new Product { Id = 6, Productname = "Waterfilter", Price = 299.45f, Stock = 10, OrderQuantity = 0 },
                  new Product { Id = 7, Productname = "Reservoir sensor", Price = 89.99f, Stock = 10, OrderQuantity = 0 },
@@ -139,7 +139,18 @@ namespace BarrocIntens.Data
                     Remark = "Customer: Jan Jansen, Email: jan.jansen@example.com, Phone: 0612345678"
                 }
             );
-               
+
+            modelBuilder.Entity<Leverancier>().HasData(
+                new Leverancier
+                {
+                    Id = 1,
+                    Leveranciernaam = "DHL",
+                    Contactpersoon = "Mike",
+                    Telefoonnummer = 0623561514,
+                    Email = "Mike@gmail.dhl",
+                    Adres = "Wildestraat 1"
+                }
+            );
 
         }
 

@@ -205,8 +205,14 @@
                                 Visibility="Collapsed"
                                 Click="HideProductsButton_Click"/>
                         </StackPanel>
-                        
 
+
+                        <TextBlock x:Name="LowStockWarning"
+                                   Text=""
+                                   Foreground="Red"
+                                   FontWeight="Bold"
+                                   Margin="10,0,0,10"
+                                   Visibility="Collapsed"/>
                         <ListView x:Name="ProductListView" Visibility="Collapsed">
                             <ListView.ItemsPanel>
                                 <ItemsPanelTemplate>
@@ -215,8 +221,10 @@
                             </ListView.ItemsPanel>
 
                             <ListView.ItemTemplate>
+
                                 <DataTemplate x:DataType="localdata:Product">
                                     <Border BorderBrush="#CCC" BorderThickness="1" CornerRadius="10" Padding="15" Margin="10" Background="White" Width="260">
+                                        
                                         <StackPanel Spacing="6">
                                             <TextBlock Text="{x:Bind Productname}" FontWeight="Bold" FontSize="15" Foreground="#333"/>
                                             <TextBlock><Run Text="Prijs: €" /><Run Text="{x:Bind Price}" /></TextBlock>
