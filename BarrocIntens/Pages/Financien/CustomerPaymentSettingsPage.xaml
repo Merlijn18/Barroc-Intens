@@ -58,9 +58,11 @@
             <StackPanel Margin="30">
                 <TextBlock Text="Betaalvoorwaarden instellen" FontSize="32" Margin="0,0,0,30"/>
 
+                <TextBlock>Customer</TextBlock>
                 <ComboBox x:Name="CustomerDropdown" Width="300" Margin="0,0,0,20"
                   DisplayMemberPath="Name" SelectedValuePath="Id"/>
 
+                <TextBlock>payment term</TextBlock>
                 <ComboBox x:Name="TermSelector" Width="300" Margin="0,0,0,20">
                     <ComboBoxItem Content="14"/>
                     <ComboBoxItem Content="30"/>
