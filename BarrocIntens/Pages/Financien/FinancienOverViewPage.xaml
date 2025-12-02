@@ -49,6 +49,9 @@
                      FontWeight="Bold"
                      Padding="12,6"
                      BorderThickness="0"/>
+                <Button Content="Betaalvoorwaarden"
+                    Background="White" Foreground="Black"
+                    Click="Payment_Click" Padding="12,6" FontSize="16"/>
             </StackPanel>
         </Grid>
         

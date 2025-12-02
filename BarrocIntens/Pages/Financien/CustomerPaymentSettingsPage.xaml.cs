@@ -23,21 +23,33 @@ namespace BarrocIntens.Pages.Financien
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.
     /// </summary>
-    public sealed partial class FinancienOverViewPage : Page
+    public sealed partial class CustomerPaymentSettingsPage : Page
     {
-        public FinancienOverViewPage()
+        public CustomerPaymentSettingsPage()
         {
             InitializeComponent();
+            LoadData();
+        }
 
-            LoadFacturen();
-        }
-        private void LoadFacturen()
+        private void LoadData()
         {
-            using (var context = new AppDbContext())
-            {
-                FacturenListView.ItemsSource = context.Factuurs.ToList();
-            }
+            using var context = new AppDbContext();
+            CustomerDropdown.ItemsSource = context.customers.ToList();
         }
+
+        private void Save_Click(object sender, RoutedEventArgs e)
+        {
+            if (CustomerDropdown.SelectedValue == null || TermSelector.SelectedValue == null) return;
+
+            using var context = new AppDbContext();
+            int id = (int)CustomerDropdown.SelectedValue;
+            int term = int.Parse((TermSelector.SelectedItem as ComboBoxItem).Content.ToString());
+
+            var customer = context.customers.Find(id);
+            customer.PaymentTermDays = term;
+            context.SaveChanges();
+        }
+
         private void Logout_Click(object sender, RoutedEventArgs e)
         {
             Frame.Navigate(typeof(InlogOverViewPage));
@@ -47,11 +59,6 @@ namespace BarrocIntens.Pages.Financien
         {
             Frame.GoBack();
 
-        }
-
-        private void Payment_Click(object sender, RoutedEventArgs e)
-        {
-            Frame.Navigate(typeof(CustomerPaymentSettingsPage));
         }
     }
 }
