@@ -163,6 +163,13 @@
                         BorderBrush="#D0D0D0"
                         BorderThickness="1">
                         <StackPanel>
+                            <TextBlock x:Name="BestellingMelding"
+                                       Visibility="Collapsed"
+                                       Foreground="White"
+                                       Padding="10"
+                                       FontWeight="Bold"
+                                       TextWrapping="Wrap"
+                                       Margin="0,0,0,10"/>
                             <TextBlock Text="Goederenontvangst"
                                    FontSize="20"
                                    FontWeight="Bold"
@@ -190,7 +197,21 @@
                                    Margin="0,8,0,0"
                                    Foreground="#555"
                                    TextWrapping="Wrap"/>
+                            <ListView x:Name="NotificationListView">
+                                <ListView.ItemTemplate>
+                                    <DataTemplate x:DataType="localData:Bestelling">
+                                        <StackPanel Margin="5" Padding="5" Background="#f0f0f0" CornerRadius="5">
+                                            <TextBlock Text="{x:Bind Productname}" FontWeight="Bold"/>
+                                            <TextBlock Text="{x:Bind Suppliername}"/>
+                                            <TextBlock Text="Aantal: {x:Bind OrderQuantity}"/>
+                                            <TextBlock Text="Status: {x:Bind Status}"/>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </ListView.ItemTemplate>
+                            </ListView>
+
                         </StackPanel>
+                        
                     </Border>
                 </Grid>
             </Grid>

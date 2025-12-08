@@ -149,25 +149,19 @@
                                             <TextBlock Grid.Row="4" Grid.Column="0" Text="Expected Delivery:" Foreground="#555"/>
                                             <TextBlock Grid.Row="4" Grid.Column="1" Text="{x:Bind ExpectedDeliveryDate}"/>
 
-                                            <!-- Row 5 -->
-                                            <TextBlock Grid.Row="5" Grid.Column="0" Text="Unit Price:" Foreground="#555"/>
-                                            <TextBlock Grid.Row="5" Grid.Column="1" Text="{x:Bind UnitPrice}"/>
-
-                                            <!-- Row 6 -->
-                                            <TextBlock Grid.Row="6" Grid.Column="0" Text="Total Price:" Foreground="#555"/>
-                                            <TextBlock Grid.Row="6" Grid.Column="1" Text="{x:Bind TotalPrice}"/>
-
                                             <!-- Row 7 -->
                                             <TextBlock Grid.Row="7" Grid.Column="0" Text="Status:" Foreground="#555"/>
                                             <TextBlock Grid.Row="7" Grid.Column="1" Text="{x:Bind Status}"/>
 
-                                            <!-- Row 8 -->
-                                            <TextBlock Grid.Row="8" Grid.Column="0" Text="Notes:" Foreground="#555"/>
-                                            <TextBlock Grid.Row="8" Grid.Column="1"
-                                   Text="{x:Bind Remark}"
-                                   TextWrapping="Wrap"/>
                                         </Grid>
-
+                                        <Button x:Name="GoedkeurenButton"
+                                                Content="Goedkeuren"
+                                                Click="GoedkeurenButton_Click"
+                                                Background="#4CAF50"
+                                                Foreground="White"
+                                                Tag="{x:Bind Id}" />
+                                                
+                                         
                                     </StackPanel>
                                 </Border>
 

@@ -31,7 +31,7 @@ namespace BarrocIntens.Models
         public string Status { get; set; }
 
 
-        public string Remark { get; set; }
+      
 
     }
 }

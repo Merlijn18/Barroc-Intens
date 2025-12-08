@@ -1,4 +1,4 @@
-using BarrocIntens.Data;
+﻿using BarrocIntens.Data;
 using BarrocIntens.Models;
 using BarrocIntens.Pages.Inlog;
 using Microsoft.UI.Xaml;
@@ -11,7 +11,6 @@ namespace BarrocIntens.Pages.Inkoop
 {
     public sealed partial class InkoopOverViewPage : Page
     {
-        // ObservableCollections voor binding aan de UI
         private ObservableCollection<Product> Products { get; set; }
         private ObservableCollection<Bestelling> Bestellingen { get; set; }
 
@@ -23,7 +22,9 @@ namespace BarrocIntens.Pages.Inkoop
             LoadBestellingen();
         }
 
-        // Producten laden uit database
+        // --------------------
+        // PRODUCTEN LADEN
+        // --------------------
         private void LoadProducts()
         {
             using var db = new AppDbContext();
@@ -32,7 +33,9 @@ namespace BarrocIntens.Pages.Inkoop
             ProductListView.ItemsSource = Products;
         }
 
-        // Bestellingen laden uit database
+        // --------------------
+        // BESTELLINGEN LADEN
+        // --------------------
         private void LoadBestellingen()
         {
             using var db = new AppDbContext();
@@ -44,19 +47,25 @@ namespace BarrocIntens.Pages.Inkoop
             BestellingenListView.ItemsSource = Bestellingen;
         }
 
-        // Logout knop
+        // --------------------
+        // LOGOUT
+        // --------------------
         private void Logout_Click(object sender, RoutedEventArgs e)
         {
             Frame.Navigate(typeof(InlogOverViewPage));
         }
 
-        // Back knop
+        // --------------------
+        // TERUG
+        // --------------------
         private void Back_Click(object sender, RoutedEventArgs e)
         {
             Frame.GoBack();
         }
 
-        // Product search
+        // --------------------
+        // PRODUCT ZOEKEN
+        // --------------------
         private void productSearchTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
             var searchQuery = productSearchTextBox.Text;
@@ -64,19 +73,24 @@ namespace BarrocIntens.Pages.Inkoop
             using var db = new AppDbContext();
             var filteredProducts = db.Products
                                      .Where(p => p.Productname.Contains(searchQuery) ||
-                                               p.Stock.ToString().Contains(searchQuery))
+                                                 p.Stock.ToString().Contains(searchQuery))
                                      .OrderByDescending(p => p.Productname)
                                      .ToList();
-         
+
+            Products = new ObservableCollection<Product>(filteredProducts);
+            ProductListView.ItemsSource = Products;
         }
 
-        // Toon producten knop
+        // --------------------
+        // PRODUCTEN HELPERS
+        // --------------------
         private void ShowProducts_Click(object sender, RoutedEventArgs e)
         {
             using var db = new AppDbContext();
             var lowStockProducts = db.Products
-                            .Where(p => p.Stock < 3)
-                            .ToList();
+                                     .Where(p => p.Stock < 3)
+                                     .ToList();
+
             if (lowStockProducts.Any())
             {
                 LowStockWarning.Text = "De volgende producten zijn laag in voorraad:\n" +
@@ -94,19 +108,20 @@ namespace BarrocIntens.Pages.Inkoop
             ShowProductsButton.Visibility = Visibility.Collapsed;
         }
 
-        // Verberg producten knop
         private void HideProductsButton_Click(object sender, RoutedEventArgs e)
         {
             ProductListView.Visibility = Visibility.Collapsed;
             HideProductsButton.Visibility = Visibility.Collapsed;
             ShowProductsButton.Visibility = Visibility.Visible;
+            LowStockWarning.Visibility = Visibility.Collapsed;
         }
 
+        // --------------------
+        // NIEUWE BESTELLING
+        // --------------------
         private void CreateOrder_Click(object sender, RoutedEventArgs e)
         {
             Frame.Navigate(typeof(BestellingAanmaken));
-            
-            
         }
 
         private void LeverancierBeheer_Click(object sender, RoutedEventArgs e)
@@ -114,9 +129,30 @@ namespace BarrocIntens.Pages.Inkoop
             Frame.Navigate(typeof(LeverancierBeheer));
         }
 
-        private void productSearchTextBox_TextChanged_1(object sender, TextChangedEventArgs e)
+    
+        private async void GoedkeurenButton_Click(object sender, RoutedEventArgs e)
         {
+            var button = sender as Button;
+            if (button?.Tag == null) return;
 
+            int orderId = int.Parse(button.Tag.ToString());
+
+            using var db = new AppDbContext();
+            var order = await db.Bestellingen.FindAsync(orderId); // Zorg dat Tag overeenkomt met Id in database
+
+            if (order == null) return;
+
+            order.Status = "Goedgekeurd";
+            await db.SaveChangesAsync();
+
+            // Toevoegen aan helper
+            BestellingHelper.AddNotification(order);
+
+            // UI updaten via Dispatcher
+            _ = DispatcherQueue.TryEnqueue(() =>
+            {
+                Bestellingen.Remove(order); // verwijdert bestelling uit ListView
+            });
         }
     }
 }

@@ -1,4 +1,4 @@
-<Page
+﻿<Page
     x:Class="BarrocIntens.Pages.Inkoop.BestellingAanmaken"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -29,7 +29,7 @@
                        Margin="30,0,0,0"/>
 
             <StackPanel Orientation="Horizontal" Grid.Column="1" VerticalAlignment="Center" Margin="0,0,20,0" Spacing="10">
-                <Button x:Name="Back"
+                <Button x:Name="Terug"
                         Content="Terug"
                         Click="Back_Click"
                         Background="Black"
@@ -55,31 +55,34 @@
         <ScrollViewer Grid.Row="1">
             <StackPanel x:Name="OrderFormPanel" Visibility="Visible" Spacing="8" Padding="20" Background="White" Margin="30" CornerRadius="10">
 
-                <TextBlock Text="Product Name" />
-                <TextBox x:Name="ProductNameTextBox" PlaceholderText="Enter product name" />
+                <TextBlock Text="Product Naam" />
 
-                <TextBlock Text="Supplier Name" />
+                <!-- ✔️ EVENT TOEGEVOEGD -->
+                <ComboBox x:Name="ProductNameComboBox"
+                          PlaceholderText="Selecteer een product"
+                          SelectionChanged="ProductNameComboBox_SelectionChanged">
+                    <ComboBoxItem Content="Barroc Intens Italian Light" />
+                    <ComboBoxItem Content="Barroc Intens Italian" />
+                    <ComboBoxItem Content="Barroc Intens Italian Deluxe" />
+                    <ComboBoxItem Content="Barroc Intens Italian Deluxe Special" />
+                </ComboBox>
+
+                <TextBlock Text="Naam van besteller:" />
                 <TextBox x:Name="SupplierNameTextBox" PlaceholderText="Enter supplier name" />
 
-                <TextBlock Text="Order Quantity" />
+                <TextBlock Text="Aantal:" />
                 <TextBox x:Name="QuantityTextBox" PlaceholderText="Enter quantity" InputScope="Number" />
 
-                <TextBlock Text="Unit Price" />
+                <TextBlock Text="Product prijs:" />
                 <TextBox x:Name="UnitPriceTextBox" PlaceholderText="Enter unit price" InputScope="Number" />
 
                 <TextBlock Text="Status" />
                 <ComboBox x:Name="StatusComboBox">
-                    <ComboBoxItem Content="Requested"/>
-                    <ComboBoxItem Content="Approved"/>
-                    <ComboBoxItem Content="Shipped"/>
-                    <ComboBoxItem Content="Received"/>
+                    <ComboBoxItem Content="Aangevraagd"/>
                 </ComboBox>
 
-                <TextBlock Text="Expected Delivery Date" />
+                <TextBlock Text="Verwachte aankomstdatum:" />
                 <CalendarDatePicker x:Name="ExpectedDeliveryDatePicker" />
-
-                <TextBlock Text="Remark" />
-                <TextBox x:Name="NotesTextBox" PlaceholderText="Additional notes..." AcceptsReturn="True" Height="80"/>
 
                 <Button x:Name="SaveNewOrder"
                         Content="Opslaan"
@@ -90,7 +93,6 @@
                         FontSize="16"
                         CornerRadius="8"
                         Click="SaveNewOrder_Click"/>
-
             </StackPanel>
         </ScrollViewer>
     </Grid>

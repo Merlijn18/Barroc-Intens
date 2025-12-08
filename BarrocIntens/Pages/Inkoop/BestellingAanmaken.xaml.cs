@@ -1,72 +1,71 @@
-using BarrocIntens.Data;
+﻿using BarrocIntens.Data;
 using BarrocIntens.Models;
 using BarrocIntens.Pages.Inlog;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
-using Microsoft.UI.Xaml.Controls.Primitives;
-using Microsoft.UI.Xaml.Data;
-using Microsoft.UI.Xaml.Input;
-using Microsoft.UI.Xaml.Media;
-using Microsoft.UI.Xaml.Navigation;
 using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
-
-// To learn more about WinUI, the WinUI project structure,
-// and more about our project templates, see: http://aka.ms/winui-project-info.
 
 namespace BarrocIntens.Pages.Inkoop
 {
-    /// <summary>
-    /// An empty page that can be used on its own or navigated to within a Frame.
-    /// </summary>
     public sealed partial class BestellingAanmaken : Page
     {
+        // ✔️ Dictionary met vaste prijzen
+        private readonly Dictionary<string, decimal> ProductPrices = new()
+        {
+            { "Barroc Intens Italian Light", 999.00m },
+            { "Barroc Intens Italian", 1299.00m },
+            { "Barroc Intens Italian Deluxe", 1599.00m },
+            { "Barroc Intens Italian Deluxe Special", 1999.00m }
+        };
+
         public BestellingAanmaken()
         {
             InitializeComponent();
-
-
         }
+
         private void Logout_Click(object sender, RoutedEventArgs e)
         {
             Frame.Navigate(typeof(InlogOverViewPage));
         }
 
-        // Back knop
         private void Back_Click(object sender, RoutedEventArgs e)
         {
             Frame.GoBack();
         }
+
         private void CreateOrder_Click(object sender, RoutedEventArgs e)
         {
-            // Maak het formulier zichtbaar
             OrderFormPanel.Visibility = Visibility.Visible;
 
-            // Velden leegmaken voor een nieuwe bestelling
-            ProductNameTextBox.Text = string.Empty;
+            // Velden leegmaken
+            ProductNameComboBox.SelectedIndex = -1;
             SupplierNameTextBox.Text = string.Empty;
             QuantityTextBox.Text = string.Empty;
             UnitPriceTextBox.Text = string.Empty;
             StatusComboBox.SelectedIndex = -1;
-            NotesTextBox.Text = string.Empty;
             ExpectedDeliveryDatePicker.Date = null;
+        }
 
+        // ✔️ Automatisch prijs invullen bij selectie
+        private void ProductNameComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            string selectedProduct = (ProductNameComboBox.SelectedItem as ComboBoxItem)?.Content.ToString();
+
+            if (selectedProduct != null && ProductPrices.ContainsKey(selectedProduct))
+            {
+                UnitPriceTextBox.Text = ProductPrices[selectedProduct].ToString("0.00");
+            }
         }
 
         private async void SaveNewOrder_Click(object sender, RoutedEventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(ProductNameTextBox.Text) ||
-            string.IsNullOrWhiteSpace(SupplierNameTextBox.Text) ||
-            string.IsNullOrWhiteSpace(QuantityTextBox.Text) ||
-            string.IsNullOrWhiteSpace(UnitPriceTextBox.Text) ||
-            StatusComboBox.SelectedIndex < 0)
+            if (ProductNameComboBox.SelectedIndex < 0 ||
+                string.IsNullOrWhiteSpace(SupplierNameTextBox.Text) ||
+                string.IsNullOrWhiteSpace(QuantityTextBox.Text) ||
+                string.IsNullOrWhiteSpace(UnitPriceTextBox.Text) ||
+                StatusComboBox.SelectedIndex < 0)
             {
-                // Toon waarschuwing als iets niet is ingevuld
                 ContentDialog warningDialog = new ContentDialog
                 {
                     Title = "Ongeldige invoer",
@@ -76,9 +75,8 @@ namespace BarrocIntens.Pages.Inkoop
                     XamlRoot = this.XamlRoot
                 };
 
-
-            await warningDialog.ShowAsync();
-                return; 
+                await warningDialog.ShowAsync();
+                return;
             }
 
             if (!int.TryParse(QuantityTextBox.Text.Trim(), out int quantity))
@@ -95,6 +93,7 @@ namespace BarrocIntens.Pages.Inkoop
                 await invalidNumberDialog.ShowAsync();
                 return;
             }
+
             if (!decimal.TryParse(UnitPriceTextBox.Text.Trim(), out decimal unitPrice))
             {
                 ContentDialog invalidPriceDialog = new ContentDialog
@@ -110,30 +109,27 @@ namespace BarrocIntens.Pages.Inkoop
                 return;
             }
 
-            // Alles is geldig, sla de bestelling op
+            string selectedProduct =
+                (ProductNameComboBox.SelectedItem as ComboBoxItem)?.Content.ToString();
+
             using var db = new AppDbContext();
 
             var newOrder = new Bestelling
             {
-                Productname = ProductNameTextBox.Text.Trim(),
+                Productname = selectedProduct,
                 Suppliername = SupplierNameTextBox.Text.Trim(),
                 OrderQuantity = quantity,
                 UnitPrice = unitPrice,
                 Status = (StatusComboBox.SelectedItem as ComboBoxItem)?.Content.ToString(),
-                Remark = NotesTextBox.Text.Trim(),
                 OrderDate = DateTime.Now,
             };
 
             db.Bestellingen.Add(newOrder);
             db.SaveChanges();
 
-            // Formulier verbergen
             OrderFormPanel.Visibility = Visibility.Collapsed;
-
-            // Eventueel navigeren
             Frame.Navigate(typeof(InkoopOverViewPage));
 
-            // Toon bevestigingspopup
             ContentDialog confirmationDialog = new ContentDialog
             {
                 Title = "Bestelling Toegevoegd",
@@ -144,10 +140,6 @@ namespace BarrocIntens.Pages.Inkoop
             };
 
             await confirmationDialog.ShowAsync();
-
         }
     }
-
 }
-
-
