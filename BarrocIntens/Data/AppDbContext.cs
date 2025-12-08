@@ -124,32 +124,9 @@ namespace BarrocIntens.Data
                  new Product { Id = 15, Productname = "Reinigingsborsteltjes", Price = 8.45f, Stock = 10, OrderQuantity = 0 },
                  new Product { Id = 16, Productname = "Ontkalkingspijp", Price = 21.70f, Stock = 1, OrderQuantity = 0 }
              );
-            modelBuilder.Entity<Bestelling>().HasData(
-                new Bestelling
-                {
-                    Id = 1,
-                    OrderId = 1001,
-                    Productname = "",
-                    Suppliername = "Kees",
-                    OrderQuantity = 1,
-                    OrderDate = DateTime.Now.AddDays(-10),
-                    ExpectedDeliveryDate = new DateTime(2026, 4, 12),
-                    UnitPrice = 0,
-                    Status = true ? "Goedgekeurd" : "Aangevraagd",
-                }
-            );
+            
 
-            modelBuilder.Entity<Leverancier>().HasData(
-                new Leverancier
-                {
-                    Id = 1,
-                    Leveranciernaam = "DHL",
-                    Contactpersoon = "Mike",
-                    Telefoonnummer = 0623561514,
-                    Email = "Mike@gmail.dhl",
-                    Adres = "Wildestraat 1"
-                }
-            );
+          
 
         }
 

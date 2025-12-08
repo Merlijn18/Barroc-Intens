@@ -3,6 +3,7 @@ using BarrocIntens.Models;
 using BarrocIntens.Pages.Inlog;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
+using Microsoft.UI.Xaml.Media;
 using System;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -129,7 +130,7 @@ namespace BarrocIntens.Pages.Inkoop
             Frame.Navigate(typeof(LeverancierBeheer));
         }
 
-    
+
         private async void GoedkeurenButton_Click(object sender, RoutedEventArgs e)
         {
             var button = sender as Button;
@@ -138,21 +139,67 @@ namespace BarrocIntens.Pages.Inkoop
             int orderId = int.Parse(button.Tag.ToString());
 
             using var db = new AppDbContext();
-            var order = await db.Bestellingen.FindAsync(orderId); // Zorg dat Tag overeenkomt met Id in database
+            var order = await db.Bestellingen.FindAsync(orderId);
 
             if (order == null) return;
 
+            // Status aanpassen
             order.Status = "Goedgekeurd";
             await db.SaveChangesAsync();
 
             // Toevoegen aan helper
             BestellingHelper.AddNotification(order);
 
-            // UI updaten via Dispatcher
+            // UI bijwerken
             _ = DispatcherQueue.TryEnqueue(() =>
             {
-                Bestellingen.Remove(order); // verwijdert bestelling uit ListView
+                // 1. Update de ListView binding voor deze bestelling
+                var itemContainer = BestellingenListView.ContainerFromItem(order) as ListViewItem;
+                if (itemContainer != null)
+                {
+                    // Zoek de TextBlock en Button binnen het item
+                    var statusTextBlock = FindChild<TextBlock>(itemContainer, tb => tb.Text == "Aangevraagd"); // of huidige status
+                    if (statusTextBlock != null)
+                        statusTextBlock.Text = "Goedgekeurd";
+
+                    var goedkeurenButton = FindChild<Button>(itemContainer, b => b == button);
+                    if (goedkeurenButton != null)
+                    {
+                        goedkeurenButton.Content = "Goedgekeurd";
+                        goedkeurenButton.IsEnabled = false;
+                    }
+                }
             });
+
+            // ✅ Toon bevestigingsmelding
+            var confirmationDialog = new ContentDialog
+            {
+                Title = "Bestelling Goedgekeurd",
+                Content = "Je melding is goedgekeurd en doorgegeven aan de leverancierafdeling.",
+                CloseButtonText = "OK",
+                DefaultButton = ContentDialogButton.Close,
+                XamlRoot = this.XamlRoot
+            };
+
+            await confirmationDialog.ShowAsync();
         }
+
+        // Hulpfunctie om child controls in ListViewItem te vinden
+        private T FindChild<T>(DependencyObject parent, Func<T, bool> predicate) where T : DependencyObject
+        {
+            int count = VisualTreeHelper.GetChildrenCount(parent);
+            for (int i = 0; i < count; i++)
+            {
+                var child = VisualTreeHelper.GetChild(parent, i);
+                if (child is T typedChild && predicate(typedChild))
+                    return typedChild;
+
+                var result = FindChild(child, predicate);
+                if (result != null)
+                    return result;
+            }
+            return null;
+        }
+
     }
 }

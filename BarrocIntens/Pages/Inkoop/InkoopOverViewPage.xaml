@@ -83,91 +83,95 @@
                             CornerRadius="8"
                             Click="CreateOrder_Click"/>
                     </StackPanel>
-                    <ListView x:Name="BestellingenListView"
-          HorizontalContentAlignment="Stretch"
-          Height="320">
+                    <Border BorderBrush="#D0D0D0" BorderThickness="1" CornerRadius="8" Padding="2" Margin="0,0,0,0">
 
-                        <ListView.ItemTemplate>
-                            <DataTemplate x:DataType="localdata:Bestelling">
+                        <ListView x:Name="BestellingenListView"
+                              HorizontalContentAlignment="Stretch"
+                              Height="320">
 
-                                <Border BorderBrush="#CCC"
-                    BorderThickness="1"
-                    CornerRadius="10"
-                    Padding="15"
-                    Margin="8"
-                    Background="#FAFAFA">
+                            <ListView.ItemTemplate>
+                                <DataTemplate x:DataType="localdata:Bestelling">
 
-                                    <StackPanel Spacing="10">
+                                    <Border BorderBrush="#CCC"
+                                        BorderThickness="1"
+                                        CornerRadius="10"
+                                        Padding="15"
+                                        Margin="8"
+                                        Background="#FAFAFA">
 
-                                        <!-- Titel -->
-                                        <TextBlock FontWeight="Bold"
-                               FontSize="18"
-                               Foreground="#222">
-                        <Run Text="Order #" />
-                        <Run Text="{x:Bind Id}" />
-                                        </TextBlock>
+                                        <StackPanel Spacing="10">
 
-                                        <!-- Info in nette tabel vorm -->
-                                        <Grid ColumnSpacing="10" RowSpacing="4">
+                                            <!-- Titel -->
+                                            <TextBlock FontWeight="Bold"
+                                                   FontSize="18"
+                                                   Foreground="#222">
+                                            <Run Text="Bestelling #" />
+                                            <Run Text="{x:Bind Id}" />
+                                            </TextBlock>
 
-                                            <!-- 2 kolommen -->
-                                            <Grid.ColumnDefinitions>
-                                                <ColumnDefinition Width="160"/>
-                                                <ColumnDefinition Width="*"/>
-                                            </Grid.ColumnDefinitions>
+                                            <!-- Info in nette tabel vorm -->
+                                            <Grid ColumnSpacing="10" RowSpacing="4">
 
-                                            <!-- 9 rijen -->
-                                            <Grid.RowDefinitions>
-                                                <RowDefinition Height="Auto"/>
-                                                <RowDefinition Height="Auto"/>
-                                                <RowDefinition Height="Auto"/>
-                                                <RowDefinition Height="Auto"/>
-                                                <RowDefinition Height="Auto"/>
-                                                <RowDefinition Height="Auto"/>
-                                                <RowDefinition Height="Auto"/>
-                                                <RowDefinition Height="Auto"/>
-                                                <RowDefinition Height="Auto"/>
-                                            </Grid.RowDefinitions>
+                                                <!-- 2 kolommen -->
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="160"/>
+                                                    <ColumnDefinition Width="*"/>
+                                                </Grid.ColumnDefinitions>
 
-                                            <!-- Row 0 -->
-                                            <TextBlock Grid.Row="0" Grid.Column="0" Text="Date:" Foreground="#555"/>
-                                            <TextBlock Grid.Row="0" Grid.Column="1" Text="{x:Bind OrderDate}"/>
+                                                <!-- 9 rijen -->
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="Auto"/>
+                                                    <RowDefinition Height="Auto"/>
+                                                    <RowDefinition Height="Auto"/>
+                                                    <RowDefinition Height="Auto"/>
+                                                    <RowDefinition Height="Auto"/>
+                                                    <RowDefinition Height="Auto"/>
+                                                    <RowDefinition Height="Auto"/>
+                                                    <RowDefinition Height="Auto"/>
+                                                    <RowDefinition Height="Auto"/>
+                                                </Grid.RowDefinitions>
 
-                                            <!-- Row 1 -->
-                                            <TextBlock Grid.Row="1" Grid.Column="0" Text="Product:" Foreground="#555"/>
-                                            <TextBlock Grid.Row="1" Grid.Column="1" Text="{x:Bind Productname}"/>
+                                                <!-- Row 0 -->
+                                                <TextBlock Grid.Row="0" Grid.Column="0" Text="Date:" Foreground="#555"/>
+                                                <TextBlock Grid.Row="0" Grid.Column="1" Text="{x:Bind OrderDate}"/>
 
-                                            <!-- Row 2 -->
-                                            <TextBlock Grid.Row="2" Grid.Column="0" Text="Supplier:" Foreground="#555"/>
-                                            <TextBlock Grid.Row="2" Grid.Column="1" Text="{x:Bind Suppliername}"/>
+                                                <!-- Row 1 -->
+                                                <TextBlock Grid.Row="1" Grid.Column="0" Text="Product:" Foreground="#555"/>
+                                                <TextBlock Grid.Row="1" Grid.Column="1" Text="{x:Bind Productname}"/>
 
-                                            <!-- Row 3 -->
-                                            <TextBlock Grid.Row="3" Grid.Column="0" Text="Quantity:" Foreground="#555"/>
-                                            <TextBlock Grid.Row="3" Grid.Column="1" Text="{x:Bind OrderQuantity}"/>
+                                                <!-- Row 2 -->
+                                                <TextBlock Grid.Row="2" Grid.Column="0" Text="Supplier:" Foreground="#555"/>
+                                                <TextBlock Grid.Row="2" Grid.Column="1" Text="{x:Bind Suppliername}"/>
 
-                                            <!-- Row 4 -->
-                                            <TextBlock Grid.Row="4" Grid.Column="0" Text="Expected Delivery:" Foreground="#555"/>
-                                            <TextBlock Grid.Row="4" Grid.Column="1" Text="{x:Bind ExpectedDeliveryDate}"/>
+                                                <!-- Row 3 -->
+                                                <TextBlock Grid.Row="3" Grid.Column="0" Text="Quantity:" Foreground="#555"/>
+                                                <TextBlock Grid.Row="3" Grid.Column="1" Text="{x:Bind OrderQuantity}"/>
 
-                                            <!-- Row 7 -->
-                                            <TextBlock Grid.Row="7" Grid.Column="0" Text="Status:" Foreground="#555"/>
-                                            <TextBlock Grid.Row="7" Grid.Column="1" Text="{x:Bind Status}"/>
+                                                <!-- Row 4 -->
+                                                <TextBlock Grid.Row="4" Grid.Column="0" Text="Expected Delivery:" Foreground="#555"/>
+                                                <TextBlock Grid.Row="4" Grid.Column="1" Text="{x:Bind ExpectedDeliveryDate}"/>
 
-                                        </Grid>
-                                        <Button x:Name="GoedkeurenButton"
+                                                <!-- Row 7 -->
+                                                <TextBlock Grid.Row="7" Grid.Column="0" Text="Status:" Foreground="#555"/>
+                                                <TextBlock Grid.Row="7" Grid.Column="1" Text="{x:Bind Status}"/>
+
+                                            </Grid>
+                                            <Button x:Name="GoedkeurenButton"
                                                 Content="Goedkeuren"
                                                 Click="GoedkeurenButton_Click"
                                                 Background="#4CAF50"
                                                 Foreground="White"
                                                 Tag="{x:Bind Id}" />
-                                                
-                                         
-                                    </StackPanel>
-                                </Border>
 
-                            </DataTemplate>
-                        </ListView.ItemTemplate>
-                    </ListView>
+
+
+                                        </StackPanel>
+                                    </Border>
+
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                        </ListView>
+                    </Border>
 
 
                     <!-- Producten Sectie -->

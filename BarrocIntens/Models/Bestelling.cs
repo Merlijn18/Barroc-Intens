@@ -19,7 +19,11 @@ namespace BarrocIntens.Models
         public DateTime OrderDate { get; set; }
 
 
-        public DateTime? ExpectedDeliveryDate { get; set; }
+        public DateOnly? ExpectedDeliveryDate { get; set; }
+
+        public string ExpectedDeliveryDateFormatted => ExpectedDeliveryDate.HasValue
+            ? ExpectedDeliveryDate.Value.ToString("dd/MM/yyyy")
+            : "-";
 
 
         public decimal UnitPrice { get; set; }

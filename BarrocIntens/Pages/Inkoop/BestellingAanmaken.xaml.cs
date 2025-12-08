@@ -120,6 +120,7 @@ namespace BarrocIntens.Pages.Inkoop
                 Suppliername = SupplierNameTextBox.Text.Trim(),
                 OrderQuantity = quantity,
                 UnitPrice = unitPrice,
+                ExpectedDeliveryDate = DateOnly.FromDateTime(DateTime.Now.AddDays(7)),
                 Status = (StatusComboBox.SelectedItem as ComboBoxItem)?.Content.ToString(),
                 OrderDate = DateTime.Now,
             };
