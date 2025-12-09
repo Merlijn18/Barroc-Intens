@@ -25,8 +25,6 @@
     <None Remove="Pages\Maintenance\MaintenanceMachinesPage.xaml" />
     <None Remove="Pages\Maintenance\MaintenanceOverviewPage.xaml" />
     <None Remove="Pages\Maintenance\MaintenanceReportPage.xaml" />
-    <None Remove="Pages\Sales\OfferDetailsPage.xaml" />
-    <None Remove="Pages\Sales\OfferEditPage.xaml" />
     <None Remove="Pages\Sales\SalesOverViewPage.xaml" />
   </ItemGroup>
 
@@ -80,7 +78,6 @@
   </ItemGroup>
   <ItemGroup>
     <Page Update="Pages\Maintenance\MaintenanceCalendarPage.xaml">
-    <Page Update="Pages\Sales\OfferEditPage.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
@@ -116,11 +113,6 @@
   </ItemGroup>
   <ItemGroup>
     <Page Update="Pages\Inkoop\InkoopOverViewPage.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-  </ItemGroup>
-  <ItemGroup>
-    <Page Update="Pages\Sales\OfferDetailsPage.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
