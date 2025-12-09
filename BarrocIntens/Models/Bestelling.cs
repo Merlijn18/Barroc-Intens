@@ -12,8 +12,13 @@ namespace BarrocIntens.Models
        
         public int OrderId { get; set; }
         public string Productname { get ; set; }
+
+        public decimal UnitPrice { get; set; }
         public string CoffeeBeans { get; set; }
         public decimal AantalKilo { get; set; }
+        public decimal PrijsPerKilo { get; set; }
+
+
         public string Suppliername { get ; set; }
         public int OrderQuantity { get; set; }
 
@@ -28,7 +33,6 @@ namespace BarrocIntens.Models
             : "-";
 
 
-        public decimal UnitPrice { get; set; }
 
 
         public decimal TotalPrice => OrderQuantity * UnitPrice;

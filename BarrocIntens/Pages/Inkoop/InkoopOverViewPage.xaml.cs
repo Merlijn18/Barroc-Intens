@@ -85,7 +85,7 @@ namespace BarrocIntens.Pages.Inkoop
         // --------------------
         // PRODUCTEN HELPERS
         // --------------------
-        private void ShowProducts_Click(object sender, RoutedEventArgs e)
+        private void ShowMaterials_Click(object sender, RoutedEventArgs e)
         {
             using var db = new AppDbContext();
             var lowStockProducts = db.Products
@@ -105,15 +105,15 @@ namespace BarrocIntens.Pages.Inkoop
             }
 
             ProductListView.Visibility = Visibility.Visible;
-            HideProductsButton.Visibility = Visibility.Visible;
-            ShowProductsButton.Visibility = Visibility.Collapsed;
+            HideMaterialsButton.Visibility = Visibility.Visible;
+            ShowMaterialsButton.Visibility = Visibility.Collapsed;
         }
 
-        private void HideProductsButton_Click(object sender, RoutedEventArgs e)
+        private void HideMaterialsButton_Click(object sender, RoutedEventArgs e)
         {
             ProductListView.Visibility = Visibility.Collapsed;
-            HideProductsButton.Visibility = Visibility.Collapsed;
-            ShowProductsButton.Visibility = Visibility.Visible;
+            HideMaterialsButton.Visibility = Visibility.Collapsed;
+            ShowMaterialsButton.Visibility = Visibility.Visible;
             LowStockWarning.Visibility = Visibility.Collapsed;
         }
 
@@ -201,5 +201,14 @@ namespace BarrocIntens.Pages.Inkoop
             return null;
         }
 
+        private void ShowMachinesButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void ShowCoffeeBeansButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

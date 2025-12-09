@@ -55,6 +55,9 @@
         <ScrollViewer Grid.Row="1">
             <StackPanel x:Name="OrderFormPanel" Visibility="Visible" Spacing="8" Padding="20" Background="White" Margin="30" CornerRadius="10">
 
+                <TextBlock Text="Naam van besteller:" />
+                <TextBox x:Name="SupplierNameTextBox" PlaceholderText="Enter supplier name" />
+
                 <TextBlock Text="Product Naam" />
 
                 <!-- ✔️ EVENT TOEGEVOEGD -->
@@ -68,6 +71,18 @@
                     <ComboBoxItem Content="Barroc Intens Italian Deluxe Special" />
                 </ComboBox>
 
+
+
+                <StackPanel x:Name="ProductPrijsPanel" Visibility="Collapsed">
+                    <TextBlock Text="Product prijs:" />
+                    <TextBox x:Name="UnitPriceTextBox" PlaceholderText="Enter unit price" InputScope="Number" />
+                </StackPanel>
+                
+                <TextBlock Text="Aantal:" />
+                <TextBox x:Name="QuantityTextBox" PlaceholderText="Enter quantity" InputScope="Number" />
+
+
+                
                 <TextBlock Text="Koffieboon"></TextBlock> 
                 <ComboBox x:Name="CoffeeBeansComboBox" 
                           PlaceholderText="Selecteer een koffieboon"
@@ -79,22 +94,17 @@
                     <ComboBoxItem Content="Red Honey Honduras"/>
                 </ComboBox>
 
+                <StackPanel x:Name="PrijsPanel" Visibility="Collapsed">
+                    <TextBlock Text="Prijs per kilo:"/>
+                    <TextBlock x:Name="PrijsPerKiloTextBlock"/>
+                </StackPanel>
+                
                 <StackPanel x:Name="AantalKiloPanel" Visibility="Collapsed">
                     <TextBlock Text="Aantal kilogram:"/>
                     <TextBox x:Name="AantalKiloTextBox" InputScope="Number"/>
                 </StackPanel>
 
-                <TextBlock Text="Naam van besteller:" />
-                <TextBox x:Name="SupplierNameTextBox" PlaceholderText="Enter supplier name" />
-
-                <TextBlock Text="Aantal:" />
-                <TextBox x:Name="QuantityTextBox" PlaceholderText="Enter quantity" InputScope="Number" />
                 
-                <StackPanel x:Name="ProductPrijsPanel" Visibility="Collapsed">
-                    <TextBlock Text="Product prijs:" />
-                    <TextBox x:Name="UnitPriceTextBox" PlaceholderText="Enter unit price" InputScope="Number" />
-                </StackPanel>
-               
 
                 <TextBlock Text="Status" />
                 <ComboBox x:Name="StatusComboBox">

@@ -19,6 +19,14 @@ namespace BarrocIntens.Pages.Inkoop
             { "Barroc Intens Italian Deluxe Special", 1999.00m }
         };
 
+        private Dictionary<string, double> CoffeePrices = new Dictionary<string, double>()
+        {
+            { "Espresso Beneficio", 18.50 },
+            { "Yellow Bourbon Brasil", 20.00 },
+            { "Espresso Roma", 19.00 },
+            { "Red Honey Honduras", 21.25 }
+        };
+
         public BestellingAanmaken()
         {
             InitializeComponent();
@@ -79,18 +87,34 @@ namespace BarrocIntens.Pages.Inkoop
         // ✔️ Als iemand koffiebonen kiest, kan je hier later logica toevoegen
         private void CoffeeBeansComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            string selectedCoffeebean =
-                (CoffeeBeansComboBox.SelectedItem as ComboBoxItem)?.Content.ToString();
+            string selectedCoffeebean = (CoffeeBeansComboBox.SelectedItem as ComboBoxItem)?.Content.ToString();
 
             if (string.IsNullOrEmpty(selectedCoffeebean) || selectedCoffeebean == "Geen")
             {
+                // Verberg AantalKiloPanel en wis tekst
                 AantalKiloPanel.Visibility = Visibility.Collapsed;
-                AantalKiloTextBox.Text = ""; // optioneel leegmaken
+                AantalKiloTextBox.Text = "";
+
+                // Verberg PrijsPanel en wis prijs
+                PrijsPanel.Visibility = Visibility.Collapsed;
+                PrijsPerKiloTextBlock.Text = "";
             }
             else
             {
-                // Anders, toon het panel (TextBlock + TextBox)
+                // Toon AantalKiloPanel
                 AantalKiloPanel.Visibility = Visibility.Visible;
+
+                // Toon PrijsPanel en vul prijs
+                PrijsPanel.Visibility = Visibility.Visible;
+
+                if (CoffeePrices.ContainsKey(selectedCoffeebean))
+                {
+                    PrijsPerKiloTextBlock.Text = CoffeePrices[selectedCoffeebean].ToString("0.00") + " €";
+                }
+                else
+                {
+                    PrijsPerKiloTextBlock.Text = "0.00 €";
+                }
             }
         }
 
