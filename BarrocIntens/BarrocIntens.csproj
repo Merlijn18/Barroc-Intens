@@ -24,6 +24,7 @@
     <None Remove="Pages\Inkoop\InkoopOverViewPage.xaml" />
     <None Remove="Pages\Inlog\InlogOverViewPage.xaml" />
     <None Remove="Pages\Sales\OfferDetailsPage.xaml" />
+    <None Remove="Pages\Sales\OfferEditPage.xaml" />
     <None Remove="Pages\Sales\SalesOverViewPage.xaml" />
   </ItemGroup>
 

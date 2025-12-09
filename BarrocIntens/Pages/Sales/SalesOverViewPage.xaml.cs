@@ -38,7 +38,7 @@ namespace BarrocIntens.Pages.Sales
 
         public object ConvertBack(object value, Type targetType, object parameter, string language)
         {
-            throw new NotImplementedException();
+            return null;
         }
     }
     public sealed partial class SalesOverViewPage : Page
@@ -85,11 +85,58 @@ namespace BarrocIntens.Pages.Sales
         {
             Frame.Navigate(typeof(Inlog.InlogOverViewPage));
         }
-
-        private void CreateOffer_Click(object sender, RoutedEventArgs e)
+        private async void CreateOffer_Click(object sender, RoutedEventArgs e)
         {
-            // Frame.Navigate(typeof(NewOfferPage));
+            using (var db = new AppDbContext())
+            {
+                // 1. Nieuwe klant aanmaken met verplichte velden
+                var newCustomer = new Customer
+                {
+                    Name = "Nieuwe klant",
+                    Street = "Onbekend",
+                    PostalCode = "0000",
+                    City = "Onbekend"
+                };
+
+                db.Customers.Add(newCustomer);
+                await db.SaveChangesAsync();
+
+                // 2. Nieuwe offerte aanmaken met verplichte velden
+                var newOffer = new Offer
+                {
+                    OfferNumber = GenerateOfferNumber(),
+                    ContractNumber = GenerateContractNumber(),
+                    CustomerNumber = GenerateCustomerNumber(),
+                    Status = OfferStatus.Concept,
+                    Date = DateTime.Now,
+                    CustomerId = newCustomer.Id,
+                    Items = new List<OfferItem>() // lege lijst van producten
+                };
+
+                db.Offers.Add(newOffer);
+                await db.SaveChangesAsync();
+
+                // 3. Voeg toe aan ObservableCollection zodat het direct in de UI verschijnt
+                Offers.Add(newOffer);
+
+                // 4. Navigeer direct naar detailpagina voor bewerken
+                Frame.Navigate(typeof(OfferDetailsPage), newOffer);
+            }
         }
+
+        private string GenerateOfferNumber() => $"OFF-{DateTime.Now:yyyyMMddHHmmss}";
+        private string GenerateContractNumber() => $"CN-{DateTime.Now:yyyyMMddHHmmss}";
+        private string GenerateCustomerNumber() => $"CUST-{DateTime.Now:yyyyMMddHHmmss}";
+
+        private void EditOffer_Click(object sender, RoutedEventArgs e)
+        {
+            if (sender is Button btn && btn.Tag is Offer offer)
+            {
+                // Navigeer naar de edit page en geef de aangeklikte offerte door
+                Frame.Navigate(typeof(OfferEditPage), offer.Id);
+            }
+        }
+
 
         private async void FilterConcept_Click(object sender, RoutedEventArgs e)
         {
@@ -137,15 +184,6 @@ namespace BarrocIntens.Pages.Sales
                 }
             }
         }
-
-        private void EditOffer_Click(object sender, RoutedEventArgs e)
-        {
-            //if (sender is Button button && button.Tag is Offer selectedOffer)
-            //{
-            //    Frame.Navigate(typeof(OfferDetailsPage), selectedOffer);
-            //}
-        }
-
         private void OfferListView_ItemClick(object sender, ItemClickEventArgs e)
         {
             if (e.ClickedItem is Offer selectedOffer)
