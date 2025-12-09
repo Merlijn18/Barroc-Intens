@@ -82,81 +82,203 @@
                             FontSize="15"
                             CornerRadius="8"
                             Click="CreateOrder_Click"/>
+
+                        <Button x:Name="LeverancierBeheer"
+                                 Content="Leverancierbeheer"
+                                 Width="160"
+                                 Height="40"
+                                 Background="#2196F3"
+                                 Foreground="White"
+                                 FontWeight="SemiBold"
+                                 Click="LeverancierBeheer_Click"/>
+                        
                     </StackPanel>
+                    <Border BorderBrush="#D0D0D0" BorderThickness="1" CornerRadius="8" Padding="2" Margin="0,0,0,0">
 
-                    <!-- Bestellingen Titel -->
-                    <TextBlock Text="Bestellingen Overzicht" FontSize="24" FontWeight="Bold" Margin="0,0,0,10"/>
-
-                    <!-- Bestellingen Lijst -->
-                    <ListView x:Name="BestellingenListView"
-                          HorizontalContentAlignment="Stretch"
-                          Height="320">
-                        <ListView.ItemTemplate>
-                            <DataTemplate x:DataType="localdata:Bestelling">
-                                <Border BorderBrush="#CCC" BorderThickness="1" CornerRadius="10" Padding="15" Margin="5" Background="#FAFAFA">
-                                    <StackPanel Spacing="5">
-                                        <TextBlock FontWeight="Bold" FontSize="16" Foreground="#333">
-                                        <Run Text="Order #" /><Run Text="{x:Bind OrderId}" />
-                                        </TextBlock>
-                                        <StackPanel Spacing="2">
-                                            <TextBlock><Run Text="Date: " /><Run Text="{x:Bind OrderDate}" /></TextBlock>
-                                            <TextBlock><Run Text="Product: " /><Run Text="{x:Bind Productname}" /></TextBlock>
-                                            <TextBlock><Run Text="Supplier: " /><Run Text="{x:Bind Suppliername}" /></TextBlock>
-                                            <TextBlock><Run Text="Quantity: " /><Run Text="{x:Bind OrderQuantity}" /></TextBlock>
-                                            <TextBlock><Run Text="Expected Delivery: " /><Run Text="{x:Bind ExpectedDeliveryDate}" /></TextBlock>
-                                            <TextBlock><Run Text="Unit Price: " /><Run Text="{x:Bind UnitPrice}" /></TextBlock>
-                                            <TextBlock><Run Text="Total Price: " /><Run Text="{x:Bind TotalPrice}" /></TextBlock>
-                                            <TextBlock><Run Text="Status: " /><Run Text="{x:Bind Status}" /></TextBlock>
-                                            <TextBlock><Run Text="Notes: " /><Run Text="{x:Bind Remark}" /></TextBlock>
-                                        </StackPanel>
-                                    </StackPanel>
-                                </Border>
-                            </DataTemplate>
-                        </ListView.ItemTemplate>
-                    </ListView>
-
-                    <!-- Producten Sectie -->
-                    <StackPanel Spacing="15">
-                        <StackPanel Orientation="Horizontal" Spacing="10">
-                            <Button x:Name="ShowProductsButton"
-                                Content="Toon producten"
-                                Width="160"
-                                Height="40"
-                                Background="#2196F3"
-                                Foreground="White"
-                                FontWeight="SemiBold"
-                                Click="ShowProducts_Click"/>
-                            <Button x:Name="HideProductsButton"
-                                Content="Verberg producten"
-                                Width="160"
-                                Height="40"
-                                Background="#F44336"
-                                Foreground="White"
-                                FontWeight="SemiBold"
-                                Visibility="Collapsed"
-                                Click="HideProductsButton_Click"/>
-                        </StackPanel>
-
-                        <ListView x:Name="ProductListView" Visibility="Collapsed">
-                            <ListView.ItemsPanel>
-                                <ItemsPanelTemplate>
-                                    <ItemsWrapGrid Orientation="Horizontal" MaximumRowsOrColumns="4" HorizontalAlignment="Stretch"/>
-                                </ItemsPanelTemplate>
-                            </ListView.ItemsPanel>
+                        <ListView x:Name="BestellingenListView"
+                              HorizontalContentAlignment="Stretch"
+                              Height="320">
 
                             <ListView.ItemTemplate>
-                                <DataTemplate x:DataType="localdata:Product">
-                                    <Border BorderBrush="#CCC" BorderThickness="1" CornerRadius="10" Padding="15" Margin="10" Background="White" Width="260">
-                                        <StackPanel Spacing="6">
-                                            <TextBlock Text="{x:Bind Productname}" FontWeight="Bold" FontSize="15" Foreground="#333"/>
-                                            <TextBlock><Run Text="Prijs: €" /><Run Text="{x:Bind Price}" /></TextBlock>
-                                            <TextBlock><Run Text="Voorraad: " /><Run Text="{x:Bind Stock}" /></TextBlock>
+                                <DataTemplate x:DataType="localdata:Bestelling">
+
+                                    <Border BorderBrush="#CCC"
+                                        BorderThickness="1"
+                                        CornerRadius="10"
+                                        Padding="15"
+                                        Margin="8"
+                                        Background="#FAFAFA">
+
+                                        <StackPanel Spacing="10">
+
+                                            <!-- Titel -->
+                                            <TextBlock FontWeight="Bold"
+                                                   FontSize="18"
+                                                   Foreground="#222">
+                                            <Run Text="Bestelling #" />
+                                            <Run Text="{x:Bind Id}" />
+                                            </TextBlock>
+
+                                            <!-- Info in nette tabel vorm -->
+                                            <Grid ColumnSpacing="10" RowSpacing="4">
+
+                                                <!-- 2 kolommen -->
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="160"/>
+                                                    <ColumnDefinition Width="*"/>
+                                                </Grid.ColumnDefinitions>
+
+                                                <!-- 9 rijen -->
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="Auto"/>
+                                                    <RowDefinition Height="Auto"/>
+                                                    <RowDefinition Height="Auto"/>
+                                                    <RowDefinition Height="Auto"/>
+                                                    <RowDefinition Height="Auto"/>
+                                                    <RowDefinition Height="Auto"/>
+                                                    <RowDefinition Height="Auto"/>
+                                                    <RowDefinition Height="Auto"/>
+                                                    <RowDefinition Height="Auto"/>
+                                                </Grid.RowDefinitions>
+
+                                                <!-- Row 0 -->
+                                                <TextBlock Grid.Row="0" Grid.Column="0" Text="Date:" Foreground="#555"/>
+                                                <TextBlock Grid.Row="0" Grid.Column="1" Text="{x:Bind OrderDate}"/>
+
+                                                <!-- Row 1 -->
+                                                <TextBlock Grid.Row="1" Grid.Column="0" Text="Product:" Foreground="#555"/>
+                                                <TextBlock Grid.Row="1" Grid.Column="1" Text="{x:Bind Productname}"/>
+
+                                                <!-- Row 2 -->
+                                                <TextBlock Grid.Row="2" Grid.Column="0" Text="Koffieboon:" Foreground="#555"/>
+                                                <TextBlock Grid.Row="2" Grid.Column="1">
+                                                    <Run Text="{x:Bind CoffeeBeans}" />
+                                                    <Run Text=" " />
+                                                    <Run Text="{x:Bind AantalKilo}" />
+                                                    <Run Text=" kg" />
+                                                </TextBlock>
+                                                <!-- Row 2 -->
+                                                <TextBlock Grid.Row="2" Grid.Column="0" Text="Supplier:" Foreground="#555"/>
+                                                <TextBlock Grid.Row="2" Grid.Column="1" Text="{x:Bind Suppliername}"/>
+
+                                                <!-- Row 3 -->
+                                                <TextBlock Grid.Row="3" Grid.Column="0" Text="Quantity:" Foreground="#555"/>
+                                                <TextBlock Grid.Row="3" Grid.Column="1" Text="{x:Bind OrderQuantity}"/>
+
+                                                <!-- Row 4 -->
+                                                <TextBlock Grid.Row="4" Grid.Column="0" Text="Expected Delivery:" Foreground="#555"/>
+                                                <TextBlock Grid.Row="4" Grid.Column="1" Text="{x:Bind ExpectedDeliveryDate}"/>
+
+                                                <!-- Row 7 -->
+                                                <TextBlock Grid.Row="7" Grid.Column="0" Text="Status:" Foreground="#555"/>
+                                                <TextBlock Grid.Row="7" Grid.Column="1" Text="{x:Bind Status}"/>
+
+                                            </Grid>
+                                            <Button x:Name="GoedkeurenButton"
+                                                Content="Goedkeuren"
+                                                Click="GoedkeurenButton_Click"
+                                                Background="#4CAF50"
+                                                Foreground="White"
+                                                Tag="{x:Bind Id}" />
+
+
+
                                         </StackPanel>
                                     </Border>
+
                                 </DataTemplate>
                             </ListView.ItemTemplate>
                         </ListView>
-                    </StackPanel>
+                    </Border>
+
+
+                    <!-- Producten Sectie -->
+                    <Grid Grid.Row="1" Margin="0,20,0,0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <!-- Producten -->
+                            <ColumnDefinition Width="*"/>
+                            <!-- Machines -->
+                            <ColumnDefinition Width="*"/>
+                            <!-- Koffiebonen -->
+                        </Grid.ColumnDefinitions>
+
+                        <!-- Producten -->
+                        <StackPanel Grid.Column="0" Spacing="15">
+                            <StackPanel Orientation="Horizontal" Spacing="10" HorizontalAlignment="Right">
+                                <Button x:Name="ShowMaterialsButton" HorizontalAlignment="Left"
+                                        Content="Materialenlijst"
+                                        Width="160"
+                                        Height="40"
+                                        Background="#2196F3"
+                                        Foreground="White"
+                                        FontWeight="SemiBold"
+                                        Click="ShowMaterials_Click"/>
+                                <Button x:Name="HideMaterialsButton" HorizontalAlignment="Left"
+                                        Content="Verberg materialen"
+                                        Width="160"
+                                        Height="40"
+                                        Background="#F44336"
+                                        Foreground="White"
+                                        FontWeight="SemiBold"
+                                        Visibility="Collapsed"
+                                        Click="HideMaterialsButton_Click"/>
+                            </StackPanel>
+
+                            <TextBlock x:Name="LowStockWarning" HorizontalAlignment="Left"
+                                       Text=""
+                                       Foreground="Red"
+                                       FontWeight="Bold"
+                                       Margin="10,0,0,10"
+                                       Visibility="Collapsed"/>
+
+                            <ListView x:Name="ProductListView" Visibility="Collapsed">
+                                <ListView.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <ItemsWrapGrid Orientation="Horizontal" MaximumRowsOrColumns="4" HorizontalAlignment="Stretch"/>
+                                    </ItemsPanelTemplate>
+                                </ListView.ItemsPanel>
+
+                                <ListView.ItemTemplate>
+                                    <DataTemplate x:DataType="localdata:Product">
+                                        <Border BorderBrush="#CCC" BorderThickness="1" CornerRadius="10" Padding="15" Margin="10" Background="White" Width="260">
+                                            <StackPanel Spacing="6">
+                                                <TextBlock Text="{x:Bind Productname}" FontWeight="Bold" FontSize="15" Foreground="#333"/>
+                                                <TextBlock><Run Text="Prijs: €" /><Run Text="{x:Bind Price}" /></TextBlock>
+                                                <TextBlock><Run Text="Voorraad: " /><Run Text="{x:Bind Stock}" /></TextBlock>
+                                            </StackPanel>
+                                        </Border>
+                                    </DataTemplate>
+                                </ListView.ItemTemplate>
+                            </ListView>
+                        </StackPanel>
+
+                        <!-- Machines Sectie -->
+                        <Button x:Name="ShowMachinesButton"
+                                Grid.Column="1"
+                                Content="Machines"
+                                Margin="50,0,0,0" 
+                                Width="160"
+                                Height="40"
+                                Background="#FF9800"
+                                Foreground="White"
+                                FontWeight="SemiBold"
+                                HorizontalAlignment="Center"
+                                Click="ShowMachinesButton_Click"/>
+
+                        <Button x:Name="ShowCoffeeBeansButton"
+                                Grid.Column="2"
+                                Content="Koffiebonen"
+                                Width="160"
+                                Height="40"
+                                Background="#4CAF50"
+                                Foreground="White"
+                                FontWeight="SemiBold"
+                                HorizontalAlignment="Right"
+                                Click="ShowCoffeeBeansButton_Click"/>
+                    </Grid>
+                    <!-- einde producten sectie-->
+                    
                 </StackPanel>
             </ScrollViewer>
         </Border>

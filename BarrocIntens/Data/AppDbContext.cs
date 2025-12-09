@@ -13,6 +13,8 @@ namespace BarrocIntens.Data
         public DbSet<User> Users { get; set; }
         public DbSet<Product> Products { get; set; }
         public DbSet<Bestelling> Bestellingen { get; set; }
+
+        public DbSet<Leverancier> Leveranciers { get; set; }
         
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -105,39 +107,26 @@ namespace BarrocIntens.Data
 
             modelBuilder.Entity<Product>().HasData(
                  new Product { Id = 1, Productname = "Rubber (10 mm)", Price = 0.39f, Stock = 10, OrderQuantity = 0 },
-                 new Product { Id = 2, Productname = "Rubber (14 mm)", Price = 0.45f, Stock = 10, OrderQuantity = 0 },
+                 new Product { Id = 2, Productname = "Rubber (14 mm)", Price = 0.45f, Stock = 2, OrderQuantity = 0 },
 
                  new Product { Id = 3, Productname = "Slang", Price = 4.45f, Stock = 10, OrderQuantity = 0 },
-                 new Product { Id = 4, Productname = "Voeding (elektra)", Price = 68.69f, Stock = 10, OrderQuantity = 0 },
-                 new Product { Id = 5, Productname = "Ontkalker", Price = 4.00f, Stock = 10, OrderQuantity = 0 },
+                 new Product { Id = 4, Productname = "Voeding (elektra)", Price = 68.69f, Stock = 4, OrderQuantity = 0 },
+                 new Product { Id = 5, Productname = "Ontkalker", Price = 4.00f, Stock = 1, OrderQuantity = 0 },
                  new Product { Id = 6, Productname = "Waterfilter", Price = 299.45f, Stock = 10, OrderQuantity = 0 },
                  new Product { Id = 7, Productname = "Reservoir sensor", Price = 89.99f, Stock = 10, OrderQuantity = 0 },
                  new Product { Id = 8, Productname = "Druppelstop", Price = 122.43f, Stock = 10, OrderQuantity = 0 },
                  new Product { Id = 9, Productname = "Electrische pomp", Price = 478.59f, Stock = 10, OrderQuantity = 0 },
                  new Product { Id = 10, Productname = "Tandwiel 110mm", Price = 5.45f, Stock = 10, OrderQuantity = 0 },
                  new Product { Id = 11, Productname = "Tandwiel 70mm", Price = 5.25f, Stock = 10, OrderQuantity = 0 },
-                 new Product { Id = 12, Productname = "Maalmotor", Price = 119.20f, Stock = 10, OrderQuantity = 0 },
+                 new Product { Id = 12, Productname = "Maalmotor", Price = 119.20f, Stock = 0, OrderQuantity = 0 },
                  new Product { Id = 13, Productname = "Zeef", Price = 28.80f, Stock = 10, OrderQuantity = 0 },
                  new Product { Id = 14, Productname = "Reinigingstabletten", Price = 3.45f, Stock = 10, OrderQuantity = 0 },
                  new Product { Id = 15, Productname = "Reinigingsborsteltjes", Price = 8.45f, Stock = 10, OrderQuantity = 0 },
-                 new Product { Id = 16, Productname = "Ontkalkingspijp", Price = 21.70f, Stock = 10, OrderQuantity = 0 }
+                 new Product { Id = 16, Productname = "Ontkalkingspijp", Price = 21.70f, Stock = 1, OrderQuantity = 0 }
              );
-            modelBuilder.Entity<Bestelling>().HasData(
-                new Bestelling
-                {
-                    Id = 1,
-                    OrderId = 1001,
-                    Productname = "Sample Product",
-                    Suppliername = "Sample Supplier",
-                    OrderQuantity = 1,
-                    OrderDate = DateTime.Now.AddDays(-10),
-                    ExpectedDeliveryDate = null,
-                    UnitPrice = 0,
-                    Status = true ? "Approved" : "Requested",
-                    Remark = "Customer: Jan Jansen, Email: jan.jansen@example.com, Phone: 0612345678"
-                }
-            );
-               
+            
+
+          
 
         }
 

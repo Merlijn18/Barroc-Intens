@@ -12,6 +12,13 @@ namespace BarrocIntens.Models
        
         public int OrderId { get; set; }
         public string Productname { get ; set; }
+
+        public decimal UnitPrice { get; set; }
+        public string CoffeeBeans { get; set; }
+        public decimal AantalKilo { get; set; }
+        public decimal PrijsPerKilo { get; set; }
+
+
         public string Suppliername { get ; set; }
         public int OrderQuantity { get; set; }
 
@@ -19,10 +26,13 @@ namespace BarrocIntens.Models
         public DateTime OrderDate { get; set; }
 
 
-        public DateTime? ExpectedDeliveryDate { get; set; }
+        public DateOnly? ExpectedDeliveryDate { get; set; }
+
+        public string ExpectedDeliveryDateFormatted => ExpectedDeliveryDate.HasValue
+            ? ExpectedDeliveryDate.Value.ToString("dd/MM/yyyy")
+            : "-";
 
 
-        public decimal UnitPrice { get; set; }
 
 
         public decimal TotalPrice => OrderQuantity * UnitPrice;
@@ -31,7 +41,7 @@ namespace BarrocIntens.Models
         public string Status { get; set; }
 
 
-        public string Remark { get; set; }
+      
 
     }
 }
