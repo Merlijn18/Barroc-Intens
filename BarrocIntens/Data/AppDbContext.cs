@@ -13,7 +13,7 @@ namespace BarrocIntens.Data
         public DbSet<User> Users { get; set; }
         public DbSet<Product> Products { get; set; }
         public DbSet<Offer> Offers { get; set; }
-        public DbSet<Customer> customers { get; set; }
+        public DbSet<Customer> Customers { get; set; }
         public DbSet<Machine> Machines { get; set; }
         public DbSet<CoffeeBean> CoffeeBeans { get; set; }
         public DbSet<OfferItem> OfferItems { get; set; }

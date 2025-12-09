@@ -28,5 +28,7 @@ namespace BarrocIntens.Models
         public double Total => Items.Sum(i => i.Subtotal);
         public double VAT => Total * 0.21;
         public double TotalwithVAT => Total + VAT;
+
+
     }
 }
