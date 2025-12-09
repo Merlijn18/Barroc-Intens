@@ -1,285 +1,122 @@
-<?xml version="1.0" encoding="utf-8"?>
 <Page
     x:Class="BarrocIntens.Pages.Maintenance.MaintenanceOverviewPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:BarrocIntens.Pages.Maintenance"
-    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d">
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
-    <Grid>
+    <Page.Resources>
+
+        <!-- kleuren -->
+        <SolidColorBrush x:Key="BI_Yellow" Color="#FDD716" />
+        <SolidColorBrush x:Key="BI_Dark" Color="#222" />
+        <SolidColorBrush x:Key="BI_DarkBorder" Color="#FDD716" />
+
+        <!-- TILE BUTTON -->
+        <Style x:Key="TileButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="{StaticResource BI_Dark}"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="CornerRadius" Value="20"/>
+            <Setter Property="FontSize" Value="24"/>
+            <Setter Property="HorizontalAlignment" Value="Stretch"/>
+            <Setter Property="VerticalAlignment" Value="Stretch"/>
+            <Setter Property="Padding" Value="40"/>
+            <Setter Property="Margin" Value="20"/>
+            <Setter Property="BorderBrush" Value="{StaticResource BI_DarkBorder}"/>
+            <Setter Property="BorderThickness" Value="2"/>
+        </Style>
+
+        <!-- YELLOW BUTTON -->
+        <Style x:Key="YellowButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="#FDD716"/>
+            <Setter Property="Foreground" Value="Black"/>
+            <Setter Property="CornerRadius" Value="8"/>
+            <Setter Property="Padding" Value="10,6"/>
+            <Setter Property="BorderThickness" Value="0"/>
+        </Style>
+
+        <!-- WHITE OUTLINE -->
+        <Style x:Key="OutlineButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="Black"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="CornerRadius" Value="8"/>
+            <Setter Property="Padding" Value="10,6"/>
+            <Setter Property="BorderBrush" Value="White"/>
+            <Setter Property="BorderThickness" Value="1"/>
+        </Style>
+
+    </Page.Resources>
+
+    <Grid Background="Black">
+
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
         <!-- HEADER -->
-        <Grid Grid.Row="0" Background="Black" Height="100">
+        <Grid Grid.Row="0"
+              Background="Black"
+              Height="90"
+              Padding="40,0,40,0">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition/>
+                <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
 
-            <!-- Titel -->
-            <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="30,0,0,0" Spacing="20">
-                <TextBlock Text="Monteur Overzicht"
-                           Foreground="#FDD716"
-                           FontSize="40"
-                           FontFamily="Segoe UI"
-                           FontWeight="Bold"
-                           VerticalAlignment="Center" />
-            </StackPanel>
+            <TextBlock Text="Maintenance"
+                       Foreground="#FDD716"
+                       FontSize="36"
+                       FontWeight="Bold"
+                       VerticalAlignment="Center"/>
 
-            <!-- Header knoppen -->
-            <StackPanel Orientation="Horizontal"
-                        Grid.Column="1"
+            <StackPanel Grid.Column="1"
+                        Orientation="Horizontal"
                         VerticalAlignment="Center"
-                        Margin="0,0,20,0"
-                        Spacing="10">
+                        Spacing="12">
 
-                <!-- PLANNING knop -->
-                <Button x:Name="PlanningButton"
-                        Content="Planning >"
-                        Click="Planning_Click"
-                        Background="#FDD716"
-                        Foreground="Black"
-                        FontSize="16"
-                        FontWeight="Bold"
-                        Padding="12,6"
-                        CornerRadius="6"
-                        BorderThickness="0"/>
-
-                <!-- TERUG knop -->
-                <Button x:Name="Back"
-                        Content="Terug"
+                <Button Content="Terug"
                         Click="Back_Click"
-                        Background="Black"
-                        Foreground="White"
-                        FontSize="16"
-                        FontWeight="SemiBold"
-                        BorderBrush="White"
-                        BorderThickness="1"
-                        Padding="12,6"/>
+                        Style="{StaticResource OutlineButtonStyle}"/>
 
-                <!-- UITLOG knop -->
-                <Button x:Name="Logout"
-                        Content="Uitloggen"
+                <Button Content="Uitloggen"
                         Click="Logout_Click"
-                        Background="#FDD716"
-                        Foreground="Black"
-                        FontSize="16"
-                        FontWeight="Bold"
-                        Padding="12,6"
-                        CornerRadius="6"
-                        BorderThickness="0"/>
+                        Style="{StaticResource YellowButtonStyle}"/>
             </StackPanel>
         </Grid>
 
-        <!-- CONTENT -->
-        <ScrollViewer Grid.Row="1" Background="#FFFDFDFD">
-            <StackPanel Margin="40" Spacing="30">
 
-                <!-- EERSTVOLGENDE TAAK -->
-                <Border Background="#FDD716"
-                        Padding="20"
-                        CornerRadius="10">
-                    <StackPanel>
-                        <TextBlock Text="Eerstvolgende Taak"
-                                   FontSize="24"
-                                   FontFamily="Segoe UI Black"
-                                   Foreground="Black"
-                                   Margin="0,0,0,10" />
+        <!-- TILES -->
+        <Grid Grid.Row="1" Margin="50">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
 
-                        <TextBlock Text="{Binding NextTask.TaskName}"
-                                   FontSize="18"
-                                   FontWeight="Bold"
-                                   Foreground="Black" />
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
 
-                        <TextBlock Text="{Binding NextTask.DueDate}"
-                                   FontSize="16"
-                                   Foreground="Black"
-                                   Margin="0,5,0,0" />
+            <Button Grid.Row="0" Grid.Column="0"
+                    Content="Kalender"
+                    Click="Calendar_Click"
+                    Style="{StaticResource TileButtonStyle}"/>
 
-                        <TextBlock Text="{Binding NextTask.Description}"
-                                   FontSize="15"
-                                   Foreground="Black"
-                                   Margin="0,10,0,0" />
-                    </StackPanel>
-                </Border>
+            <Button Grid.Row="0" Grid.Column="1"
+                    Content="Machines"
+                    Click="Machines_Click"
+                    Style="{StaticResource TileButtonStyle}"/>
 
-                <!-- TWEE KOLOMMEN -->
-                <Grid ColumnSpacing="30">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
+            <Button Grid.Row="1" Grid.Column="0"
+                    Content="Storingen"
+                    Click="Reports_Click"
+                    Style="{StaticResource TileButtonStyle}"/>
 
-                    <!-- LINKER KOLOM -->
-                    <StackPanel Grid.Column="0" Spacing="25">
+            <Button Grid.Row="1" Grid.Column="1"
+                    Content="Keuring plannen"
+                    Click="Inspection_Click"
+                    Style="{StaticResource TileButtonStyle}"/>
 
-                        <!-- PLANNING SECTIE -->
-                        <Border Background="White"
-                                Padding="20"
-                                CornerRadius="8"
-                                BorderBrush="#E5E5E5"
-                                BorderThickness="1">
-                            <StackPanel>
-                                <TextBlock Text="Planning"
-                                           FontSize="22"
-                                           FontFamily="Segoe UI Semibold"
-                                           Foreground="Black"
-                                           Margin="0,0,0,10" />
-                            </StackPanel>
-                        </Border>
+        </Grid>
 
-                        <!-- ACTUELE TAKEN -->
-                        <Border Background="White"
-                                Padding="20"
-                                CornerRadius="8"
-                                BorderBrush="#E5E5E5"
-                                BorderThickness="1">
-                            <StackPanel>
-                                <TextBlock Text="Actuele Taken"
-                                           FontSize="22"
-                                           FontFamily="Segoe UI Semibold"
-                                           Foreground="Black"
-                                           Margin="0,0,0,10" />
-
-                                <ListView ItemsSource="{Binding CurrentTasks}">
-                                    <ListView.ItemTemplate>
-                                        <DataTemplate>
-                                            <StackPanel Orientation="Horizontal" Margin="0,8">
-                                                <TextBlock Text="•" FontSize="20" Margin="0,0,8,0" />
-                                                <TextBlock Text="{Binding TaskName}" FontSize="16" />
-                                            </StackPanel>
-                                        </DataTemplate>
-                                    </ListView.ItemTemplate>
-                                </ListView>
-                            </StackPanel>
-                        </Border>
-
-                        <!-- STORINGEN -->
-                        <Border Background="White"
-                                Padding="20"
-                                CornerRadius="8"
-                                BorderBrush="#E5E5E5"
-                                BorderThickness="1">
-                            <StackPanel>
-                                <TextBlock Text="Storingen Prioriteit"
-                                           FontSize="22"
-                                           FontFamily="Segoe UI Semibold"
-                                           Foreground="Black"
-                                           Margin="0,0,0,10" />
-
-                                <ListView ItemsSource="{Binding Faults}">
-                                    <ListView.ItemTemplate>
-                                        <DataTemplate>
-                                            <StackPanel Margin="0,8">
-                                                <TextBlock Text="{Binding MachineName}"
-                                                           FontSize="18"
-                                                           Foreground="#D48806"
-                                                           FontWeight="Bold" />
-                                                <TextBlock Text="{Binding Description}"
-                                                           FontSize="15"
-                                                           Foreground="#333" />
-                                            </StackPanel>
-                                        </DataTemplate>
-                                    </ListView.ItemTemplate>
-                                </ListView>
-                            </StackPanel>
-                        </Border>
-
-                    </StackPanel>
-
-                    <!-- RECHTER KOLOM -->
-                    <StackPanel Grid.Column="1" Spacing="25">
-
-                        <!-- MACHINE DETAILS -->
-                        <Border Background="White"
-                                Padding="20"
-                                CornerRadius="8"
-                                BorderBrush="#E5E5E5"
-                                BorderThickness="1">
-                            <StackPanel>
-                                <TextBlock Text="Machine Details"
-                                           FontSize="22"
-                                           FontFamily="Segoe UI Semibold"
-                                           Foreground="Black"
-                                           Margin="0,0,0,10" />
-
-                                <TextBlock Text="Selecteer een machine om details te bekijken."
-                                           FontSize="15"
-                                           Foreground="#555" />
-
-                                <ListView ItemsSource="{Binding Machines}"
-                                          SelectedItem="{Binding SelectedMachine}">
-                                    <ListView.ItemTemplate>
-                                        <DataTemplate>
-                                            <TextBlock Text="{Binding Name}"
-                                                       FontSize="16"
-                                                       Margin="0,6" />
-                                        </DataTemplate>
-                                    </ListView.ItemTemplate>
-                                </ListView>
-                            </StackPanel>
-                        </Border>
-
-                        <!-- ONDERDELEN -->
-                        <Border Background="White"
-                                Padding="20"
-                                CornerRadius="8"
-                                BorderBrush="#E5E5E5"
-                                BorderThickness="1">
-                            <StackPanel>
-                                <TextBlock Text="Materialen Onderdelen"
-                                           FontSize="22"
-                                           FontFamily="Segoe UI Semibold"
-                                           Foreground="Black"
-                                           Margin="0,0,0,10" />
-
-                                <ListView ItemsSource="{Binding PartsNeeded}">
-                                    <ListView.ItemTemplate>
-                                        <DataTemplate>
-                                            <StackPanel Orientation="Horizontal" Margin="0,6">
-                                                <TextBlock Text="{Binding PartName}" FontSize="16" Width="200" />
-                                                <TextBlock Text="{Binding Quantity}" FontSize="16" Foreground="#777" />
-                                            </StackPanel>
-                                        </DataTemplate>
-                                    </ListView.ItemTemplate>
-                                </ListView>
-                            </StackPanel>
-                        </Border>
-
-                        <!-- VEILIGHEID -->
-                        <Border Background="White"
-                                Padding="20"
-                                CornerRadius="8"
-                                BorderBrush="#E5E5E5"
-                                BorderThickness="1">
-                            <StackPanel>
-                                <TextBlock Text="Veiligheidsinstructies"
-                                           FontSize="22"
-                                           FontFamily="Segoe UI Semibold"
-                                           Foreground="Black"
-                                           Margin="0,0,0,10" />
-
-                                <ListView ItemsSource="{Binding SafetyDocs}">
-                                    <ListView.ItemTemplate>
-                                        <DataTemplate>
-                                            <TextBlock Text="{Binding Title}"
-                                                       FontSize="16"
-                                                       Margin="0,6" />
-                                        </DataTemplate>
-                                    </ListView.ItemTemplate>
-                                </ListView>
-                            </StackPanel>
-                        </Border>
-
-                    </StackPanel>
-
-                </Grid>
-            </StackPanel>
-        </ScrollViewer>
     </Grid>
 </Page>

@@ -30,25 +30,35 @@ namespace BarrocIntens.Pages.Maintenance
             InitializeComponent();
         }
 
-        private void CalanderOverView_Button_Click(object sender, RoutedEventArgs e)
+        private void Calendar_Click(object sender, RoutedEventArgs e)
         {
             Frame.Navigate(typeof(MaintenanceCalendarPage));
         }
 
+        private void Machines_Click(object sender, RoutedEventArgs e)
+        {
+            Frame.Navigate(typeof(MaintenanceMachinesPage));
+        }
+
+        private void Reports_Click(object sender, RoutedEventArgs e)
+        {
+            Frame.Navigate(typeof(MaintenanceReportPage));
+        }
+
+        private void Inspection_Click(object sender, RoutedEventArgs e)
+        {
+            Frame.Navigate(typeof(MaintenanceInspectionPage));
+        }
 
         private void Logout_Click(object sender, RoutedEventArgs e)
         {
             Frame.Navigate(typeof(InlogOverViewPage));
         }
 
+
         private void Back_Click(object sender, RoutedEventArgs e)
         {
             Frame.GoBack();
-        }
-
-        private void Planning_Click(object sender, RoutedEventArgs e)
-        {
-            Frame.Navigate(typeof(MaintenanceCalendarPage));
         }
 
     }
