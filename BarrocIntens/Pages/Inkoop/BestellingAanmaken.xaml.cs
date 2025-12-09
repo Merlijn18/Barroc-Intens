@@ -40,6 +40,8 @@ namespace BarrocIntens.Pages.Inkoop
 
             // Velden leegmaken
             ProductNameComboBox.SelectedIndex = -1;
+            CoffeeBeansComboBox.SelectedIndex = -1;
+            AantalKiloTextBox.Text = string.Empty;
             SupplierNameTextBox.Text = string.Empty;
             QuantityTextBox.Text = string.Empty;
             UnitPriceTextBox.Text = string.Empty;
@@ -47,20 +49,56 @@ namespace BarrocIntens.Pages.Inkoop
             ExpectedDeliveryDatePicker.Date = null;
         }
 
-        // ✔️ Automatisch prijs invullen bij selectie
+        // ✔️ Automatisch prijs invullen bij selectie van product
         private void ProductNameComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            string selectedProduct = (ProductNameComboBox.SelectedItem as ComboBoxItem)?.Content.ToString();
+            string selectedProduct =
+                (ProductNameComboBox.SelectedItem as ComboBoxItem)?.Content.ToString();
 
             if (selectedProduct != null && ProductPrices.ContainsKey(selectedProduct))
             {
                 UnitPriceTextBox.Text = ProductPrices[selectedProduct].ToString("0.00");
+            }
+            else
+            {
+                UnitPriceTextBox.Text = string.Empty;
+            }
+
+            if (string.IsNullOrEmpty(selectedProduct) || selectedProduct == "Geen")
+            {
+                ProductPrijsPanel.Visibility = Visibility.Collapsed;
+                UnitPriceTextBox.Text = "";
+
+            }
+            else
+            {
+                ProductPrijsPanel.Visibility = Visibility.Visible;
+            }
+        }
+
+        // ✔️ Als iemand koffiebonen kiest, kan je hier later logica toevoegen
+        private void CoffeeBeansComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            string selectedCoffeebean =
+                (CoffeeBeansComboBox.SelectedItem as ComboBoxItem)?.Content.ToString();
+
+            if (string.IsNullOrEmpty(selectedCoffeebean) || selectedCoffeebean == "Geen")
+            {
+                AantalKiloPanel.Visibility = Visibility.Collapsed;
+                AantalKiloTextBox.Text = ""; // optioneel leegmaken
+            }
+            else
+            {
+                // Anders, toon het panel (TextBlock + TextBox)
+                AantalKiloPanel.Visibility = Visibility.Visible;
             }
         }
 
         private async void SaveNewOrder_Click(object sender, RoutedEventArgs e)
         {
             if (ProductNameComboBox.SelectedIndex < 0 ||
+                CoffeeBeansComboBox.SelectedIndex < 0 ||
+                string.IsNullOrWhiteSpace(AantalKiloTextBox.Text) ||
                 string.IsNullOrWhiteSpace(SupplierNameTextBox.Text) ||
                 string.IsNullOrWhiteSpace(QuantityTextBox.Text) ||
                 string.IsNullOrWhiteSpace(UnitPriceTextBox.Text) ||
@@ -109,20 +147,42 @@ namespace BarrocIntens.Pages.Inkoop
                 return;
             }
 
+            if (!decimal.TryParse(AantalKiloTextBox.Text.Trim(), out decimal aantalKilo))
+            {
+                ContentDialog invalidKiloDialog = new ContentDialog
+                {
+                    Title = "Ongeldige invoer",
+                    Content = "Aantal kilogram moet een getal zijn.",
+                    CloseButtonText = "OK",
+                    DefaultButton = ContentDialogButton.Close,
+                    XamlRoot = this.XamlRoot
+                };
+
+                await invalidKiloDialog.ShowAsync();
+                return;
+            }
+
             string selectedProduct =
                 (ProductNameComboBox.SelectedItem as ComboBoxItem)?.Content.ToString();
+
+            string selectedCoffeeBeans =
+                (CoffeeBeansComboBox.SelectedItem as ComboBoxItem)?.Content.ToString();
 
             using var db = new AppDbContext();
 
             var newOrder = new Bestelling
             {
                 Productname = selectedProduct,
+                CoffeeBeans = selectedCoffeeBeans,     // ✔️ toegevoegd
+                AantalKilo = aantalKilo,                    // ✔️ toegevoegd
                 Suppliername = SupplierNameTextBox.Text.Trim(),
                 OrderQuantity = quantity,
                 UnitPrice = unitPrice,
-                ExpectedDeliveryDate = DateOnly.FromDateTime(DateTime.Now.AddDays(7)),
+                ExpectedDeliveryDate = ExpectedDeliveryDatePicker.Date.HasValue
+                ? DateOnly.FromDateTime(ExpectedDeliveryDatePicker.Date.Value.DateTime)
+                : DateOnly.FromDateTime(DateTime.Now.AddDays(7)),
                 Status = (StatusComboBox.SelectedItem as ComboBoxItem)?.Content.ToString(),
-                OrderDate = DateTime.Now,
+                OrderDate = DateTime.Now
             };
 
             db.Bestellingen.Add(newOrder);

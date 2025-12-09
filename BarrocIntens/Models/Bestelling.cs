@@ -12,6 +12,8 @@ namespace BarrocIntens.Models
        
         public int OrderId { get; set; }
         public string Productname { get ; set; }
+        public string CoffeeBeans { get; set; }
+        public decimal AantalKilo { get; set; }
         public string Suppliername { get ; set; }
         public int OrderQuantity { get; set; }
 

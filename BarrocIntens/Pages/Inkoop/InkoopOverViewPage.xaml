@@ -140,6 +140,14 @@
                                                 <TextBlock Grid.Row="1" Grid.Column="1" Text="{x:Bind Productname}"/>
 
                                                 <!-- Row 2 -->
+                                                <TextBlock Grid.Row="2" Grid.Column="0" Text="Koffieboon:" Foreground="#555"/>
+                                                <TextBlock Grid.Row="2" Grid.Column="1">
+                                                    <Run Text="{x:Bind CoffeeBeans}" />
+                                                    <Run Text=" " />
+                                                    <Run Text="{x:Bind AantalKilo}" />
+                                                    <Run Text=" kg" />
+                                                </TextBlock>
+                                                <!-- Row 2 -->
                                                 <TextBlock Grid.Row="2" Grid.Column="0" Text="Supplier:" Foreground="#555"/>
                                                 <TextBlock Grid.Row="2" Grid.Column="1" Text="{x:Bind Suppliername}"/>
 

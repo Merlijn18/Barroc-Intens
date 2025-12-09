@@ -61,20 +61,40 @@
                 <ComboBox x:Name="ProductNameComboBox"
                           PlaceholderText="Selecteer een product"
                           SelectionChanged="ProductNameComboBox_SelectionChanged">
+                    <ComboBoxItem Content="Geen" />
                     <ComboBoxItem Content="Barroc Intens Italian Light" />
                     <ComboBoxItem Content="Barroc Intens Italian" />
                     <ComboBoxItem Content="Barroc Intens Italian Deluxe" />
                     <ComboBoxItem Content="Barroc Intens Italian Deluxe Special" />
                 </ComboBox>
 
+                <TextBlock Text="Koffieboon"></TextBlock> 
+                <ComboBox x:Name="CoffeeBeansComboBox" 
+                          PlaceholderText="Selecteer een koffieboon"
+                          SelectionChanged="CoffeeBeansComboBox_SelectionChanged">
+                    <ComboBoxItem Content="Geen" />
+                    <ComboBoxItem Content="Espresso Beneficio"/>
+                    <ComboBoxItem Content="Yellow Bourbon Brasil"/>
+                    <ComboBoxItem Content="Espresso Roma"/>
+                    <ComboBoxItem Content="Red Honey Honduras"/>
+                </ComboBox>
+
+                <StackPanel x:Name="AantalKiloPanel" Visibility="Collapsed">
+                    <TextBlock Text="Aantal kilogram:"/>
+                    <TextBox x:Name="AantalKiloTextBox" InputScope="Number"/>
+                </StackPanel>
+
                 <TextBlock Text="Naam van besteller:" />
                 <TextBox x:Name="SupplierNameTextBox" PlaceholderText="Enter supplier name" />
 
                 <TextBlock Text="Aantal:" />
                 <TextBox x:Name="QuantityTextBox" PlaceholderText="Enter quantity" InputScope="Number" />
-
-                <TextBlock Text="Product prijs:" />
-                <TextBox x:Name="UnitPriceTextBox" PlaceholderText="Enter unit price" InputScope="Number" />
+                
+                <StackPanel x:Name="ProductPrijsPanel" Visibility="Collapsed">
+                    <TextBlock Text="Product prijs:" />
+                    <TextBox x:Name="UnitPriceTextBox" PlaceholderText="Enter unit price" InputScope="Number" />
+                </StackPanel>
+               
 
                 <TextBlock Text="Status" />
                 <ComboBox x:Name="StatusComboBox">
