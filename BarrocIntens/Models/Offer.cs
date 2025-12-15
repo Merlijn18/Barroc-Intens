@@ -17,6 +17,13 @@ namespace BarrocIntens.Models
     {
         public int Id { get; set; }
         public string OfferNumber { get; set; }
+        public string PaymentTerms { get; set; }          // Betalingsvoorwaarden
+        public string DeliveryTerms { get; set; }         // Leveringsvoorwaarden
+        public DateTime? ValidUntil { get; set; }         // Geldigheidsduur
+        public string ExtraConditions { get; set; }       // Extra afspraken
+        public string ContactPerson { get; set; }         // Contactpersoon
+        public string SignatureName { get; set; }         // Naam handtekening of akkoord
+
         public OfferStatus Status { get; set; }
         public DateTime Date { get; set; }
         public int CustomerId { get; set; }

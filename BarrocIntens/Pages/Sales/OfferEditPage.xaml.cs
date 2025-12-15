@@ -46,17 +46,28 @@ namespace BarrocIntens.Pages.Sales
                 CityBox.Text = SelectedOffer.Customer.City;
             }
 
-            // Verberg zoekvak
-            CustomerSearchBox.Visibility = Visibility.Collapsed;
-            CustomerListView.Visibility = Visibility.Collapsed;
+            // Vul offertevelden
+            //PaymentTermsBox.Text = SelectedOffer.PaymentTerms;
+            //DeliveryTermsBox.Text = SelectedOffer.DeliveryTerms;
+            ValidUntilPicker.Date = SelectedOffer.ValidUntil ?? DateTimeOffset.Now;
+            ExtraConditionsBox.Text = SelectedOffer.ExtraConditions;
+            ContactPersonBox.Text = SelectedOffer.ContactPerson;
+            SignatureNameBox.Text = SelectedOffer.SignatureName;
 
             Items = new ObservableCollection<OfferItem>(SelectedOffer.Items ?? new System.Collections.Generic.List<OfferItem>());
             DataContext = this;
         }
+
         private void Back_Click(object sender, RoutedEventArgs e) => Frame.GoBack();
 
         private void SaveOffer_Click(object sender, RoutedEventArgs e)
         {
+            if (int.TryParse(PaymentDaysBox.Text, out int paymentDays))
+                SelectedOffer.PaymentTerms = $"Betaling binnen {paymentDays} dagen na factuurdatum.";
+
+            if (int.TryParse(DeliveryDaysBox.Text, out int deliveryDays))
+                SelectedOffer.DeliveryTerms = $"Levering binnen {deliveryDays} werkdagen na akkoord.";
+
             SelectedOffer.Items = Items.ToList();
             _context.SaveChanges();
             Frame.GoBack();
@@ -81,7 +92,7 @@ namespace BarrocIntens.Pages.Sales
                 item.Quantity--;
         }
 
-        // Pop-up voor Machines
+        // Machines toevoegen
         private async void ShowMachineDialog_Click(object sender, RoutedEventArgs e)
         {
             var machines = await _context.Machines.ToListAsync();
@@ -91,7 +102,7 @@ namespace BarrocIntens.Pages.Sales
                 Title = "Selecteer een Machine",
                 PrimaryButtonText = "Toevoegen",
                 CloseButtonText = "Annuleren",
-                XamlRoot = this.XamlRoot // <--- belangrijk!
+                XamlRoot = this.XamlRoot
             };
 
             var listView = new ListView
@@ -119,7 +130,7 @@ namespace BarrocIntens.Pages.Sales
             }
         }
 
-        // Pop-up voor CoffeeBeans
+        // CoffeeBeans toevoegen
         private async void ShowCoffeeBeanDialog_Click(object sender, RoutedEventArgs e)
         {
             var coffeeBeans = await _context.CoffeeBeans.ToListAsync();
@@ -129,7 +140,7 @@ namespace BarrocIntens.Pages.Sales
                 Title = "Selecteer een Koffieboon",
                 PrimaryButtonText = "Toevoegen",
                 CloseButtonText = "Annuleren",
-                XamlRoot = this.XamlRoot // <--- belangrijk!
+                XamlRoot = this.XamlRoot
             };
 
             var listView = new ListView
@@ -157,7 +168,7 @@ namespace BarrocIntens.Pages.Sales
             }
         }
 
-        // Klant zoeken
+        // KLANT ZOEKEN
         private void CustomerSearchBox_TextChanged(object sender, TextChangedEventArgs e)
         {
             string query = CustomerSearchBox.Text.ToLower();
@@ -188,11 +199,10 @@ namespace BarrocIntens.Pages.Sales
                 PostalCodeBox.Text = selectedCustomer.PostalCode;
                 CityBox.Text = selectedCustomer.City;
 
-                // Koppel aan de geselecteerde offerte
-                if (SelectedOffer != null)
-                    SelectedOffer.Customer = selectedCustomer;
+                SelectedOffer.Customer = selectedCustomer;
 
                 CustomerListView.Visibility = Visibility.Collapsed;
+                CustomerSearchBox.Text = string.Empty;
             }
         }
     }

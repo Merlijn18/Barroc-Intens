@@ -69,7 +69,7 @@
                 </StackPanel>
             </StackPanel>
 
-            <!-- Producten -->
+            <!-- Lijn -->
             <Border BorderBrush="#FDD716" BorderThickness="0,2,0,0" Margin="0,10,0,10"/>
 
             <!-- Productenlijst header -->
@@ -102,7 +102,7 @@
                                 <ColumnDefinition Width="150"/>
                             </Grid.ColumnDefinitions>
 
-                            <TextBlock Text="{x:Bind Quantity}" />
+                            <TextBlock Text="{x:Bind Quantity}"/>
                             <TextBlock Text="{x:Bind ProductNumber}" Grid.Column="1"/>
                             <TextBlock Text="{x:Bind ProductName}" Grid.Column="2"/>
                             <TextBlock Text="{x:Bind UnitPrice, Converter={StaticResource CurrencyConverter}}" Grid.Column="3"/>
@@ -139,9 +139,29 @@
                 </Grid>
             </StackPanel>
 
-            <TextBlock Text="Te betalen binnen 14 dagen na dagtekening."
-                       FontStyle="Italic"
-                       Margin="0,10,0,0"/>
+            <!-- Betalingsvoorwaarden -->
+            <TextBlock Text="Betalingsvoorwaarden" FontSize="18" FontWeight="Bold" Margin="0,20,0,5"/>
+            <TextBlock Text="{Binding PaymentTerms}" TextWrapping="Wrap" Margin="0,0,0,15"/>
+
+            <!-- Leveringsvoorwaarden -->
+            <TextBlock Text="Leveringsvoorwaarden" FontSize="18" FontWeight="Bold" Margin="0,10,0,5"/>
+            <TextBlock Text="{Binding DeliveryTerms}" TextWrapping="Wrap" Margin="0,0,0,15"/>
+
+            <!-- Geldigheidsduur -->
+            <TextBlock Text="Geldige tot:" FontSize="18" FontWeight="Bold" Margin="0,10,0,5"/>
+            <TextBlock Text="{Binding ValidUntil}" Margin="0,0,0,15"/>
+
+            <!-- Extra voorwaarden -->
+            <TextBlock Text="Extra voorwaarden" FontSize="18" FontWeight="Bold" Margin="0,10,0,5"/>
+            <TextBlock Text="{Binding ExtraConditions}" TextWrapping="Wrap" Margin="0,0,0,15"/>
+
+            <!-- Contactpersoon -->
+            <TextBlock Text="Contactpersoon" FontSize="18" FontWeight="Bold" Margin="0,10,0,5"/>
+            <TextBlock Text="{Binding ContactPerson}" Margin="0,0,0,15"/>
+
+            <!-- Handtekening -->
+            <TextBlock Text="Handtekening voor akkoord" FontSize="18" FontWeight="Bold" Margin="0,20,0,5"/>
+            <TextBlock Text="{Binding SignatureName}" Margin="0,0,0,30"/>
 
         </StackPanel>
     </ScrollViewer>

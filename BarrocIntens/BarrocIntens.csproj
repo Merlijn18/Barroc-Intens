@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
     <TargetFramework>net8.0-windows10.0.19041.0</TargetFramework>
@@ -21,7 +21,10 @@
     <None Remove="Pages\Beheer\AccountBeheerOverViewPage.xaml" />
     <None Remove="Pages\Beheer\BeheerOverViewPage.xaml" />
     <None Remove="Pages\Financien\FinancienOverViewPage.xaml" />
+    <None Remove="Pages\Inkoop\BestellingAanmaken.xaml" />
     <None Remove="Pages\Inkoop\InkoopOverViewPage.xaml" />
+	  <None Remove="Pages\Inkoop\LeverancierAanmaken.xaml" />
+	  <None Remove="Pages\Inkoop\LeverancierBeheer.xaml" />
     <None Remove="Pages\Inlog\InlogOverViewPage.xaml" />
     <None Remove="Pages\Maintenance\MaintenanceBackLog.xaml" />
     <None Remove="Pages\Maintenance\MaintenanceInspectionPage.xaml" />
@@ -68,11 +71,13 @@
   </ItemGroup>
   <ItemGroup>
     <Page Update="Pages\Maintenance\MaintenanceBackLog.xaml">
+    <Page Update="Pages\Inkoop\LeverancierAanmaken.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
   <ItemGroup>
     <Page Update="Pages\Maintenance\MaintenanceMachinesPage.xaml">
+    <Page Update="Pages\Inkoop\LeverancierBeheer.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
@@ -93,6 +98,7 @@
   </ItemGroup>
   <ItemGroup>
     <Page Update="Pages\Maintenance\MaintenanceCalendarPage.xaml">
+    <Page Update="Pages\Inkoop\BestellingAanmaken.xaml">
 		<Generator>MSBuild:Compile</Generator>
 	</Page>
 </ItemGroup>
@@ -133,6 +139,11 @@
   </ItemGroup>
   <ItemGroup>
     <Page Update="Pages\Inkoop\InkoopOverViewPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Pages\Sales\OfferDetailsPage.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>

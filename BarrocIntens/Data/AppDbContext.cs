@@ -13,12 +13,16 @@ namespace BarrocIntens.Data
         public DbSet<User> Users { get; set; }
         public DbSet<Product> Products { get; set; }
         public DbSet<Maintance> Maintances { get; set; }      
+        public DbSet<Bestelling> Bestellingen { get; set; }
+
+        public DbSet<Leverancier> Leveranciers { get; set; }
+        
         public DbSet<Offer> Offers { get; set; }
         public DbSet<Customer> Customers { get; set; }
         public DbSet<Machine> Machines { get; set; }
         public DbSet<CoffeeBean> CoffeeBeans { get; set; }
         public DbSet<OfferItem> OfferItems { get; set; }
-
+        
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseMySql(
@@ -110,18 +114,18 @@ namespace BarrocIntens.Data
 
             modelBuilder.Entity<Product>().HasData(
                  new Product { Id = 1, Productname = "Rubber (10 mm)", Price = 0.39f, Stock = 10, OrderQuantity = 0 },
-                 new Product { Id = 2, Productname = "Rubber (14 mm)", Price = 0.45f, Stock = 10, OrderQuantity = 0 },
+                 new Product { Id = 2, Productname = "Rubber (14 mm)", Price = 0.45f, Stock = 2, OrderQuantity = 0 },
 
                  new Product { Id = 3, Productname = "Slang", Price = 4.45f, Stock = 10, OrderQuantity = 0 },
-                 new Product { Id = 4, Productname = "Voeding (elektra)", Price = 68.69f, Stock = 10, OrderQuantity = 0 },
-                 new Product { Id = 5, Productname = "Ontkalker", Price = 4.00f, Stock = 10, OrderQuantity = 0 },
+                 new Product { Id = 4, Productname = "Voeding (elektra)", Price = 68.69f, Stock = 4, OrderQuantity = 0 },
+                 new Product { Id = 5, Productname = "Ontkalker", Price = 4.00f, Stock = 1, OrderQuantity = 0 },
                  new Product { Id = 6, Productname = "Waterfilter", Price = 299.45f, Stock = 10, OrderQuantity = 0 },
                  new Product { Id = 7, Productname = "Reservoir sensor", Price = 89.99f, Stock = 10, OrderQuantity = 0 },
                  new Product { Id = 8, Productname = "Druppelstop", Price = 122.43f, Stock = 10, OrderQuantity = 0 },
                  new Product { Id = 9, Productname = "Electrische pomp", Price = 478.59f, Stock = 10, OrderQuantity = 0 },
                  new Product { Id = 10, Productname = "Tandwiel 110mm", Price = 5.45f, Stock = 10, OrderQuantity = 0 },
                  new Product { Id = 11, Productname = "Tandwiel 70mm", Price = 5.25f, Stock = 10, OrderQuantity = 0 },
-                 new Product { Id = 12, Productname = "Maalmotor", Price = 119.20f, Stock = 10, OrderQuantity = 0 },
+                 new Product { Id = 12, Productname = "Maalmotor", Price = 119.20f, Stock = 0, OrderQuantity = 0 },
                  new Product { Id = 13, Productname = "Zeef", Price = 28.80f, Stock = 10, OrderQuantity = 0 },
                  new Product { Id = 14, Productname = "Reinigingstabletten", Price = 3.45f, Stock = 10, OrderQuantity = 0 },
                  new Product { Id = 15, Productname = "Reinigingsborsteltjes", Price = 8.45f, Stock = 10, OrderQuantity = 0 },
@@ -153,7 +157,61 @@ namespace BarrocIntens.Data
                 new Maintance { Id = 21, Date = DateTime.Today.AddDays(8), Type = "Onderhoud", Titel = "Nieuwe software update", ExtraInfo = "Machine 321", Status = "Planned" }
 
                 );
+                 new Product { Id = 16, Productname = "Ontkalkingspijp", Price = 21.70f, Stock = 1, OrderQuantity = 0 }
+            );
+            
+            base.OnModelCreating(modelBuilder);
 
+            // ===== Customers =====
+            modelBuilder.Entity<Customer>().HasData(
+                new Customer { Id = 1, Name = "Prof. Willard Spinka MD", Street = "Reichel Pine 97", PostalCode = "4802 RT", City = "North Michelle"},
+                new Customer { Id = 2, Name = "Van den Berg Industries", Street = "Kasteelstraat 12", PostalCode = "1011 AB", City = "Amsterdam" },
+                new Customer { Id = 3, Name = "De Jong Logistics", Street = "Stationsweg 45", PostalCode = "3011 CD", City = "Rotterdam" },
+                new Customer { Id = 4, Name = "Bakker Tech Solutions", Street = "Industrielaan 7", PostalCode = "5612 EF", City = "Eindhoven" },
+                new Customer { Id = 5, Name = "Visser & Zn.", Street = "Marktplein 3", PostalCode = "7511 GH", City = "Enschede" },
+                new Customer { Id = 6, Name = "Klein Engineering", Street = "Havenstraat 21", PostalCode = "3511 IJ", City = "Utrecht" },
+                new Customer { Id = 7, Name = "Smit Machinebouw", Street = "Oosterstraat 19", PostalCode = "9711 KL", City = "Groningen" },
+                new Customer { Id = 8, Name = "Hoekstra Solutions", Street = "Westerdijk 34", PostalCode = "8021 MN", City = "Zwolle" },
+                new Customer { Id = 9, Name = "Mulder Food & Co.", Street = "Dorpsstraat 56", PostalCode = "5011 OP", City = "Tilburg" },
+                new Customer { Id = 10, Name = "Meijer Manufacturing", Street = "Langeweg 10", PostalCode = "6211 QR", City = "Maastricht" },
+                new Customer { Id = 11, Name = "Jansen International", Street = "Koningstraat 8", PostalCode = "2011 ST", City = "Haarlem" }
+            );
+
+            // ===== Offers =====
+            modelBuilder.Entity<Offer>().HasData(
+                new Offer
+                {
+                    Id = 1,
+                    OfferNumber = "OFF2025-001",
+                    Date = new DateTime(2025, 02, 01),
+                    CustomerId = 1,
+                    CustomerNumber = "12345",
+                    ContractNumber = "CN-001",
+
+                    PaymentTerms = "Betaling binnen 30 dagen na factuurdatum.",
+                    DeliveryTerms = "Levering binnen 7 werkdagen na akkoord.",
+                    ValidUntil = DateTime.Now.AddDays(30),
+                    ExtraConditions = "Prijzen exclusief btw. Geldig zolang voorraad strekt.",
+                    ContactPerson = "Jan de Vries",
+                    SignatureName = "Barroc Intens BV"
+                },
+                new Offer
+                {
+                    Id = 2,
+                    OfferNumber = "OFF2025-002",
+                    Date = DateTime.Now,
+                    CustomerId = 1,
+                    CustomerNumber = "98765",
+                    ContractNumber = "CN-002",
+
+                    PaymentTerms = "Betaling binnen 14 dagen.",
+                    DeliveryTerms = "Levering binnen 10 werkdagen.",
+                    ValidUntil = DateTime.Now.AddDays(45),
+                    ExtraConditions = "Servicecontract optioneel bij te sluiten.",
+                    ContactPerson = "Lisa Jansen",
+                    SignatureName = "Barroc Intens BV"
+                }
+            );
 
             base.OnModelCreating(modelBuilder);
 
@@ -183,6 +241,7 @@ namespace BarrocIntens.Data
             );
 
 
+
             // ===== OfferItems =====
             modelBuilder.Entity<OfferItem>().HasData(
                 new OfferItem
@@ -210,6 +269,10 @@ namespace BarrocIntens.Data
                 new Machine { Id = 2, Name = "Barroc Intens Italian", ArticleNumber = "S234KNDPF", LeasePrice = 599, InstallationCost = 289, LastMaintenaceDate = DateTime.Today.AddDays(-10), ImagePath = "/Image/Machine2.png" },
                 new Machine { Id = 3, Name = "Barroc Intens Italian Deluxe", ArticleNumber = "S234NNBMV", LeasePrice = 799, InstallationCost = 375, LastMaintenaceDate = DateTime.Today.AddDays(-200), ImagePath = "/Image/Machine2.png" },
                 new Machine { Id = 4, Name = "Barroc Intens Italian Deluxe Special", ArticleNumber = "S234MMPLA", LeasePrice = 999, InstallationCost = 375,LastMaintenaceDate = DateTime.Today.AddDays(-100), ImagePath = "/Image/Machine1.png" }
+                new Machine { Id = 1, Name = "Barroc Intens Italian Light", ArticleNumber = "S234FREKT", LeasePrice = 499, InstallationCost = 289 },
+                new Machine { Id = 2, Name = "Barroc Intens Italian", ArticleNumber = "S234KNDPF", LeasePrice = 599, InstallationCost = 289 },
+                new Machine { Id = 3, Name = "Barroc Intens Italian Deluxe", ArticleNumber = "S234NNBMV", LeasePrice = 799, InstallationCost = 375 },
+                new Machine { Id = 4, Name = "Barroc Intens Italian Deluxe Special", ArticleNumber = "S234MMPLA", LeasePrice = 999, InstallationCost = 375 }
             );
 
             // ======= CoffeeBeans =======
