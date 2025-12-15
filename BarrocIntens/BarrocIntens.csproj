@@ -69,7 +69,11 @@
   </ItemGroup>
   <ItemGroup>
     <Page Update="Pages\Inkoop\BestellingAanmaken.xaml">
-    <Page Update="Pages\Sales\OfferEditPage.xaml">
+		<Generator>MSBuild:Compile</Generator>
+	</Page>
+</ItemGroup>
+<ItemGroup>
+	<Page Update="Pages\Sales\OfferEditPage.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
