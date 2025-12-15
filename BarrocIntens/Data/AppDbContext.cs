@@ -131,9 +131,10 @@ namespace BarrocIntens.Data
                  new Product { Id = 14, Productname = "Reinigingstabletten", Price = 3.45f, Stock = 10, OrderQuantity = 0 },
                  new Product { Id = 15, Productname = "Reinigingsborsteltjes", Price = 8.45f, Stock = 10, OrderQuantity = 0 },
                  new Product { Id = 16, Productname = "Ontkalkingspijp", Price = 21.70f, Stock = 10, OrderQuantity = 0 }
-            
+
+
             );
-            
+
             modelBuilder.Entity<Maintance>().HasData(
                 new Maintance { Id = 1, Date = DateTime.Today, Type = "Keuring", Titel = "AP-Keuring 1", ExtraInfo = "Machine 220", Status = "Deliverd" },
                 new Maintance { Id = 2, Date = DateTime.Today.AddDays(-1), Type = "Reparatie", Titel = "Motor vervangen", ExtraInfo = "Machine 105", Status = "InProgress" },
@@ -156,12 +157,8 @@ namespace BarrocIntens.Data
                 new Maintance { Id = 19, Date = DateTime.Today.AddDays(6), Type = "Reparatie", Titel = "Kabelbreuk herstel", ExtraInfo = "Machine 260", Status = "Planned" },
                 new Maintance { Id = 20, Date = DateTime.Today.AddDays(-12), Type = "Inspectie", Titel = "Routine-inspectie", ExtraInfo = "Machine 499", Status = "Deliverd" },
                 new Maintance { Id = 21, Date = DateTime.Today.AddDays(8), Type = "Onderhoud", Titel = "Nieuwe software update", ExtraInfo = "Machine 321", Status = "Planned" }
-                new Product { Id = 1, Productname = "Rubber (10 mm)", Price = 039, Stock = 10, OrderQuantity = 0 },
-                new Product { Id = 2, Productname = "Rubber (14 mm)", Price = 045, Stock = 10, OrderQuantity = 0 }
-            
-            );
 
-                );
+            );
             
             base.OnModelCreating(modelBuilder);
 

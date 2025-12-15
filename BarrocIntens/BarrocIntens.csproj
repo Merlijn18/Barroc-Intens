@@ -77,7 +77,9 @@
 	</Page>
 </ItemGroup>
     <ItemGroup>
-		<Page Update="Pages\Inkoop\LeverancierAanmaken.xaml">
+		<Page Update="Pages\Inkoop\LeverancierAanmaken.xaml"> </Page>
+  </ItemGroup>
+  <ItemGroup>
     <Page Update="Pages\Financien\CustomerPaymentSettingsPage.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -118,7 +120,9 @@
 	</Page>
 </ItemGroup>
 <ItemGroup>
-    <Page Update="Pages\Sales\OfferEditPage.xaml">
+    <Page Update="Pages\Sales\OfferEditPage.xaml"> </Page>
+  </ItemGroup>
+  <ItemGroup>
     <Page Update="Pages\CustomerPaymentSettingsPage.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
