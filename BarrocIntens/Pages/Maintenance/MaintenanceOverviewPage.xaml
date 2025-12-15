@@ -1,0 +1,128 @@
+<Page
+    x:Class="BarrocIntens.Pages.Maintenance.MaintenanceOverviewPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <Page.Resources>
+
+        <!-- kleuren -->
+        <SolidColorBrush x:Key="BI_Yellow" Color="#FDD716" />
+        <SolidColorBrush x:Key="BI_Dark" Color="#222" />
+        <SolidColorBrush x:Key="BI_DarkBorder" Color="#FDD716" />
+
+        <!-- TILE BUTTON -->
+        <Style x:Key="TileButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="{StaticResource BI_Dark}"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="CornerRadius" Value="20"/>
+            <Setter Property="FontSize" Value="24"/>
+            <Setter Property="HorizontalAlignment" Value="Stretch"/>
+            <Setter Property="VerticalAlignment" Value="Stretch"/>
+            <Setter Property="Padding" Value="40"/>
+            <Setter Property="Margin" Value="20"/>
+            <Setter Property="BorderBrush" Value="{StaticResource BI_DarkBorder}"/>
+            <Setter Property="BorderThickness" Value="2"/>
+        </Style>
+
+        <!-- YELLOW BUTTON -->
+        <Style x:Key="YellowButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="#FDD716"/>
+            <Setter Property="Foreground" Value="Black"/>
+            <Setter Property="CornerRadius" Value="8"/>
+            <Setter Property="Padding" Value="10,6"/>
+            <Setter Property="BorderThickness" Value="0"/>
+        </Style>
+
+        <!-- WHITE OUTLINE -->
+        <Style x:Key="OutlineButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="Black"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="CornerRadius" Value="8"/>
+            <Setter Property="Padding" Value="10,6"/>
+            <Setter Property="BorderBrush" Value="White"/>
+            <Setter Property="BorderThickness" Value="1"/>
+        </Style>
+
+    </Page.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0" Background="Black" Height="100">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+
+            <TextBlock Text="Account Aanmaken"
+                    Foreground="#FDD716"
+                    FontSize="40"
+                    FontFamily="Segoe UI"
+                    FontWeight="Bold"
+                    VerticalAlignment="Center"
+                    Margin="30,0,0,0"/>
+
+            <StackPanel Orientation="Horizontal" Grid.Column="1" VerticalAlignment="Center" Margin="0,0,20,0" Spacing="10">
+                <Button x:Name="Back"
+                     Content="Terug"
+                     Click="Back_Click"
+                     Background="Black"
+                     Foreground="White"
+                     FontSize="16"
+                     FontWeight="SemiBold"
+                     Padding="12,6"
+                     BorderBrush="White"
+                     BorderThickness="1"/>
+
+                <Button x:Name="Logout"
+                     Content="Uitloggen"
+                     Click="Logout_Click"
+                     Background="#FDD716"
+                     Foreground="Black"
+                     FontSize="16"
+                     FontWeight="Bold"
+                     Padding="12,6"
+                     BorderThickness="0"/>
+            </StackPanel>
+        </Grid>
+
+
+        <!-- TILES -->
+        <Grid Grid.Row="1" Margin="50">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+
+            <Button Grid.Row="0" Grid.Column="0"
+                    Content="Kalender"
+                    Click="Calendar_Click"
+                    Style="{StaticResource TileButtonStyle}"/>
+
+            <Button Grid.Row="0" Grid.Column="1"
+                    Content="Machines"
+                    Click="Machines_Click"
+                    Style="{StaticResource TileButtonStyle}"/>
+
+            <Button Grid.Row="1" Grid.Column="0"
+                    Content="Storingen"
+                    Click="Reports_Click"
+                    Style="{StaticResource TileButtonStyle}"/>
+
+            <Button Grid.Row="1" Grid.Column="1"
+                    Content="Onderhoud Log"
+                    Click="BackLog_Click"
+                    Style="{StaticResource TileButtonStyle}"/>
+
+        </Grid>
+
+    </Grid>
+</Page>

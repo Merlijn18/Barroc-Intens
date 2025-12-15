@@ -89,9 +89,9 @@
                             CornerRadius="8"
                             BorderThickness="0"/>
 
-                    <Button x:Name="MonteurOverView_Button"
+                    <Button x:Name="MaintenanceOverview_Button"
                             Content="Monteur"
-                            Click="MonteurOverView_Button_Click"
+                            Click="MaintenanceOverview_Button_Click"
                             Grid.Column="2"
                             Background="#FDD716"
                             Foreground="Black"

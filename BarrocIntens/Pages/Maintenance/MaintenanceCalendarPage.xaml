@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Page
+    x:Class="BarrocIntens.Pages.Maintenance.MaintenanceCalendarPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:BarrocIntens.Pages.Maintenance"
+    xmlns:localData="using:BarrocIntens.Models"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+    
+    
+    <Grid Background="White">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0" Background="Black" Height="100">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+
+            <TextBlock Text="Monteur"
+                       Foreground="#FDD716"
+                       FontSize="40"
+                       FontFamily="Segoe UI"
+                       FontWeight="Bold"
+                       VerticalAlignment="Center"
+                       Margin="30,0,0,0" />
+
+            <StackPanel Orientation="Horizontal"
+                        Grid.Column="1"
+                        VerticalAlignment="Center"
+                        Margin="0,0,20,0"
+                        Spacing="10">
+                <Button x:Name="Back"
+                        Content="Terug"
+                        Click="Back_Click"
+                        Background="Black"
+                        Foreground="White"
+                        FontSize="16"
+                        FontWeight="SemiBold"
+                        Padding="12,6"
+                        BorderBrush="White"
+                        BorderThickness="1" />
+
+                <Button x:Name="Logout"
+                        Content="Uitloggen"
+                        Click="Logout_Click"
+                        Background="#FDD716"
+                        Foreground="Black"
+                        FontSize="16"
+                        FontWeight="Bold"
+                        Padding="12,6"
+                        BorderThickness="0" />
+            </StackPanel>
+        </Grid>
+
+        <Grid Grid.Row="1" Padding="20">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="2*" />
+                <ColumnDefinition Width="3*" />
+            </Grid.ColumnDefinitions>
+
+            <CalendarView
+                x:Name="MaintenanceCalendar"
+                Grid.Column="0"
+                SelectionMode="Single"
+                SelectedDatesChanged="MaintenanceCalendar_SelectedDatesChanged"
+                CalendarViewDayItemChanging="MaintenanceCalendar_DayItemChanging"
+                CalendarItemBackground="White"
+                CalendarItemBorderBrush="#CCC"
+                CalendarItemBorderThickness="1"
+                DayItemFontSize="16"
+                DayItemFontWeight="SemiBold"
+                HorizontalDayItemAlignment="Center"
+                VerticalDayItemAlignment="Center"
+                HorizontalAlignment="Stretch"
+                VerticalAlignment="Stretch"/>
+
+            <Grid Grid.Column="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="20,0,0,10">
+                    <TextBlock Text="Klussen:" FontSize="20" FontWeight="Bold" VerticalAlignment="Center" Margin="0,0,10,0"/>
+                    <TextBox x:Name="ToDoSearchTextBox"
+                             Width="300"
+                             PlaceholderText="Zoeken..."
+                             TextChanged="ToDoSearchTextBox_TextChanged"
+                             Background="White"
+                             Foreground="Black"/>
+                </StackPanel>
+
+                <ListView
+                    x:Name="ToDoListView"
+                    Grid.Row="1"
+                    IsItemClickEnabled="True"
+                    ItemClick="ToDoListView_ItemClick"
+                    SelectionMode="None"
+                    Background="White"
+                    BorderThickness="0"
+                    ScrollViewer.VerticalScrollBarVisibility="Auto">
+                    <ListView.ItemTemplate>
+                        <DataTemplate x:DataType="localData:Maintance">
+                            <Border BorderThickness="1"
+                                    BorderBrush="#CCCCCC"
+                                    Background="White"
+                                    CornerRadius="4"
+                                    Padding="10"
+                                    Margin="0,8,0,0">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="Auto" />
+                                    </Grid.ColumnDefinitions>
+                                    <StackPanel Grid.Column="0">
+                                        <TextBlock Text="{x:Bind Titel}"
+                                                   FontSize="18"
+                                                   FontWeight="Bold"
+                                                   Foreground="Black" />
+                                        <TextBlock Text="{x:Bind Type}"
+                                                   FontSize="14"
+                                                   Foreground="Gray"
+                                                   Margin="0,2,0,0" />
+                                        <TextBlock Text="{x:Bind Date}"
+                                                   FontSize="14"
+                                                   Foreground="#FDD716"
+                                                   FontWeight="SemiBold"
+                                                   Margin="0,4,0,0" />
+                                        <TextBlock Text="{x:Bind ExtraInfo}"
+                                                   FontSize="14"
+                                                   Foreground="#FDD716"
+                                                   FontWeight="SemiBold"
+                                                   Margin="0,4,0,0" />
+                                        <TextBlock Text="{x:Bind Status}"
+                                                   FontSize="14"
+                                                   Foreground="#FDD716"
+                                                   FontWeight="SemiBold"
+                                                   Margin="0,4,0,0" />
+                                    </StackPanel>
+                                    <Button x:Name="DeleteButton"
+                                            Grid.Column="1"
+                                            Content="Verwijderen"
+                                            Background="#FDD716"
+                                            Foreground="Black"
+                                            FontWeight="SemiBold"
+                                            Margin="10,0,0,0"
+                                            Padding="12,6"
+                                            HorizontalAlignment="Right"
+                                            VerticalAlignment="Center"
+                                            Click="DeleteButton_Click"/>
+                                </Grid>
+                            </Border>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </Grid>
+        </Grid>
+
+        <StackPanel Grid.Row="2"
+                    Orientation="Horizontal"
+                    HorizontalAlignment="Center"
+                    Margin="0,10,0,20"
+                    Spacing="20">
+            <StackPanel Orientation="Horizontal" Spacing="5" VerticalAlignment="Center">
+                <Rectangle Width="20" Height="20" Fill="LawnGreen" Stroke="DarkGreen" StrokeThickness="1" />
+                <TextBlock Text="Keuring" VerticalAlignment="Center" FontSize="14" />
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Spacing="5" VerticalAlignment="Center">
+                <Rectangle Width="20" Height="20" Fill="IndianRed" Stroke="DarkRed" StrokeThickness="1" />
+                <TextBlock Text="Melding" VerticalAlignment="Center" FontSize="14" />
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Spacing="5" VerticalAlignment="Center">
+                <Rectangle Width="20" Height="20" Fill="SkyBlue" Stroke="DarkBlue" StrokeThickness="1" />
+                <TextBlock Text="Melding/Keuring" VerticalAlignment="Center" FontSize="14" />
+            </StackPanel>
+        </StackPanel>
+    </Grid>
+</Page>

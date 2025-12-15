@@ -1,8 +1,5 @@
 using BarrocIntens.Pages.Financien;
-using BarrocIntens.Pages.Inkoop;
 using BarrocIntens.Pages.Inlog;
-using BarrocIntens.Pages.Maintenance;
-using BarrocIntens.Pages.Sales;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Controls.Primitives;
@@ -21,49 +18,48 @@ using Windows.Foundation.Collections;
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
 
-namespace BarrocIntens.Pages.Beheer
+namespace BarrocIntens.Pages.Maintenance
 {
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.
     /// </summary>
-    public sealed partial class BeheerOverViewPage : Page
+    public sealed partial class MaintenanceOverviewPage : Page
     {
-        public BeheerOverViewPage()
+        public MaintenanceOverviewPage()
         {
             InitializeComponent();
         }
 
-
-
-        private void MaintenanceOverview_Button_Click(object sender, RoutedEventArgs e)
+        private void Calendar_Click(object sender, RoutedEventArgs e)
         {
-            Frame.Navigate(typeof(MaintenanceOverviewPage));
-
+            Frame.Navigate(typeof(MaintenanceCalendarPage));
         }
 
-        private void FinancienOverView_Button_Click(object sender, RoutedEventArgs e)
+        private void Machines_Click(object sender, RoutedEventArgs e)
         {
-            Frame.Navigate(typeof(FinancienOverViewPage));
+            Frame.Navigate(typeof(MaintenanceMachinesPage));
         }
 
-        private void SalesOverView_Button_Click(object sender, RoutedEventArgs e)
+        private void Reports_Click(object sender, RoutedEventArgs e)
         {
-            Frame.Navigate(typeof(SalesOverViewPage));
+            Frame.Navigate(typeof(MaintenanceReportPage));
         }
 
-        private void AccountBeheerOverView_Button_Click(object sender, RoutedEventArgs e)
+        private void BackLog_Click(object sender, RoutedEventArgs e)
         {
-            Frame.Navigate(typeof(AccountBeheerOverViewPage));
+            Frame.Navigate(typeof(MaintenanceBackLog));
         }
+
         private void Logout_Click(object sender, RoutedEventArgs e)
         {
             Frame.Navigate(typeof(InlogOverViewPage));
         }
 
-        private void InkoopOverView_Button_Click(object sender, RoutedEventArgs e)
-        {
-            Frame.Navigate(typeof(InkoopOverViewPage));
 
+        private void Back_Click(object sender, RoutedEventArgs e)
+        {
+            Frame.GoBack();
         }
+
     }
 }

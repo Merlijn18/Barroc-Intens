@@ -3,7 +3,7 @@ using BarrocIntens.Pages.Beheer;
 using BarrocIntens.Pages.Financien;
 using BarrocIntens.Pages.Inkoop;
 using BarrocIntens.Pages.Inlog;
-using BarrocIntens.Pages.Monteur;
+using BarrocIntens.Pages.Maintenance;
 using BarrocIntens.Pages.Sales;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
@@ -108,7 +108,7 @@ namespace BarrocIntens.Pages.Inlog
                     }
                     else if(user.Role == "Monteur")
                     {
-                        Frame.Navigate(typeof(MonteurOverViewPage), user.Id);
+                        Frame.Navigate(typeof(MaintenanceOverviewPage), user.Id);
                     }
                     else
                     {

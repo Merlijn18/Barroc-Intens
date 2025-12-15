@@ -12,6 +12,7 @@ namespace BarrocIntens.Data
     {
         public DbSet<User> Users { get; set; }
         public DbSet<Product> Products { get; set; }
+        public DbSet<Maintance> Maintances { get; set; }      
         public DbSet<Bestelling> Bestellingen { get; set; }
 
         public DbSet<Leverancier> Leveranciers { get; set; }
@@ -21,6 +22,7 @@ namespace BarrocIntens.Data
         public DbSet<Machine> Machines { get; set; }
         public DbSet<CoffeeBean> CoffeeBeans { get; set; }
         public DbSet<OfferItem> OfferItems { get; set; }
+        
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseMySql(
@@ -127,6 +129,34 @@ namespace BarrocIntens.Data
                  new Product { Id = 13, Productname = "Zeef", Price = 28.80f, Stock = 10, OrderQuantity = 0 },
                  new Product { Id = 14, Productname = "Reinigingstabletten", Price = 3.45f, Stock = 10, OrderQuantity = 0 },
                  new Product { Id = 15, Productname = "Reinigingsborsteltjes", Price = 8.45f, Stock = 10, OrderQuantity = 0 },
+                 new Product { Id = 16, Productname = "Ontkalkingspijp", Price = 21.70f, Stock = 10, OrderQuantity = 0 }
+            
+            );
+            
+            modelBuilder.Entity<Maintance>().HasData(
+                new Maintance { Id = 1, Date = DateTime.Today, Type = "Keuring", Titel = "AP-Keuring 1", ExtraInfo = "Machine 220", Status = "Deliverd" },
+                new Maintance { Id = 2, Date = DateTime.Today.AddDays(-1), Type = "Reparatie", Titel = "Motor vervangen", ExtraInfo = "Machine 105", Status = "InProgress" },
+                new Maintance { Id = 3, Date = DateTime.Today.AddDays(-3), Type = "Onderhoud", Titel = "Smeerbeurt", ExtraInfo = "Machine 310", Status = "Planned" },
+                new Maintance { Id = 4, Date = DateTime.Today.AddDays(-5), Type = "Keuring", Titel = "AP-Keuring 2", ExtraInfo = "Machine 111", Status = "Deliverd" },
+                new Maintance { Id = 5, Date = DateTime.Today.AddDays(2), Type = "Inspectie", Titel = "Visuele inspectie", ExtraInfo = "Machine 402", Status = "Planned" },
+                new Maintance { Id = 6, Date = DateTime.Today.AddDays(-7), Type = "Reparatie", Titel = "Hydrauliek reparatie", ExtraInfo = "Machine 509", Status = "Deliverd" },
+                new Maintance { Id = 7, Date = DateTime.Today.AddDays(1), Type = "Onderhoud", Titel = "Filters vervangen", ExtraInfo = "Machine 277", Status = "InProgress" },
+                new Maintance { Id = 8, Date = DateTime.Today.AddDays(-10), Type = "Keuring", Titel = "AP-Keuring 3", ExtraInfo = "Machine 130", Status = "Deliverd" },
+                new Maintance { Id = 9, Date = DateTime.Today.AddDays(5), Type = "Reparatie", Titel = "Elektrische storing", ExtraInfo = "Machine 355", Status = "Planned" },
+                new Maintance { Id = 10, Date = DateTime.Today.AddDays(-2), Type = "Onderhoud", Titel = "Groot onderhoud", ExtraInfo = "Machine 500", Status = "Deliverd" },
+                new Maintance { Id = 11, Date = DateTime.Today.AddDays(-4), Type = "Inspectie", Titel = "Veiligheidsinspectie", ExtraInfo = "Machine 188", Status = "Deliverd" },
+                new Maintance { Id = 12, Date = DateTime.Today.AddDays(3), Type = "Keuring", Titel = "AP-Keuring 4", ExtraInfo = "Machine 212", Status = "Planned" },
+                new Maintance { Id = 13, Date = DateTime.Today.AddDays(-8), Type = "Reparatie", Titel = "Sensor vervangen", ExtraInfo = "Machine 333", Status = "InProgress" },
+                new Maintance { Id = 14, Date = DateTime.Today.AddDays(7), Type = "Onderhoud", Titel = "Olie verversen", ExtraInfo = "Machine 199", Status = "Planned" },
+                new Maintance { Id = 15, Date = DateTime.Today.AddDays(-6), Type = "Reparatie", Titel = "Kettingspanning aanpassen", ExtraInfo = "Machine 410", Status = "Deliverd" },
+                new Maintance { Id = 16, Date = DateTime.Today, Type = "Inspectie", Titel = "Controle lagers", ExtraInfo = "Machine 275", Status = "InProgress" },
+                new Maintance { Id = 17, Date = DateTime.Today.AddDays(4), Type = "Keuring", Titel = "AP-Keuring 5", ExtraInfo = "Machine 141", Status = "Planned" },
+                new Maintance { Id = 18, Date = DateTime.Today.AddDays(-9), Type = "Onderhoud", Titel = "Reiniging", ExtraInfo = "Machine 380", Status = "Deliverd" },
+                new Maintance { Id = 19, Date = DateTime.Today.AddDays(6), Type = "Reparatie", Titel = "Kabelbreuk herstel", ExtraInfo = "Machine 260", Status = "Planned" },
+                new Maintance { Id = 20, Date = DateTime.Today.AddDays(-12), Type = "Inspectie", Titel = "Routine-inspectie", ExtraInfo = "Machine 499", Status = "Deliverd" },
+                new Maintance { Id = 21, Date = DateTime.Today.AddDays(8), Type = "Onderhoud", Titel = "Nieuwe software update", ExtraInfo = "Machine 321", Status = "Planned" }
+
+                );
                  new Product { Id = 16, Productname = "Ontkalkingspijp", Price = 21.70f, Stock = 1, OrderQuantity = 0 }
             );
             
@@ -183,6 +213,34 @@ namespace BarrocIntens.Data
                 }
             );
 
+            base.OnModelCreating(modelBuilder);
+
+            // ===== Customers =====
+            modelBuilder.Entity<Customer>().HasData(
+                new Customer
+                {
+                    Id = 1,
+                    Name = "Prof. Willard Spinka MD",
+                    Street = "989 Reichel Pine Suite 978",
+                    PostalCode = "84026",
+                    City = "North Michelle"
+                }
+            );
+
+            // ===== Offers =====
+            modelBuilder.Entity<Offer>().HasData(
+                new Offer
+                {
+                    Id = 1,
+                    OfferNumber = "65283424",
+                    Date = new DateTime(2025, 02, 01),
+                    CustomerId = 1,
+                    CustomerNumber = "12345",
+                    ContractNumber = "CN-001"
+                }
+            );
+
+
 
             // ===== OfferItems =====
             modelBuilder.Entity<OfferItem>().HasData(
@@ -207,6 +265,10 @@ namespace BarrocIntens.Data
             );
             // ======= Machines =======
             modelBuilder.Entity<Machine>().HasData(
+                new Machine { Id = 1, Name = "Barroc Intens Italian Light", ArticleNumber = "S234FREKT", LeasePrice = 499, InstallationCost = 289, LastMaintenaceDate = DateTime.Today.AddDays(-60), ImagePath = "/Image/Machine1.png" },
+                new Machine { Id = 2, Name = "Barroc Intens Italian", ArticleNumber = "S234KNDPF", LeasePrice = 599, InstallationCost = 289, LastMaintenaceDate = DateTime.Today.AddDays(-10), ImagePath = "/Image/Machine2.png" },
+                new Machine { Id = 3, Name = "Barroc Intens Italian Deluxe", ArticleNumber = "S234NNBMV", LeasePrice = 799, InstallationCost = 375, LastMaintenaceDate = DateTime.Today.AddDays(-200), ImagePath = "/Image/Machine2.png" },
+                new Machine { Id = 4, Name = "Barroc Intens Italian Deluxe Special", ArticleNumber = "S234MMPLA", LeasePrice = 999, InstallationCost = 375,LastMaintenaceDate = DateTime.Today.AddDays(-100), ImagePath = "/Image/Machine1.png" }
                 new Machine { Id = 1, Name = "Barroc Intens Italian Light", ArticleNumber = "S234FREKT", LeasePrice = 499, InstallationCost = 289 },
                 new Machine { Id = 2, Name = "Barroc Intens Italian", ArticleNumber = "S234KNDPF", LeasePrice = 599, InstallationCost = 289 },
                 new Machine { Id = 3, Name = "Barroc Intens Italian Deluxe", ArticleNumber = "S234NNBMV", LeasePrice = 799, InstallationCost = 375 },

@@ -1,8 +1,5 @@
-using BarrocIntens.Pages.Financien;
-using BarrocIntens.Pages.Inkoop;
+using BarrocIntens.Data;
 using BarrocIntens.Pages.Inlog;
-using BarrocIntens.Pages.Maintenance;
-using BarrocIntens.Pages.Sales;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Controls.Primitives;
@@ -21,49 +18,54 @@ using Windows.Foundation.Collections;
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
 
-namespace BarrocIntens.Pages.Beheer
+namespace BarrocIntens.Pages.Maintenance
 {
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.
     /// </summary>
-    public sealed partial class BeheerOverViewPage : Page
+    public sealed partial class MaintenanceMachinesPage : Page
     {
-        public BeheerOverViewPage()
+        public MaintenanceMachinesPage()
         {
             InitializeComponent();
+            LoadMachines();
         }
 
-
-
-        private void MaintenanceOverview_Button_Click(object sender, RoutedEventArgs e)
+        private void LoadMachines()
         {
-            Frame.Navigate(typeof(MaintenanceOverviewPage));
+            using var db = new AppDbContext();
 
+            MachinesList.ItemsSource = db.Machines
+                .ToList();
         }
 
-        private void FinancienOverView_Button_Click(object sender, RoutedEventArgs e)
+        private void SearchBox_TextChanged(object sender, TextChangedEventArgs e)
         {
-            Frame.Navigate(typeof(FinancienOverViewPage));
+            var searchQueary = SearchBox.Text;
+
+            using var db = new AppDbContext();
+
+            MachinesList.ItemsSource = db.Machines
+                .Where(m => m.Name.Contains(searchQueary) || m.ArticleNumber.Contains(searchQueary))
+                .OrderByDescending(c => c.LastMaintenaceDate)
+                .ToList();
         }
 
-        private void SalesOverView_Button_Click(object sender, RoutedEventArgs e)
+        private void Detail_Click(object sender, RoutedEventArgs e)
         {
-            Frame.Navigate(typeof(SalesOverViewPage));
+
         }
 
-        private void AccountBeheerOverView_Button_Click(object sender, RoutedEventArgs e)
+        private void Back_Click(object sender, RoutedEventArgs e)
         {
-            Frame.Navigate(typeof(AccountBeheerOverViewPage));
+            Frame.GoBack();
         }
+
         private void Logout_Click(object sender, RoutedEventArgs e)
         {
             Frame.Navigate(typeof(InlogOverViewPage));
         }
 
-        private void InkoopOverView_Button_Click(object sender, RoutedEventArgs e)
-        {
-            Frame.Navigate(typeof(InkoopOverViewPage));
-
-        }
+        
     }
 }
