@@ -1,5 +1,6 @@
 using BarrocIntens.Data;
 using BarrocIntens.Models;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
@@ -15,9 +16,9 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using System.Threading.Tasks;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
-using Microsoft.EntityFrameworkCore;
 
 namespace BarrocIntens.Pages.Sales
 {
@@ -84,5 +85,6 @@ namespace BarrocIntens.Pages.Sales
         {
             Frame.GoBack();
         }
+        
     }
 }

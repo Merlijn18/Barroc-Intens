@@ -34,7 +34,7 @@ namespace BarrocIntens.Pages.Financien
         private void LoadData()
         {
             using var context = new AppDbContext();
-            CustomerDropdown.ItemsSource = context.customers.ToList();
+            CustomerDropdown.ItemsSource = context.Customers.ToList();
         }
 
         private void Save_Click(object sender, RoutedEventArgs e)
@@ -45,7 +45,7 @@ namespace BarrocIntens.Pages.Financien
             int id = (int)CustomerDropdown.SelectedValue;
             int term = int.Parse((TermSelector.SelectedItem as ComboBoxItem).Content.ToString());
 
-            var customer = context.customers.Find(id);
+            var customer = context.Customers.Find(id);
             customer.PaymentTermDays = term;
             context.SaveChanges();
         }
