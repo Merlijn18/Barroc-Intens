@@ -53,7 +53,13 @@ namespace BarrocIntens.Pages.Maintenance
 
         private void SearchBox_TextChanged(object sender, TextChangedEventArgs e)
         {
+            var searshQuery = SearchBox.Text;
 
+            using var db = new AppDbContext();
+
+            MaintenaceListview.ItemsSource = db.Maintances
+                .Where(m => m.Titel.Contains(searshQuery) || m.Type.Contains(searshQuery) || m.ExtraInfo.Contains(searshQuery))
+                .ToList();
         }
 
         private void Details_Click(object sender, RoutedEventArgs e)
