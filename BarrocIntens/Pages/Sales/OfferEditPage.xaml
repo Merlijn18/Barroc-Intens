@@ -30,27 +30,6 @@
                            VerticalAlignment="Center"
                            Margin="30,0,0,0"/>
 
-                <!-- KLANT ZOEKEN -->
-                <StackPanel Margin="0,0,0,20">
-                    <TextBlock Text="Zoek klant:" FontWeight="Bold"/>
-                    <TextBox x:Name="CustomerSearchBox"
-                         PlaceholderText="Typ naam of klantnummer"
-                         TextChanged="CustomerSearchBox_TextChanged"/>
-
-                    <ListView x:Name="CustomerListView"
-                          Height="150"
-                          Visibility="Collapsed"
-                          SelectionChanged="CustomerListView_SelectionChanged"
-                          IsItemClickEnabled="True">
-                        <ListView.ItemTemplate>
-                            <DataTemplate x:DataType="models:Customer">
-                                <TextBlock Text="{x:Bind Name}"/>
-                            </DataTemplate>
-                        </ListView.ItemTemplate>
-                    </ListView>
-                </StackPanel>
-
-
                 <Button Content="Terug"
                         Click="Back_Click"
                         Background="#FDD716"
@@ -61,8 +40,27 @@
                         Grid.Column="1"/>
             </Grid>
 
-            
-            <!-- Klantgegevens -->
+            <!-- KLANT ZOEKEN BOVENIN -->
+            <StackPanel Margin="0,0,0,20">
+                <TextBlock Text="Zoek klant:" FontWeight="Bold"/>
+                <TextBox x:Name="CustomerSearchBox"
+                         PlaceholderText="Typ naam of klantnummer"
+                         TextChanged="CustomerSearchBox_TextChanged"/>
+
+                <ListView x:Name="CustomerListView"
+                          Height="150"
+                          Visibility="Collapsed"
+                          SelectionChanged="CustomerListView_SelectionChanged"
+                          IsItemClickEnabled="True">
+                    <ListView.ItemTemplate>
+                        <DataTemplate x:DataType="models:Customer">
+                            <TextBlock Text="{x:Bind Name}"/>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </StackPanel>
+
+            <!-- KLANTGEGEVENS -->
             <TextBlock x:Name="NameBox" FontSize="20" FontWeight="Bold"/>
             <TextBlock x:Name="StreetBox"/>
             <StackPanel Orientation="Horizontal" Margin="0,0,0,20">
@@ -70,8 +68,39 @@
                 <TextBlock x:Name="CityBox" Margin="10,0,0,0" Width="200"/>
             </StackPanel>
 
-            <!-- Producten -->
-            <TextBlock Text="Producten:" FontWeight="Bold"/>
+            <!-- NIEUWE OFFER VELDEN -->
+            <TextBlock Text="Offerte Details" FontSize="22" FontWeight="Bold" Margin="0,20,0,10"/>
+
+            <StackPanel Spacing="10">
+                <TextBlock Text="Betalingsvoorwaarden"/>
+                <StackPanel Orientation="Horizontal" Spacing="5">
+                    <TextBlock Text="Betaling binnen"/>
+                    <TextBox x:Name="PaymentDaysBox" Width="50"/>
+                    <TextBlock Text="dagen na factuurdatum."/>
+                </StackPanel>
+
+                <TextBlock Text="Leveringsvoorwaarden"/>
+                <StackPanel Orientation="Horizontal" Spacing="5">
+                    <TextBlock Text="Levering binnen"/>
+                    <TextBox x:Name="DeliveryDaysBox" Width="50"/>
+                    <TextBlock Text="werkdagen na akkoord."/>
+                </StackPanel>
+                
+                <TextBlock Text="Geldig tot"/>
+                <DatePicker x:Name="ValidUntilPicker"/>
+
+                <TextBlock Text="Extra voorwaarden"/>
+                <TextBox x:Name="ExtraConditionsBox" TextWrapping="Wrap" Height="80"/>
+
+                <TextBlock Text="Contactpersoon"/>
+                <TextBox x:Name="ContactPersonBox"/>
+
+                <TextBlock Text="Handtekening / Naam ondertekening"/>
+                <TextBox x:Name="SignatureNameBox"/>
+            </StackPanel>
+
+            <!-- PRODUCTEN -->
+            <TextBlock Text="Producten:" FontWeight="Bold" FontSize="20" Margin="0,20,0,5"/>
             <Grid Margin="0,0,0,10">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="80"/>
@@ -118,7 +147,7 @@
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
 
-            <!-- Knoppen voor nieuwe producten -->
+            <!-- Buttons -->
             <StackPanel Orientation="Horizontal" Margin="0,10,0,0" Spacing="10">
                 <Button Content="Nieuwe Machine" Click="ShowMachineDialog_Click"
                         Background="#FDD716" Foreground="Black" FontWeight="Bold" Padding="10,6"/>
@@ -126,9 +155,9 @@
                         Background="#FDD716" Foreground="Black" FontWeight="Bold" Padding="10,6"/>
             </StackPanel>
 
-            <!-- Opslaan -->
-            <Button Content="Opslaan" Click="SaveOffer_Click" Background="#FDD716" Foreground="Black" FontWeight="Bold" Padding="10,6" Margin="0,20,0,0"/>
-
+            <Button Content="Opslaan" Click="SaveOffer_Click" 
+                    Background="#FDD716" Foreground="Black" 
+                    FontWeight="Bold" Padding="10,6" Margin="0,20,0,0"/>
         </StackPanel>
     </ScrollViewer>
 </Page>

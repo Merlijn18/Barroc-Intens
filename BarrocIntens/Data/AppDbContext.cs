@@ -116,14 +116,17 @@ namespace BarrocIntens.Data
 
             // ===== Customers =====
             modelBuilder.Entity<Customer>().HasData(
-                new Customer
-                {
-                    Id = 1,
-                    Name = "Prof. Willard Spinka MD",
-                    Street = "989 Reichel Pine Suite 978",
-                    PostalCode = "84026",
-                    City = "North Michelle"
-                }
+                new Customer { Id = 1, Name = "Prof. Willard Spinka MD", Street = "Reichel Pine 97", PostalCode = "4802 RT", City = "North Michelle"},
+                new Customer { Id = 2, Name = "Van den Berg Industries", Street = "Kasteelstraat 12", PostalCode = "1011 AB", City = "Amsterdam" },
+                new Customer { Id = 3, Name = "De Jong Logistics", Street = "Stationsweg 45", PostalCode = "3011 CD", City = "Rotterdam" },
+                new Customer { Id = 4, Name = "Bakker Tech Solutions", Street = "Industrielaan 7", PostalCode = "5612 EF", City = "Eindhoven" },
+                new Customer { Id = 5, Name = "Visser & Zn.", Street = "Marktplein 3", PostalCode = "7511 GH", City = "Enschede" },
+                new Customer { Id = 6, Name = "Klein Engineering", Street = "Havenstraat 21", PostalCode = "3511 IJ", City = "Utrecht" },
+                new Customer { Id = 7, Name = "Smit Machinebouw", Street = "Oosterstraat 19", PostalCode = "9711 KL", City = "Groningen" },
+                new Customer { Id = 8, Name = "Hoekstra Solutions", Street = "Westerdijk 34", PostalCode = "8021 MN", City = "Zwolle" },
+                new Customer { Id = 9, Name = "Mulder Food & Co.", Street = "Dorpsstraat 56", PostalCode = "5011 OP", City = "Tilburg" },
+                new Customer { Id = 10, Name = "Meijer Manufacturing", Street = "Langeweg 10", PostalCode = "6211 QR", City = "Maastricht" },
+                new Customer { Id = 11, Name = "Jansen International", Street = "Koningstraat 8", PostalCode = "2011 ST", City = "Haarlem" }
             );
 
             // ===== Offers =====
@@ -131,11 +134,34 @@ namespace BarrocIntens.Data
                 new Offer
                 {
                     Id = 1,
-                    OfferNumber = "65283424",
+                    OfferNumber = "OFF2025-001",
                     Date = new DateTime(2025, 02, 01),
                     CustomerId = 1,
                     CustomerNumber = "12345",
-                    ContractNumber = "CN-001"
+                    ContractNumber = "CN-001",
+
+                    PaymentTerms = "Betaling binnen 30 dagen na factuurdatum.",
+                    DeliveryTerms = "Levering binnen 7 werkdagen na akkoord.",
+                    ValidUntil = DateTime.Now.AddDays(30),
+                    ExtraConditions = "Prijzen exclusief btw. Geldig zolang voorraad strekt.",
+                    ContactPerson = "Jan de Vries",
+                    SignatureName = "Barroc Intens BV"
+                },
+                new Offer
+                {
+                    Id = 2,
+                    OfferNumber = "OFF2025-002",
+                    Date = DateTime.Now,
+                    CustomerId = 1,
+                    CustomerNumber = "98765",
+                    ContractNumber = "CN-002",
+
+                    PaymentTerms = "Betaling binnen 14 dagen.",
+                    DeliveryTerms = "Levering binnen 10 werkdagen.",
+                    ValidUntil = DateTime.Now.AddDays(45),
+                    ExtraConditions = "Servicecontract optioneel bij te sluiten.",
+                    ContactPerson = "Lisa Jansen",
+                    SignatureName = "Barroc Intens BV"
                 }
             );
 
