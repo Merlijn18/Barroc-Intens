@@ -157,8 +157,6 @@ namespace BarrocIntens.Data
                 new Maintance { Id = 21, Date = DateTime.Today.AddDays(8), Type = "Onderhoud", Titel = "Nieuwe software update", ExtraInfo = "Machine 321", Status = "Planned" }
 
                 );
-                 new Product { Id = 16, Productname = "Ontkalkingspijp", Price = 21.70f, Stock = 1, OrderQuantity = 0 }
-            );
             
             base.OnModelCreating(modelBuilder);
 
@@ -215,31 +213,6 @@ namespace BarrocIntens.Data
 
             base.OnModelCreating(modelBuilder);
 
-            // ===== Customers =====
-            modelBuilder.Entity<Customer>().HasData(
-                new Customer
-                {
-                    Id = 1,
-                    Name = "Prof. Willard Spinka MD",
-                    Street = "989 Reichel Pine Suite 978",
-                    PostalCode = "84026",
-                    City = "North Michelle"
-                }
-            );
-
-            // ===== Offers =====
-            modelBuilder.Entity<Offer>().HasData(
-                new Offer
-                {
-                    Id = 1,
-                    OfferNumber = "65283424",
-                    Date = new DateTime(2025, 02, 01),
-                    CustomerId = 1,
-                    CustomerNumber = "12345",
-                    ContractNumber = "CN-001"
-                }
-            );
-
 
 
             // ===== OfferItems =====
@@ -268,12 +241,8 @@ namespace BarrocIntens.Data
                 new Machine { Id = 1, Name = "Barroc Intens Italian Light", ArticleNumber = "S234FREKT", LeasePrice = 499, InstallationCost = 289, LastMaintenaceDate = DateTime.Today.AddDays(-60), ImagePath = "/Image/Machine1.png" },
                 new Machine { Id = 2, Name = "Barroc Intens Italian", ArticleNumber = "S234KNDPF", LeasePrice = 599, InstallationCost = 289, LastMaintenaceDate = DateTime.Today.AddDays(-10), ImagePath = "/Image/Machine2.png" },
                 new Machine { Id = 3, Name = "Barroc Intens Italian Deluxe", ArticleNumber = "S234NNBMV", LeasePrice = 799, InstallationCost = 375, LastMaintenaceDate = DateTime.Today.AddDays(-200), ImagePath = "/Image/Machine2.png" },
-                new Machine { Id = 4, Name = "Barroc Intens Italian Deluxe Special", ArticleNumber = "S234MMPLA", LeasePrice = 999, InstallationCost = 375,LastMaintenaceDate = DateTime.Today.AddDays(-100), ImagePath = "/Image/Machine1.png" }
-                new Machine { Id = 1, Name = "Barroc Intens Italian Light", ArticleNumber = "S234FREKT", LeasePrice = 499, InstallationCost = 289 },
-                new Machine { Id = 2, Name = "Barroc Intens Italian", ArticleNumber = "S234KNDPF", LeasePrice = 599, InstallationCost = 289 },
-                new Machine { Id = 3, Name = "Barroc Intens Italian Deluxe", ArticleNumber = "S234NNBMV", LeasePrice = 799, InstallationCost = 375 },
-                new Machine { Id = 4, Name = "Barroc Intens Italian Deluxe Special", ArticleNumber = "S234MMPLA", LeasePrice = 999, InstallationCost = 375 }
-            );
+                new Machine { Id = 4, Name = "Barroc Intens Italian Deluxe Special", ArticleNumber = "S234MMPLA", LeasePrice = 999, InstallationCost = 375, LastMaintenaceDate = DateTime.Today.AddDays(-100), ImagePath = "/Image/Machine1.png" }
+                );
 
             // ======= CoffeeBeans =======
             modelBuilder.Entity<CoffeeBean>().HasData(

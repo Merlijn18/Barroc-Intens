@@ -23,7 +23,7 @@
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
 
-            <TextBlock Text="Monteur"
+            <TextBlock Text="Monteur Calender"
                        Foreground="#FDD716"
                        FontSize="40"
                        FontFamily="Segoe UI"

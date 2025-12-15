@@ -57,7 +57,7 @@
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
 
-            <TextBlock Text="Account Aanmaken"
+            <TextBlock Text="Maintenace Overzicht"
                     Foreground="#FDD716"
                     FontSize="40"
                     FontFamily="Segoe UI"
