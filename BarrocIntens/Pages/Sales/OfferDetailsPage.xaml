@@ -1,0 +1,169 @@
+<Page
+    x:Class="BarrocIntens.Pages.Sales.OfferDetailsPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:models="using:BarrocIntens.Models"
+    xmlns:local="using:BarrocIntens.Pages.Sales"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <Page.Resources>
+        <local:CurrencyConverter x:Key="CurrencyConverter"/>
+    </Page.Resources>
+
+    <ScrollViewer Margin="30">
+        <StackPanel>
+
+            <!-- HEADER -->
+            <Grid Background="Black" Height="100" Margin="0,0,0,20">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Text="Offerte Details"
+                           Foreground="#FDD716"
+                           FontSize="40"
+                           FontFamily="Segoe UI"
+                           FontWeight="Bold"
+                           VerticalAlignment="Center"
+                           Margin="30,0,0,0"/>
+
+                <Button Content="Terug"
+                        Click="Back_Click"
+                        Background="#FDD716"
+                        Foreground="Black"
+                        FontWeight="Bold"
+                        Padding="10,6"
+                        Margin="0,0,20,0"
+                        Grid.Column="1"/>
+            </Grid>
+
+            <!-- Klantgegevens -->
+            <TextBlock Text="{Binding Customer.Name}" FontSize="20" FontWeight="Bold"/>
+            <TextBlock Text="{Binding Customer.Street}"/>
+            <TextBlock Margin="0,0,0,20">
+                <Run Text="{Binding Customer.PostalCode}"/>
+                <Run Text=", "/>
+                <Run Text="{Binding Customer.City}"/>
+            </TextBlock>
+
+            <!-- Offerte info -->
+            <StackPanel Orientation="Vertical" Spacing="0" Margin="0,0,0,20">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Margin="0,0,5,0" Text="Periode:" FontWeight="Bold"/>
+                    <TextBlock Text="{Binding Date}"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Margin="0,0,5,0" Text="Klantnr:" FontWeight="Bold"/>
+                    <TextBlock Text="{Binding CustomerNumber}"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Margin="0,0,5,0" Text="Contractnr:" FontWeight="Bold"/>
+                    <TextBlock Text="{Binding ContractNumber}"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Margin="0,0,5,0" Text="Factuurnr:" FontWeight="Bold"/>
+                    <TextBlock Text="{Binding OfferNumber}"/>
+                </StackPanel>
+            </StackPanel>
+
+            <!-- Lijn -->
+            <Border BorderBrush="#FDD716" BorderThickness="0,2,0,0" Margin="0,10,0,10"/>
+
+            <!-- Productenlijst header -->
+            <Grid Margin="0,0,0,10">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="80"/>
+                    <ColumnDefinition Width="120"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="150"/>
+                    <ColumnDefinition Width="150"/>
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Text="Aantal" FontWeight="Bold"/>
+                <TextBlock Text="Nummer" Grid.Column="1" FontWeight="Bold"/>
+                <TextBlock Text="Omschrijving" Grid.Column="2" FontWeight="Bold"/>
+                <TextBlock Text="Prijs" Grid.Column="3" FontWeight="Bold"/>
+                <TextBlock Text="Subtotaal" Grid.Column="4" FontWeight="Bold"/>
+            </Grid>
+
+            <!-- Producten ItemsControl -->
+            <ItemsControl ItemsSource="{Binding Items}">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate x:DataType="models:OfferItem">
+                        <Grid Margin="0,4,0,4">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="80"/>
+                                <ColumnDefinition Width="120"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="150"/>
+                                <ColumnDefinition Width="150"/>
+                            </Grid.ColumnDefinitions>
+
+                            <TextBlock Text="{x:Bind Quantity}"/>
+                            <TextBlock Text="{x:Bind ProductNumber}" Grid.Column="1"/>
+                            <TextBlock Text="{x:Bind ProductName}" Grid.Column="2"/>
+                            <TextBlock Text="{x:Bind UnitPrice, Converter={StaticResource CurrencyConverter}}" Grid.Column="3"/>
+                            <TextBlock Text="{x:Bind Subtotal, Converter={StaticResource CurrencyConverter}}" Grid.Column="4"/>
+                        </Grid>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+
+            <!-- Lijn boven totaal -->
+            <Border BorderBrush="#FDD716" BorderThickness="0,2,0,0" Margin="0,10,0,10"/>
+
+            <!-- Totalen -->
+            <StackPanel HorizontalAlignment="Right" Width="200" Margin="0,0,100,20">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock Text="Total (excl. BTW):" FontWeight="Bold" Grid.Row="0" Grid.Column="0"/>
+                    <TextBlock Text="{Binding Total, Converter={StaticResource CurrencyConverter}}" Grid.Row="0" Grid.Column="1" HorizontalAlignment="Right"/>
+
+                    <TextBlock Text="BTW (21%):" FontWeight="Bold" Grid.Row="1" Grid.Column="0"/>
+                    <TextBlock Text="{Binding VAT, Converter={StaticResource CurrencyConverter}}" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Right"/>
+
+                    <TextBlock Text="Totaal:" FontWeight="Bold" Grid.Row="2" Grid.Column="0"/>
+                    <TextBlock Text="{Binding TotalwithVAT, Converter={StaticResource CurrencyConverter}}" Grid.Row="2" Grid.Column="1" HorizontalAlignment="Right"/>
+                </Grid>
+            </StackPanel>
+
+            <!-- Betalingsvoorwaarden -->
+            <TextBlock Text="Betalingsvoorwaarden" FontSize="18" FontWeight="Bold" Margin="0,20,0,5"/>
+            <TextBlock Text="{Binding PaymentTerms}" TextWrapping="Wrap" Margin="0,0,0,15"/>
+
+            <!-- Leveringsvoorwaarden -->
+            <TextBlock Text="Leveringsvoorwaarden" FontSize="18" FontWeight="Bold" Margin="0,10,0,5"/>
+            <TextBlock Text="{Binding DeliveryTerms}" TextWrapping="Wrap" Margin="0,0,0,15"/>
+
+            <!-- Geldigheidsduur -->
+            <TextBlock Text="Geldige tot:" FontSize="18" FontWeight="Bold" Margin="0,10,0,5"/>
+            <TextBlock Text="{Binding ValidUntil}" Margin="0,0,0,15"/>
+
+            <!-- Extra voorwaarden -->
+            <TextBlock Text="Extra voorwaarden" FontSize="18" FontWeight="Bold" Margin="0,10,0,5"/>
+            <TextBlock Text="{Binding ExtraConditions}" TextWrapping="Wrap" Margin="0,0,0,15"/>
+
+            <!-- Contactpersoon -->
+            <TextBlock Text="Contactpersoon" FontSize="18" FontWeight="Bold" Margin="0,10,0,5"/>
+            <TextBlock Text="{Binding ContactPerson}" Margin="0,0,0,15"/>
+
+            <!-- Handtekening -->
+            <TextBlock Text="Handtekening voor akkoord" FontSize="18" FontWeight="Bold" Margin="0,20,0,5"/>
+            <TextBlock Text="{Binding SignatureName}" Margin="0,0,0,30"/>
+
+        </StackPanel>
+    </ScrollViewer>
+
+</Page>
