@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Page
-    x:Class="BarrocIntens.Pages.Maintenance.MachinesPage"
+    x:Class="BarrocIntens.Pages.Maintenance.MaintenanceMachinesPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:localData="using:BarrocIntens.Models">
@@ -29,40 +29,47 @@
     </Page.Resources>
 
 
-    <Grid Background="White">
+    <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-
-        <!-- HEADER -->
-        <Grid Grid.Row="0"
-              Background="Black"
-              Height="90"
-              Padding="40,0,40,0">
+        <Grid Grid.Row="0" Background="Black" Height="100">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition/>
+                <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
 
-            <TextBlock Text="Machines"
-                       Foreground="#FDD716"
-                       FontSize="36"
-                       FontWeight="Bold"
-                       VerticalAlignment="Center"/>
+            <TextBlock Text="Account Aanmaken"
+                    Foreground="#FDD716"
+                    FontSize="40"
+                    FontFamily="Segoe UI"
+                    FontWeight="Bold"
+                    VerticalAlignment="Center"
+                    Margin="30,0,0,0"/>
 
-            <StackPanel Grid.Column="1"
-                        Orientation="Horizontal"
-                        VerticalAlignment="Center"
-                        Spacing="12">
-                <Button Content="Terug"
-                        Click="Back_Click"
-                        Style="{StaticResource OutlineButtonStyle}"/>
+            <StackPanel Orientation="Horizontal" Grid.Column="1" VerticalAlignment="Center" Margin="0,0,20,0" Spacing="10">
+                <Button x:Name="Back"
+                     Content="Terug"
+                     Click="Back_Click"
+                     Background="Black"
+                     Foreground="White"
+                     FontSize="16"
+                     FontWeight="SemiBold"
+                     Padding="12,6"
+                     BorderBrush="White"
+                     BorderThickness="1"/>
 
-                <Button Content="Uitloggen"
-                        Click="Logout_Click"
-                        Style="{StaticResource YellowButtonStyle}"/>
+                <Button x:Name="Logout"
+                     Content="Uitloggen"
+                     Click="Logout_Click"
+                     Background="#FDD716"
+                     Foreground="Black"
+                     FontSize="16"
+                     FontWeight="Bold"
+                     Padding="12,6"
+                     BorderThickness="0"/>
             </StackPanel>
         </Grid>
 
@@ -90,36 +97,52 @@
                                 Padding="20"
                                 Margin="0,12,0,0">
 
-                            <Grid>
+                            <Grid ColumnSpacing="20">
                                 <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="120"/>
                                     <ColumnDefinition/>
                                     <ColumnDefinition Width="Auto"/>
                                 </Grid.ColumnDefinitions>
 
-                                <StackPanel>
+                                <!-- AFBEELDING -->
+                                <Border Width="120"
+                                    Height="120"
+                                    CornerRadius="10"
+                                    Background="Black">
 
-                                    <TextBlock Text="{x:Bind Name}"
-                                               FontSize="22"
-                                               FontWeight="Bold"/>
+                                <Image x:Name="MachineImage"
+                                     Source="{x:Bind ImagePath}"
+                                     Stretch="UniformToFill"/>        
 
-                                    <TextBlock Text="{x:Bind SerialNumber}"
-                                               Foreground="Gray"
-                                               Margin="0,4,0,0"/>
+                                </Border>
 
-                                    <TextBlock Text="{x:Bind Location}"
-                                               Margin="0,4,0,0"/>
+                                <!-- INFO -->
+                                <StackPanel Grid.Column="1">
 
-                                    <TextBlock Text="{x:Bind LastMaintenance}"
-                                               Foreground="#FDD716"
-                                               Margin="0,8,0,0"/>
+                                        <TextBlock Text="{x:Bind Name}"
+                                           FontSize="22"
+                                           FontWeight="Bold"/>
+
+                                        <TextBlock Text="{x:Bind ArticleNumber }"
+                                           Foreground="Gray"
+                                           Margin="0,4,0,0"/>
+
+                                        <TextBlock Text="{x:Bind LeasePrice }"
+                                           Margin="0,4,0,0"/>
+
+                                        <TextBlock Text="{x:Bind InstallationCost }"
+                                            Foreground="#FDD716"
+                                            Margin="0,8,0,0"/>
 
                                 </StackPanel>
 
-                                <Button Grid.Column="1"
-                                        Content="Details"
-                                        Style="{StaticResource YellowButtonStyle}"
-                                        Click="Detail_Click"/>
+                                <!-- BUTTON -->
+                                <Button Grid.Column="2"
+                                Content="Details"
+                                Style="{StaticResource YellowButtonStyle}"
+                                Click="Detail_Click"/>
                             </Grid>
+
 
                         </Border>
 

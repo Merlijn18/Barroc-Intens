@@ -45,41 +45,47 @@
 
     </Page.Resources>
 
-    <Grid Background="Black">
-
+    <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <!-- HEADER -->
-        <Grid Grid.Row="0"
-              Background="Black"
-              Height="90"
-              Padding="40,0,40,0">
+        <Grid Grid.Row="0" Background="Black" Height="100">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition/>
+                <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
 
-            <TextBlock Text="Maintenance"
-                       Foreground="#FDD716"
-                       FontSize="36"
-                       FontWeight="Bold"
-                       VerticalAlignment="Center"/>
+            <TextBlock Text="Account Aanmaken"
+                    Foreground="#FDD716"
+                    FontSize="40"
+                    FontFamily="Segoe UI"
+                    FontWeight="Bold"
+                    VerticalAlignment="Center"
+                    Margin="30,0,0,0"/>
 
-            <StackPanel Grid.Column="1"
-                        Orientation="Horizontal"
-                        VerticalAlignment="Center"
-                        Spacing="12">
+            <StackPanel Orientation="Horizontal" Grid.Column="1" VerticalAlignment="Center" Margin="0,0,20,0" Spacing="10">
+                <Button x:Name="Back"
+                     Content="Terug"
+                     Click="Back_Click"
+                     Background="Black"
+                     Foreground="White"
+                     FontSize="16"
+                     FontWeight="SemiBold"
+                     Padding="12,6"
+                     BorderBrush="White"
+                     BorderThickness="1"/>
 
-                <Button Content="Terug"
-                        Click="Back_Click"
-                        Style="{StaticResource OutlineButtonStyle}"/>
-
-                <Button Content="Uitloggen"
-                        Click="Logout_Click"
-                        Style="{StaticResource YellowButtonStyle}"/>
+                <Button x:Name="Logout"
+                     Content="Uitloggen"
+                     Click="Logout_Click"
+                     Background="#FDD716"
+                     Foreground="Black"
+                     FontSize="16"
+                     FontWeight="Bold"
+                     Padding="12,6"
+                     BorderThickness="0"/>
             </StackPanel>
         </Grid>
 
@@ -112,8 +118,8 @@
                     Style="{StaticResource TileButtonStyle}"/>
 
             <Button Grid.Row="1" Grid.Column="1"
-                    Content="Keuring plannen"
-                    Click="Inspection_Click"
+                    Content="Onderhoud Log"
+                    Click="BackLog_Click"
                     Style="{StaticResource TileButtonStyle}"/>
 
         </Grid>

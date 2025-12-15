@@ -12,7 +12,7 @@ namespace BarrocIntens.Data
     {
         public DbSet<User> Users { get; set; }
         public DbSet<Product> Products { get; set; }
-        public DbSet<AgendaKlus> AgendaKlusses { get; set; }      
+        public DbSet<Maintance> Maintances { get; set; }      
         public DbSet<Offer> Offers { get; set; }
         public DbSet<Customer> Customers { get; set; }
         public DbSet<Machine> Machines { get; set; }
@@ -129,39 +129,31 @@ namespace BarrocIntens.Data
             
             );
             
-            modelBuilder.Entity<AgendaKlus>().HasData(
-                new AgendaKlus { Id = 1, Date = DateTime.Today, Type = "Keuring", Titel = "AP-Keuring 1", ExtraInfo = "Machine 220" },
-                new AgendaKlus { Id = 2, Date = DateTime.Today.AddDays(1), Type = "Melding", Titel = "Storing 2", ExtraInfo = "Rotterdam" },
-                new AgendaKlus { Id = 3, Date = DateTime.Today.AddDays(1), Type = "Keuring", Titel = "AP-Keuring 3", ExtraInfo = "Machine 221" },
-                new AgendaKlus { Id = 4, Date = DateTime.Today.AddDays(3), Type = "Melding", Titel = "Storing 4", ExtraInfo = "Amsterdam" },
-                new AgendaKlus { Id = 5, Date = DateTime.Today.AddDays(4), Type = "Keuring", Titel = "AP-Keuring 5", ExtraInfo = "Machine 222" },
-                new AgendaKlus { Id = 6, Date = DateTime.Today.AddDays(5), Type = "Melding", Titel = "Storing 6", ExtraInfo = "Utrecht" },
-                new AgendaKlus { Id = 7, Date = DateTime.Today.AddDays(6), Type = "Keuring", Titel = "AP-Keuring 7", ExtraInfo = "Machine 223" },
-                new AgendaKlus { Id = 8, Date = DateTime.Today.AddDays(7), Type = "Melding", Titel = "Storing 8", ExtraInfo = "Eindhoven" },
-                new AgendaKlus { Id = 9, Date = DateTime.Today.AddDays(8), Type = "Keuring", Titel = "AP-Keuring 9", ExtraInfo = "Machine 224" },
-                new AgendaKlus { Id = 10, Date = DateTime.Today.AddDays(9), Type = "Melding", Titel = "Storing 10", ExtraInfo = "Den Haag" },
-                new AgendaKlus { Id = 11, Date = DateTime.Today.AddDays(10), Type = "Keuring", Titel = "AP-Keuring 11", ExtraInfo = "Machine 225" },
-                new AgendaKlus { Id = 12, Date = DateTime.Today.AddDays(11), Type = "Melding", Titel = "Storing 12", ExtraInfo = "Rotterdam" },
-                new AgendaKlus { Id = 13, Date = DateTime.Today.AddDays(12), Type = "Keuring", Titel = "AP-Keuring 13", ExtraInfo = "Machine 226" },
-                new AgendaKlus { Id = 14, Date = DateTime.Today.AddDays(13), Type = "Melding", Titel = "Storing 14", ExtraInfo = "Amsterdam" },
-                new AgendaKlus { Id = 15, Date = DateTime.Today.AddDays(14), Type = "Keuring", Titel = "AP-Keuring 15", ExtraInfo = "Machine 227" },
-                new AgendaKlus { Id = 16, Date = DateTime.Today.AddDays(15), Type = "Melding", Titel = "Storing 16", ExtraInfo = "Utrecht" },
-                new AgendaKlus { Id = 17, Date = DateTime.Today.AddDays(16), Type = "Keuring", Titel = "AP-Keuring 17", ExtraInfo = "Machine 228" },
-                new AgendaKlus { Id = 18, Date = DateTime.Today.AddDays(17), Type = "Melding", Titel = "Storing 18", ExtraInfo = "Eindhoven" },
-                new AgendaKlus { Id = 19, Date = DateTime.Today.AddDays(18), Type = "Keuring", Titel = "AP-Keuring 19", ExtraInfo = "Machine 229" },
-                new AgendaKlus { Id = 20, Date = DateTime.Today.AddDays(19), Type = "Melding", Titel = "Storing 20", ExtraInfo = "Den Haag" },
-                new AgendaKlus { Id = 21, Date = DateTime.Today.AddDays(20), Type = "Keuring", Titel = "AP-Keuring 21", ExtraInfo = "Machine 230" },
-                new AgendaKlus { Id = 22, Date = DateTime.Today.AddDays(21), Type = "Melding", Titel = "Storing 22", ExtraInfo = "Rotterdam" },
-                new AgendaKlus { Id = 23, Date = DateTime.Today.AddDays(22), Type = "Keuring", Titel = "AP-Keuring 23", ExtraInfo = "Machine 231" },
-                new AgendaKlus { Id = 24, Date = DateTime.Today.AddDays(23), Type = "Melding", Titel = "Storing 24", ExtraInfo = "Amsterdam" },
-                new AgendaKlus { Id = 25, Date = DateTime.Today.AddDays(24), Type = "Keuring", Titel = "AP-Keuring 25", ExtraInfo = "Machine 232" },
-                new AgendaKlus { Id = 26, Date = DateTime.Today.AddDays(25), Type = "Melding", Titel = "Storing 26", ExtraInfo = "Utrecht" },
-                new AgendaKlus { Id = 27, Date = DateTime.Today.AddDays(26), Type = "Keuring", Titel = "AP-Keuring 27", ExtraInfo = "Machine 233" },
-                new AgendaKlus { Id = 28, Date = DateTime.Today.AddDays(27), Type = "Melding", Titel = "Storing 28", ExtraInfo = "Eindhoven" },
-                new AgendaKlus { Id = 29, Date = DateTime.Today.AddDays(28), Type = "Keuring", Titel = "AP-Keuring 29", ExtraInfo = "Machine 234" },
-                new AgendaKlus { Id = 30, Date = DateTime.Today.AddDays(29), Type = "Melding", Titel = "Storing 30", ExtraInfo = "Den Haag" }
+            modelBuilder.Entity<Maintance>().HasData(
+                new Maintance { Id = 1, Date = DateTime.Today, Type = "Keuring", Titel = "AP-Keuring 1", ExtraInfo = "Machine 220", Status = "Deliverd" },
+                new Maintance { Id = 2, Date = DateTime.Today.AddDays(-1), Type = "Reparatie", Titel = "Motor vervangen", ExtraInfo = "Machine 105", Status = "InProgress" },
+                new Maintance { Id = 3, Date = DateTime.Today.AddDays(-3), Type = "Onderhoud", Titel = "Smeerbeurt", ExtraInfo = "Machine 310", Status = "Planned" },
+                new Maintance { Id = 4, Date = DateTime.Today.AddDays(-5), Type = "Keuring", Titel = "AP-Keuring 2", ExtraInfo = "Machine 111", Status = "Deliverd" },
+                new Maintance { Id = 5, Date = DateTime.Today.AddDays(2), Type = "Inspectie", Titel = "Visuele inspectie", ExtraInfo = "Machine 402", Status = "Planned" },
+                new Maintance { Id = 6, Date = DateTime.Today.AddDays(-7), Type = "Reparatie", Titel = "Hydrauliek reparatie", ExtraInfo = "Machine 509", Status = "Deliverd" },
+                new Maintance { Id = 7, Date = DateTime.Today.AddDays(1), Type = "Onderhoud", Titel = "Filters vervangen", ExtraInfo = "Machine 277", Status = "InProgress" },
+                new Maintance { Id = 8, Date = DateTime.Today.AddDays(-10), Type = "Keuring", Titel = "AP-Keuring 3", ExtraInfo = "Machine 130", Status = "Deliverd" },
+                new Maintance { Id = 9, Date = DateTime.Today.AddDays(5), Type = "Reparatie", Titel = "Elektrische storing", ExtraInfo = "Machine 355", Status = "Planned" },
+                new Maintance { Id = 10, Date = DateTime.Today.AddDays(-2), Type = "Onderhoud", Titel = "Groot onderhoud", ExtraInfo = "Machine 500", Status = "Deliverd" },
+                new Maintance { Id = 11, Date = DateTime.Today.AddDays(-4), Type = "Inspectie", Titel = "Veiligheidsinspectie", ExtraInfo = "Machine 188", Status = "Deliverd" },
+                new Maintance { Id = 12, Date = DateTime.Today.AddDays(3), Type = "Keuring", Titel = "AP-Keuring 4", ExtraInfo = "Machine 212", Status = "Planned" },
+                new Maintance { Id = 13, Date = DateTime.Today.AddDays(-8), Type = "Reparatie", Titel = "Sensor vervangen", ExtraInfo = "Machine 333", Status = "InProgress" },
+                new Maintance { Id = 14, Date = DateTime.Today.AddDays(7), Type = "Onderhoud", Titel = "Olie verversen", ExtraInfo = "Machine 199", Status = "Planned" },
+                new Maintance { Id = 15, Date = DateTime.Today.AddDays(-6), Type = "Reparatie", Titel = "Kettingspanning aanpassen", ExtraInfo = "Machine 410", Status = "Deliverd" },
+                new Maintance { Id = 16, Date = DateTime.Today, Type = "Inspectie", Titel = "Controle lagers", ExtraInfo = "Machine 275", Status = "InProgress" },
+                new Maintance { Id = 17, Date = DateTime.Today.AddDays(4), Type = "Keuring", Titel = "AP-Keuring 5", ExtraInfo = "Machine 141", Status = "Planned" },
+                new Maintance { Id = 18, Date = DateTime.Today.AddDays(-9), Type = "Onderhoud", Titel = "Reiniging", ExtraInfo = "Machine 380", Status = "Deliverd" },
+                new Maintance { Id = 19, Date = DateTime.Today.AddDays(6), Type = "Reparatie", Titel = "Kabelbreuk herstel", ExtraInfo = "Machine 260", Status = "Planned" },
+                new Maintance { Id = 20, Date = DateTime.Today.AddDays(-12), Type = "Inspectie", Titel = "Routine-inspectie", ExtraInfo = "Machine 499", Status = "Deliverd" },
+                new Maintance { Id = 21, Date = DateTime.Today.AddDays(8), Type = "Onderhoud", Titel = "Nieuwe software update", ExtraInfo = "Machine 321", Status = "Planned" }
+
                 );
-        }
+
 
             base.OnModelCreating(modelBuilder);
 
@@ -214,10 +206,10 @@ namespace BarrocIntens.Data
             );
             // ======= Machines =======
             modelBuilder.Entity<Machine>().HasData(
-                new Machine { Id = 1, Name = "Barroc Intens Italian Light", ArticleNumber = "S234FREKT", LeasePrice = 499, InstallationCost = 289 },
-                new Machine { Id = 2, Name = "Barroc Intens Italian", ArticleNumber = "S234KNDPF", LeasePrice = 599, InstallationCost = 289 },
-                new Machine { Id = 3, Name = "Barroc Intens Italian Deluxe", ArticleNumber = "S234NNBMV", LeasePrice = 799, InstallationCost = 375 },
-                new Machine { Id = 4, Name = "Barroc Intens Italian Deluxe Special", ArticleNumber = "S234MMPLA", LeasePrice = 999, InstallationCost = 375 }
+                new Machine { Id = 1, Name = "Barroc Intens Italian Light", ArticleNumber = "S234FREKT", LeasePrice = 499, InstallationCost = 289, LastMaintenaceDate = DateTime.Today.AddDays(-60), ImagePath = "/Image/Machine1.png" },
+                new Machine { Id = 2, Name = "Barroc Intens Italian", ArticleNumber = "S234KNDPF", LeasePrice = 599, InstallationCost = 289, LastMaintenaceDate = DateTime.Today.AddDays(-10), ImagePath = "/Image/Machine2.png" },
+                new Machine { Id = 3, Name = "Barroc Intens Italian Deluxe", ArticleNumber = "S234NNBMV", LeasePrice = 799, InstallationCost = 375, LastMaintenaceDate = DateTime.Today.AddDays(-200), ImagePath = "/Image/Machine2.png" },
+                new Machine { Id = 4, Name = "Barroc Intens Italian Deluxe Special", ArticleNumber = "S234MMPLA", LeasePrice = 999, InstallationCost = 375,LastMaintenaceDate = DateTime.Today.AddDays(-100), ImagePath = "/Image/Machine1.png" }
             );
 
             // ======= CoffeeBeans =======

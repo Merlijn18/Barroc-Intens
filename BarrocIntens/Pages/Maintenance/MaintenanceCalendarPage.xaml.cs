@@ -26,14 +26,14 @@ namespace BarrocIntens.Pages.Maintenance
 
     public sealed partial class MaintenanceCalendarPage : Page
     {
-        private List<AgendaKlus> Klussen;
+        private List<Maintance> Klussen;
 
         public MaintenanceCalendarPage()
         {
             InitializeComponent();
 
             using var db = new AppDbContext();
-            Klussen = db.AgendaKlusses.ToList();
+            Klussen = db.Maintances.ToList();
             LoadToDo();
         }
 
@@ -41,7 +41,7 @@ namespace BarrocIntens.Pages.Maintenance
         {
             using var db = new AppDbContext();
 
-            var toDo = db.AgendaKlusses
+            var toDo = db.Maintances
                 .ToList();
 
             ToDoListView.ItemsSource = toDo;
@@ -78,7 +78,7 @@ namespace BarrocIntens.Pages.Maintenance
             DateTime date = args.AddedDates[0].Date;
 
             using var db = new AppDbContext();
-            var klussenVandaag = db.AgendaKlusses
+            var klussenVandaag = db.Maintances
                 .Where(k => k.Date.Date == date.Date)
                 .ToList();
 
@@ -171,7 +171,7 @@ namespace BarrocIntens.Pages.Maintenance
             using var db = new AppDbContext();
 
             var button = sender as Button;
-            var ToDoId = button?.DataContext as AgendaKlus;
+            var ToDoId = button?.DataContext as Maintance;
 
             if (ToDoId != null)
             {
@@ -190,7 +190,7 @@ namespace BarrocIntens.Pages.Maintenance
                 //If oke
                 if (result == ContentDialogResult.Primary)
                 {
-                    db.AgendaKlusses.Remove(ToDoId);
+                    db.Maintances.Remove(ToDoId);
                     db.SaveChanges();
                     LoadToDo();
                     var dialog = new ContentDialog
@@ -217,7 +217,7 @@ namespace BarrocIntens.Pages.Maintenance
 
             using var db = new AppDbContext();
 
-            ToDoListView.ItemsSource = db.AgendaKlusses
+            ToDoListView.ItemsSource = db.Maintances
                 .Where(c => c.Type.Contains(searchQuery) || c.Titel.Contains(searchQuery))
                 .OrderByDescending(c => c.Date)
                 .ToList();

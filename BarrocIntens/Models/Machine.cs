@@ -13,5 +13,9 @@ namespace BarrocIntens.Models
         public string ArticleNumber { get; set; }
         public double LeasePrice { get; set; }
         public double InstallationCost { get; set; }
+        public DateTime LastMaintenaceDate { get; set; }
+        public string ImagePath { get; set; }
+
+
     }
 }

@@ -1,3 +1,5 @@
+using BarrocIntens.Data;
+using BarrocIntens.Pages.Inlog;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Controls.Primitives;
@@ -26,6 +28,44 @@ namespace BarrocIntens.Pages.Maintenance
         public MaintenanceMachinesPage()
         {
             InitializeComponent();
+            LoadMachines();
         }
+
+        private void LoadMachines()
+        {
+            using var db = new AppDbContext();
+
+            MachinesList.ItemsSource = db.Machines
+                .ToList();
+        }
+
+        private void SearchBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            var searchQueary = SearchBox.Text;
+
+            using var db = new AppDbContext();
+
+            MachinesList.ItemsSource = db.Machines
+                .Where(m => m.Name.Contains(searchQueary) || m.ArticleNumber.Contains(searchQueary))
+                .OrderByDescending(c => c.LastMaintenaceDate)
+                .ToList();
+        }
+
+        private void Detail_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Back_Click(object sender, RoutedEventArgs e)
+        {
+            Frame.GoBack();
+        }
+
+        private void Logout_Click(object sender, RoutedEventArgs e)
+        {
+            Frame.Navigate(typeof(InlogOverViewPage));
+        }
+
+        
     }
 }

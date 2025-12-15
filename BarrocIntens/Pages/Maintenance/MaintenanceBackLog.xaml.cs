@@ -1,4 +1,4 @@
-using BarrocIntens.Pages.Financien;
+using BarrocIntens.Data;
 using BarrocIntens.Pages.Inlog;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
@@ -23,31 +23,27 @@ namespace BarrocIntens.Pages.Maintenance
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.
     /// </summary>
-    public sealed partial class MaintenanceOverviewPage : Page
+    public sealed partial class MaintenanceBackLog : Page
     {
-        public MaintenanceOverviewPage()
+        public MaintenanceBackLog()
         {
             InitializeComponent();
+            LoadMaintenace();
         }
 
-        private void Calendar_Click(object sender, RoutedEventArgs e)
+
+        private void LoadMaintenace()
         {
-            Frame.Navigate(typeof(MaintenanceCalendarPage));
+            using var db = new AppDbContext();
+
+            MaintenaceListview.ItemsSource = db.Maintances
+                .Where(m => m.Status.Contains("Deliverd"))
+                .ToList();
         }
 
-        private void Machines_Click(object sender, RoutedEventArgs e)
+        private void Back_Click(object sender, RoutedEventArgs e)
         {
-            Frame.Navigate(typeof(MaintenanceMachinesPage));
-        }
-
-        private void Reports_Click(object sender, RoutedEventArgs e)
-        {
-            Frame.Navigate(typeof(MaintenanceReportPage));
-        }
-
-        private void BackLog_Click(object sender, RoutedEventArgs e)
-        {
-            Frame.Navigate(typeof(MaintenanceBackLog));
+            Frame.GoBack();
         }
 
         private void Logout_Click(object sender, RoutedEventArgs e)
@@ -55,11 +51,14 @@ namespace BarrocIntens.Pages.Maintenance
             Frame.Navigate(typeof(InlogOverViewPage));
         }
 
-
-        private void Back_Click(object sender, RoutedEventArgs e)
+        private void SearchBox_TextChanged(object sender, TextChangedEventArgs e)
         {
-            Frame.GoBack();
+
         }
 
+        private void Details_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

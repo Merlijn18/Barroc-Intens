@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BarrocIntens.Models
 {
-    internal class AgendaKlus
+    internal class Maintance
     {
         public int Id { get; set; }
         
@@ -14,5 +14,6 @@ namespace BarrocIntens.Models
         public string Type { get; set; } 
         public string Titel { get; set; }   
         public string ExtraInfo { get; set; }
+        public string Status { get; set; }
     }
 }
