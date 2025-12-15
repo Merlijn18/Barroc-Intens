@@ -18,5 +18,13 @@ namespace BarrocIntens.Models
         public DateTime wisselkoersdatum { get; set; }
         public string status { get; set; }
         public int factuurnummer {  get; set; }
+        public double wisselkoers { get; set; }
+        public double TotaalMetKoers
+        {
+            get
+            {
+                return bedrag * wisselkoers;
+            }
+        }
     }
 }

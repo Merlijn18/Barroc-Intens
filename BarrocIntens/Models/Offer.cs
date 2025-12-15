@@ -11,7 +11,8 @@ namespace BarrocIntens.Models
     public enum OfferStatus
     {
         Concept = 0,
-        Verstuurd = 1
+        Verstuurd = 1,
+        Goedgekeurd = 2
     }
     public class Offer
     {

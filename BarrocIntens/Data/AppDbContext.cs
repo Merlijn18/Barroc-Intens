@@ -23,6 +23,7 @@ namespace BarrocIntens.Data
         public DbSet<CoffeeBean> CoffeeBeans { get; set; }
         public DbSet<OfferItem> OfferItems { get; set; }
         
+        public DbSet<Factuur> Factuurs { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseMySql(
@@ -155,12 +156,17 @@ namespace BarrocIntens.Data
                 new Maintance { Id = 19, Date = DateTime.Today.AddDays(6), Type = "Reparatie", Titel = "Kabelbreuk herstel", ExtraInfo = "Machine 260", Status = "Planned" },
                 new Maintance { Id = 20, Date = DateTime.Today.AddDays(-12), Type = "Inspectie", Titel = "Routine-inspectie", ExtraInfo = "Machine 499", Status = "Deliverd" },
                 new Maintance { Id = 21, Date = DateTime.Today.AddDays(8), Type = "Onderhoud", Titel = "Nieuwe software update", ExtraInfo = "Machine 321", Status = "Planned" }
+                new Product { Id = 1, Productname = "Rubber (10 mm)", Price = 039, Stock = 10, OrderQuantity = 0 },
+                new Product { Id = 2, Productname = "Rubber (14 mm)", Price = 045, Stock = 10, OrderQuantity = 0 }
+            
+            );
 
                 );
             
             base.OnModelCreating(modelBuilder);
 
             // ===== Customers =====
+            modelBuilder.Entity<Customer>().Property(c => c.PaymentTermDays).HasDefaultValue(30);
             modelBuilder.Entity<Customer>().HasData(
                 new Customer { Id = 1, Name = "Prof. Willard Spinka MD", Street = "Reichel Pine 97", PostalCode = "4802 RT", City = "North Michelle"},
                 new Customer { Id = 2, Name = "Van den Berg Industries", Street = "Kasteelstraat 12", PostalCode = "1011 AB", City = "Amsterdam" },
@@ -250,6 +256,20 @@ namespace BarrocIntens.Data
                 new CoffeeBean { Id = 2, Name = "Yellow Bourbon Brasil", ArticleNumber = "S239MNKLL", Description = "Koffie van de oorspronkelijke koffiestruik (de Bourbon) met gele koffiebessen. Deze zeldzame koffie heeft de afgelopen 20 jaar steeds meer erkenning gekregen en vele prijzen gewonnen.", PricePerKg = 23.20 },
                 new CoffeeBean { Id = 3, Name = "Espresso Roma", ArticleNumber = "S239IPPSD", Description = "Een Italiaanse espresso met een krachtig karakter en een aromatische afdronk.", PricePerKg = 20.80 },
                 new CoffeeBean { Id = 4, Name = "Red Honey Honduras", ArticleNumber = "S239EVVFS", Description = "De koffie is geproduceerd volgens de honey-methode. Hierbij wordt de koffieboon in haar vruchtvlees gedroogd, waardoor de zoete fruitsmaak diep in de boon trekt. Dit levert een éxtra zoete koffie op.", PricePerKg = 27.80 }
+            );
+
+            //======== Factuure ==========
+            modelBuilder.Entity<Factuur>().HasData(
+                new Factuur { Id = 1, klant_Id = 1, offerte_id = 1, datum = DateTime.Now.AddDays(-60), bedrag = 1200.50, btw = 21, valuta = "EUR", wisselkoersdatum = DateTime.Now.AddDays(-60), status = "Betaald", factuurnummer = 2025001 },
+                new Factuur { Id = 2, klant_Id = 2, offerte_id = 2, datum = DateTime.Now.AddDays(-54), bedrag = 850.00, btw = 21, valuta = "EUR", wisselkoersdatum = DateTime.Now.AddDays(-54), status = "Open", factuurnummer = 2025002 },
+                new Factuur { Id = 3, klant_Id = 3, offerte_id = 3, datum = DateTime.Now.AddDays(-47), bedrag = 425.75, btw = 6, valuta = "EUR", wisselkoersdatum = DateTime.Now.AddDays(-47), status = "Verzonden", factuurnummer = 2025003 },
+                new Factuur { Id = 4, klant_Id = 4, offerte_id = 4, datum = DateTime.Now.AddDays(-40), bedrag = 980.30, btw = 21, valuta = "USD", wisselkoersdatum = DateTime.Now.AddDays(-40), status = "Betaald", factuurnummer = 2025004 },
+                new Factuur { Id = 5, klant_Id = 5, offerte_id = 5, datum = DateTime.Now.AddDays(-34), bedrag = 1299.99, btw = 21, valuta = "EUR", wisselkoersdatum = DateTime.Now.AddDays(-34), status = "Open", factuurnummer = 2025005 },
+                new Factuur { Id = 6, klant_Id = 6, offerte_id = 6, datum = DateTime.Now.AddDays(-28), bedrag = 179.95, btw = 6, valuta = "GBP", wisselkoersdatum = DateTime.Now.AddDays(-28), status = "Verzonden", factuurnummer = 2025006 },
+                new Factuur { Id = 7, klant_Id = 7, offerte_id = 7, datum = DateTime.Now.AddDays(-21), bedrag = 3200.00, btw = 21, valuta = "EUR", wisselkoersdatum = DateTime.Now.AddDays(-21), status = "Achterstallig", factuurnummer = 2025007 },
+                new Factuur { Id = 8, klant_Id = 8, offerte_id = 8, datum = DateTime.Now.AddDays(-15), bedrag = 249.50, btw = 6, valuta = "EUR", wisselkoersdatum = DateTime.Now.AddDays(-15), status = "Open", factuurnummer = 2025008 },
+                new Factuur { Id = 9, klant_Id = 9, offerte_id = 9, datum = DateTime.Now.AddDays(-9), bedrag = 760.40, btw = 21, valuta = "USD", wisselkoersdatum = DateTime.Now.AddDays(-9), status = "Betaald", factuurnummer = 2025009 },
+                new Factuur { Id = 10, klant_Id = 10, offerte_id = 10, datum = DateTime.Now.AddDays(-3), bedrag = 555.55, btw = 21, valuta = "EUR", wisselkoersdatum = DateTime.Now.AddDays(-3), status = "Open", factuurnummer = 2025010 }
             );
         }
     }

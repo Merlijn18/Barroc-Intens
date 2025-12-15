@@ -20,6 +20,8 @@
     <None Remove="Pages\Beheer\AccountBeheerEditPage.xaml" />
     <None Remove="Pages\Beheer\AccountBeheerOverViewPage.xaml" />
     <None Remove="Pages\Beheer\BeheerOverViewPage.xaml" />
+    <None Remove="Pages\CustomerPaymentSettingsPage.xaml" />
+    <None Remove="Pages\Financien\CustomerPaymentSettingsPage.xaml" />
     <None Remove="Pages\Financien\FinancienOverViewPage.xaml" />
     <None Remove="Pages\Inkoop\BestellingAanmaken.xaml" />
     <None Remove="Pages\Inkoop\InkoopOverViewPage.xaml" />
@@ -76,6 +78,7 @@
 </ItemGroup>
     <ItemGroup>
 		<Page Update="Pages\Inkoop\LeverancierAanmaken.xaml">
+    <Page Update="Pages\Financien\CustomerPaymentSettingsPage.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
@@ -116,6 +119,7 @@
 </ItemGroup>
 <ItemGroup>
     <Page Update="Pages\Sales\OfferEditPage.xaml">
+    <Page Update="Pages\CustomerPaymentSettingsPage.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>

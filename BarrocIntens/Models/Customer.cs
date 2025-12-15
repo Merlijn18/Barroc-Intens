@@ -13,6 +13,7 @@ namespace BarrocIntens.Models
         public string Street { get; set; }
         public string PostalCode { get; set; }
         public string City { get; set; }
+        public int PaymentTermDays { get; set; } = 30;
 
         public ICollection<Offer> Offers { get; set; } = new List<Offer>();
     }
