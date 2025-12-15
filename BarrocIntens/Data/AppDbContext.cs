@@ -128,14 +128,8 @@ namespace BarrocIntens.Data
                  new Product { Id = 14, Productname = "Reinigingstabletten", Price = 3.45f, Stock = 10, OrderQuantity = 0 },
                  new Product { Id = 15, Productname = "Reinigingsborsteltjes", Price = 8.45f, Stock = 10, OrderQuantity = 0 },
                  new Product { Id = 16, Productname = "Ontkalkingspijp", Price = 21.70f, Stock = 1, OrderQuantity = 0 }
-             );
-            
-
-          
-
-        }
             );
-
+            
             base.OnModelCreating(modelBuilder);
 
             // ===== Customers =====
