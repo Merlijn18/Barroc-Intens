@@ -41,7 +41,7 @@ namespace BarrocIntens.Data
 
             //Seeders For user Accounts
             modelBuilder.Entity<User>().HasData(
-                new User { Id = 1, Username = "Harry", Email = "Harry@gmail.com", Password = "123", Role = "Beheer" },
+                new User { Id = 1, Username = "Harry", Email = "Harry@gmail.com", Password = BCrypt.Net.BCrypt.HashPassword("123"), Role = "Beheer" },
                 new User { Id = 2, Username = "Emma", Email = "emma@gmail.com", Password = "123", Role = "Financien" },
                 new User { Id = 3, Username = "Liam", Email = "liam@gmail.com", Password = "123", Role = "Inkoop" },
                 new User { Id = 4, Username = "Olivia", Email = "olivia@gmail.com", Password = "123", Role = "Financien" },

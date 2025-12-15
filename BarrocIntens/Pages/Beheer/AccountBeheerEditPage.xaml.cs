@@ -16,6 +16,7 @@ using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.Security.Authentication.OnlineId;
+using Windows.Security.EnterpriseData;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -44,7 +45,6 @@ namespace BarrocIntens.Pages.Beheer
             //Shows information in TextBox
             NameTextBox.Text = user.Username;
             EmailTextBox.Text = user.Email;
-            PasswordTextBox.Password = user.Password;
             RoleDropDownButton.Content = user.Role;
 
             //Saves Role in tag
@@ -77,8 +77,14 @@ namespace BarrocIntens.Pages.Beheer
             {
                 user.Username = NameTextBox.Text.Trim();
                 user.Email = EmailTextBox.Text.Trim();
-                user.Password = PasswordTextBox.Password.Trim();
                 user.Role = RoleDropDownButton.Tag as string;
+
+                var enterdPassword = PasswordTextBox.Password.Trim();
+                if (!string.IsNullOrEmpty(enterdPassword))
+                {
+                    var hashedPassowrd = BCrypt.Net.BCrypt.HashPassword(enterdPassword);
+                    user.Password = hashedPassowrd;
+                }
 
                 db.SaveChanges();
 

@@ -1,4 +1,5 @@
-using BarrocIntens.Data;
+﻿using BarrocIntens.Data;
+using BarrocIntens.Models;
 using BarrocIntens.Pages.Beheer;
 using BarrocIntens.Pages.Financien;
 using BarrocIntens.Pages.Inkoop;
@@ -18,6 +19,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using System.Threading.Tasks;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 
@@ -39,93 +41,102 @@ namespace BarrocIntens.Pages.Inlog
         //Dev Inlog !Remove Before Publish!
         private void DevInlogButton_Click(object sender, RoutedEventArgs e)
         {
-            //To Do: Password Hash
-            var nameEmail = "Harry";
+            var username = "Harry@gmail.com";
             var password = "123";
 
+            if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password))
+            {
+                ShowError("Een van de gegevens zijn niet ingevuld!");
+                return;
+            }
 
             using var db = new AppDbContext();
 
-            var user = db.Users.FirstOrDefault(u => u.Username == nameEmail || u.Email == nameEmail);
+            var user = db.Users.FirstOrDefault(u =>
+            u.Username.ToLower() == username.ToLower() || u.Email.ToLower() == username.ToLower());
 
-            if (user != null && password != null)
+            if (user == null || !BCrypt.Net.BCrypt.Verify(password, user.Password))
             {
-                //Checked User/Email,Paswoord
-                if (password == user.Password && nameEmail == user.Username || nameEmail == user.Email)
-                {
-                    if (user.Role == "Beheer")
-                    {
-                        Frame.Navigate(typeof(BeheerOverViewPage), user.Id);
-                    }
-                    else
-                    {
-                        Frame.Navigate(typeof(InlogOverViewPage));
-                    }
-                }
-                else
-                {
-                    MessageText.Text = "Wachtwoord of Gebruikersnaam/Email is niet geldig!";
-                }
+                ShowError("⚠ ACCESS DENIED: Incorrect Wachtwoord!");
+
             }
             else
             {
-                MessageText.Text = "Email/Gebruikersnaam of Wachtwoord is niet Ingevuld!";
+                User.LoggedInUser = user;
+                Frame.Navigate(typeof(BeheerOverViewPage));
             }
         }
 
-        //Inlog Users Account
+
+        private async void AttemptLogin()
+        {
+            string enterdUsername = NameEmailTextBox.Text.Trim();
+            string enterdPassword = PasswordTextBox.Password;
+
+            if(string.IsNullOrEmpty(enterdUsername) || string.IsNullOrEmpty(enterdPassword))
+            {
+                ShowError("Een van de gegevens zijn niet ingevuld!");
+                return;
+            }
+
+
+            using var db = new AppDbContext();
+
+            var user = db.Users.FirstOrDefault(u =>
+            u.Username.ToLower() == enterdUsername.ToLower() || u.Email.ToLower() == enterdUsername.ToLower());
+
+            if (user == null || !BCrypt.Net.BCrypt.Verify(enterdPassword, user.Password))
+            {
+                ShowError("⚠ ACCESS DENIED: Incorrect Wachtwoord!");
+
+                // Clear password field
+                PasswordTextBox.Password = string.Empty;
+                PasswordTextBox.Focus(FocusState.Programmatic);
+
+            }
+            else
+            {
+                User.LoggedInUser = user;
+
+                if(user.Role == "Beheer")
+                {
+                    Frame.Navigate(typeof(BeheerOverViewPage));
+                }
+                if (user.Role == "Sales")
+                {
+                    Frame.Navigate(typeof(SalesOverViewPage));
+                }
+                if (user.Role == "Monteur")
+                {
+                    Frame.Navigate(typeof(MaintenanceOverviewPage));
+                }
+                if (user.Role == "Inkoop")
+                {
+                    Frame.Navigate(typeof(InkoopOverViewPage));
+                }
+                if (user.Role == "Financien")
+                {
+                    Frame.Navigate(typeof(FinancienOverViewPage));
+                }
+            }
+
+
+
+        }
+        private async void PasswordBox_KeyDown(object sender, KeyRoutedEventArgs e)
+        {
+            if (e.Key == Windows.System.VirtualKey.Enter)
+            {
+               AttemptLogin();
+            }
+        }
         private void InlogButton_Click(object sender, RoutedEventArgs e)
         {
-            //To Do: Password Hash
-            var nameEmail = NameEmailTextBox.Text.Trim();
-            var password = PasswordTextBox.Password.Trim();
-
-
-            using var db = new AppDbContext();
-
-            var user = db.Users.FirstOrDefault(u => u.Username == nameEmail || u.Email == nameEmail);
-
-            if (user != null && password != null)
-            {
-                //Checked User/Email,Paswoord
-                if (password == user.Password && nameEmail == user.Username || nameEmail == user.Email)
-                {
-                    if (user.Role == "Beheer")
-                    {
-                        Frame.Navigate(typeof(BeheerOverViewPage), user.Id);
-                    }
-                    else if (user.Role == "Sales")
-                    {
-                        Frame.Navigate(typeof(SalesOverViewPage), user.Id);
-                    }
-                    else if(user.Role == "Inkoop")
-                    {
-                        Frame.Navigate(typeof(InkoopOverViewPage), user.Id);
-                    }
-                    else if(user.Role == "Financien")
-                    {
-                        Frame.Navigate(typeof(FinancienOverViewPage), user.Id);
-                    }
-                    else if(user.Role == "Monteur")
-                    {
-                        Frame.Navigate(typeof(MaintenanceOverviewPage), user.Id);
-                    }
-                    else
-                    {
-                        Frame.Navigate(typeof(InlogOverViewPage));
-                    }
-                }
-                else
-                {
-                    MessageText.Text = "Wachtwoord of Gebruikersnaam/Email is niet geldig!";
-                }
-            }
-            else
-            {
-                MessageText.Text = "Email/Gebruikersnaam of Wachtwoord is niet Ingevuld!";
-            }
+            AttemptLogin();
         }
-
-
+        private void ShowError(string message)
+        {
+            ErrorMessage.Text = message;
+        }
     }
 }
