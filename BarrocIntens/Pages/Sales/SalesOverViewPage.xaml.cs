@@ -1,4 +1,4 @@
-using BarrocIntens.Data;
+﻿using BarrocIntens.Data;
 using BarrocIntens.Models;
 using BarrocIntens.Pages.Inlog;
 using Microsoft.EntityFrameworkCore;
@@ -30,9 +30,9 @@ namespace BarrocIntens.Pages.Sales
         public object Convert(object value, Type targetType, object parameter, string language)
         {
             if (value is double d)
-                return $"�{d:N2}";
+                return $"€{d:N2}";
             if (value is decimal dec)
-                return $"�{dec:N2}";
+                return $"€{dec:N2}";
             return value?.ToString() ?? string.Empty;
         }
 
@@ -107,12 +107,23 @@ namespace BarrocIntens.Pages.Sales
                     OfferNumber = GenerateOfferNumber(),
                     ContractNumber = GenerateContractNumber(),
                     CustomerNumber = GenerateCustomerNumber(),
+
                     Status = OfferStatus.Concept,
                     Date = DateTime.Now,
-                    CustomerId = newCustomer.Id,
-                    Items = new List<OfferItem>() // lege lijst van producten
-                };
+                    ValidUntil = DateTime.Now.AddDays(30),
 
+                    CustomerId = newCustomer.Id,
+                    Customer = newCustomer, // ✔️ required navigatie
+
+                    PaymentTerms = "Betaling binnen 30 dagen na factuurdatum.",
+                    DeliveryTerms = "Levering binnen 7 werkdagen na akkoord.",
+                    ExtraConditions = "Prijzen exclusief btw.",
+
+                    ContactPerson = "Onbekend",
+                    SignatureName = "Barroc Intens BV",
+
+                    Items = new List<OfferItem>()
+                };
                 db.Offers.Add(newOffer);
                 await db.SaveChangesAsync();
 

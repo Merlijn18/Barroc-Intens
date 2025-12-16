@@ -191,28 +191,33 @@ namespace BarrocIntens.Data
 
                     PaymentTerms = "Betaling binnen 30 dagen na factuurdatum.",
                     DeliveryTerms = "Levering binnen 7 werkdagen na akkoord.",
-                    ValidUntil = DateTime.Now.AddDays(30),
+                    ValidUntil = new DateTime(2025, 03, 03),
                     ExtraConditions = "Prijzen exclusief btw. Geldig zolang voorraad strekt.",
                     ContactPerson = "Jan de Vries",
-                    SignatureName = "Barroc Intens BV"
-                },
-                new Offer
-                {
-                    Id = 2,
-                    OfferNumber = "OFF2025-002",
-                    Date = DateTime.Now,
-                    CustomerId = 1,
-                    CustomerNumber = "98765",
-                    ContractNumber = "CN-002",
+                    SignatureName = "Barroc Intens BV",
 
-                    PaymentTerms = "Betaling binnen 14 dagen.",
-                    DeliveryTerms = "Levering binnen 10 werkdagen.",
-                    ValidUntil = DateTime.Now.AddDays(45),
-                    ExtraConditions = "Servicecontract optioneel bij te sluiten.",
-                    ContactPerson = "Lisa Jansen",
-                    SignatureName = "Barroc Intens BV"
+                    Status = OfferStatus.Concept
+                },
+            
+                new Offer
+                    {
+                        Id = 2,
+                        OfferNumber = "OFF2025-002",
+                        Date = DateTime.Now,
+                        CustomerId = 1,
+                        CustomerNumber = "98765",
+                        ContractNumber = "CN-002",
+
+                        PaymentTerms = "Betaling binnen 14 dagen.",
+                        DeliveryTerms = "Levering binnen 10 werkdagen.",
+                        ValidUntil = DateTime.Now.AddDays(45),
+                        ExtraConditions = "Servicecontract optioneel bij te sluiten.",
+                        ContactPerson = "Lisa Jansen",
+                        SignatureName = "Barroc Intens BV",
+
+                        Status = OfferStatus.Concept
                 }
-            );
+                );
 
             base.OnModelCreating(modelBuilder);
 
