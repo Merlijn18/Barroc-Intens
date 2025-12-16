@@ -83,6 +83,7 @@ namespace BarrocIntens.Pages.Sales
 
         private void Logout_Click(object sender, RoutedEventArgs e)
         {
+            User.LoggedInUser = null;
             Frame.Navigate(typeof(Inlog.InlogOverViewPage));
         }
         private async void CreateOffer_Click(object sender, RoutedEventArgs e)
@@ -95,7 +96,7 @@ namespace BarrocIntens.Pages.Sales
                     Name = "Nieuwe klant",
                     Street = "Onbekend",
                     PostalCode = "0000",
-                    City = "Onbekend"
+                    City = "Onbekend"           
                 };
 
                 db.Customers.Add(newCustomer);

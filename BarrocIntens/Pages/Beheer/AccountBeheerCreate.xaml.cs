@@ -39,6 +39,7 @@ namespace BarrocIntens.Pages.Beheer
 
         private void Logout_Click(object sender, RoutedEventArgs e)
         {
+            User.LoggedInUser = null;
             Frame.Navigate(typeof(InlogOverViewPage));
         }
 
@@ -59,9 +60,8 @@ namespace BarrocIntens.Pages.Beheer
             }
         }
 
-        private void Create_Account_Click(object sender, RoutedEventArgs e)
+        private void CreatAccount()
         {
-
             var enterdUsername = NameTextBox.Text.Trim();
             var enterdtEmail = EmailTextBox.Text.Trim();
             var enterdPassword = PasswordTextBox.Password.Trim();
@@ -73,7 +73,7 @@ namespace BarrocIntens.Pages.Beheer
                 ShowError("Gebruikersnaam is niet ingevuld!");
                 return;
             }
-            
+
             if (string.IsNullOrEmpty(enterdtEmail))
             {
                 ShowError("Email is niet ingevuld!");
@@ -107,35 +107,42 @@ namespace BarrocIntens.Pages.Beheer
 
             string hashedPassword = BCrypt.Net.BCrypt.HashPassword(enterdPassword);
             using var db = new AppDbContext();
-                var user = new User
-                {
-                    Username = enterdUsername,
-                    Email = enterdtEmail,
-                    Password = hashedPassword,
-                    Role = selectedRole
-                };
+            var user = new User
+            {
+                Username = enterdUsername,
+                Email = enterdtEmail,
+                Password = hashedPassword,
+                Role = selectedRole
+            };
 
 
-                db.Users.Add(user);
-                db.SaveChanges();
+            db.Users.Add(user);
+            db.SaveChanges();
 
-                //Show Pop-Up Message
-                var dialog = new ContentDialog
-                {
-                    Title = "Gelukt!",
-                    Content = "Gebruiker is Aangemaakt.",
-                    CloseButtonText = "OK",
-                    XamlRoot = this.XamlRoot
-                };
+            //Show Pop-Up Message
+            var dialog = new ContentDialog
+            {
+                Title = "Gelukt!",
+                Content = "Gebruiker is Aangemaakt.",
+                CloseButtonText = "OK",
+                XamlRoot = this.XamlRoot
+            };
 
-                _ = dialog.ShowAsync();
+            _ = dialog.ShowAsync();
 
-                Frame.GoBack();
-            }
+            Frame.GoBack();
+        }
+        private void Create_Account_Click(object sender, RoutedEventArgs e)
+        {
+            CreatAccount();
+        }
 
         private void PasswordTextBox_KeyDown(object sender, KeyRoutedEventArgs e)
         {
-
+            if (e.Key == Windows.System.VirtualKey.Enter)
+            {
+                CreatAccount();
+            }
         }
 
        private void ShowError(string message)

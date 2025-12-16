@@ -1,4 +1,5 @@
 using BarrocIntens.Data;
+using BarrocIntens.Models;
 using BarrocIntens.Pages.Inlog;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
@@ -48,6 +49,7 @@ namespace BarrocIntens.Pages.Maintenance
 
         private void Logout_Click(object sender, RoutedEventArgs e)
         {
+            User.LoggedInUser = null;
             Frame.Navigate(typeof(InlogOverViewPage));
         }
 

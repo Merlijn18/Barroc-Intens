@@ -61,6 +61,7 @@ namespace BarrocIntens.Pages.Maintenance
 
         private void Logout_Click(object sender, RoutedEventArgs e)
         {
+            User.LoggedInUser = null;
             Frame.Navigate(typeof(InlogOverViewPage));
         }
 

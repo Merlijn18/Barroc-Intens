@@ -1,5 +1,6 @@
 using BarrocIntens.Pages.Financien;
 using BarrocIntens.Pages.Inlog;
+using BarrocIntens.Models;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Controls.Primitives;
@@ -52,6 +53,7 @@ namespace BarrocIntens.Pages.Maintenance
 
         private void Logout_Click(object sender, RoutedEventArgs e)
         {
+            User.LoggedInUser = null;
             Frame.Navigate(typeof(InlogOverViewPage));
         }
 
