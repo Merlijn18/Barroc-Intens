@@ -62,23 +62,57 @@ namespace BarrocIntens.Pages.Beheer
         private void Create_Account_Click(object sender, RoutedEventArgs e)
         {
 
-            var InputUsername = NameTextBox.Text.Trim();
-            var InputEmail = EmailTextBox.Text.Trim();
-            var InputPassword = PasswordTextBox.Password.Trim();
-            var InputRole = RoleDropDownButton.Tag as string;
+            var enterdUsername = NameTextBox.Text.Trim();
+            var enterdtEmail = EmailTextBox.Text.Trim();
+            var enterdPassword = PasswordTextBox.Password.Trim();
+            var enteredPasswordConfirmation = ConfirmPasswordBox.Password.Trim();
+            var selectedRole = RoleDropDownButton.Tag as string;
 
-            using var db = new AppDbContext();
-
-            //Check if Username/Email, Password, Role is not Empty
-            if (InputUsername != null && InputEmail != null && InputPassword != null && InputRole != null)
+            if (string.IsNullOrEmpty(enterdUsername))
             {
+                ShowError("Gebruikersnaam is niet ingevuld!");
+                return;
+            }
+            
+            if (string.IsNullOrEmpty(enterdtEmail))
+            {
+                ShowError("Email is niet ingevuld!");
+                return;
+            }
+
+            if (string.IsNullOrEmpty(enterdPassword))
+            {
+                ShowError("Wachtwoord is niet ingevuld!");
+            }
+
+            if (string.IsNullOrEmpty(selectedRole))
+            {
+                ShowError("De Role is niet ingevuld!");
+                return;
+            }
+
+
+            if (enterdPassword.Length < 6)
+            {
+                ShowError("Wachtwoord moet minimaal 6 tekens bevatten!");
+                return;
+            }
+
+            if (enterdPassword != enteredPasswordConfirmation)
+            {
+                ShowError("Wachtwoorden Matchen niet!");
+                ConfirmPasswordBox.Password = string.Empty;
+                return;
+            }
+
+            string hashedPassword = BCrypt.Net.BCrypt.HashPassword(enterdPassword);
+            using var db = new AppDbContext();
                 var user = new User
                 {
-                    Username = InputUsername,
-                    Email = InputEmail,
-                    Password = InputPassword,
-                    Role = InputRole
-
+                    Username = enterdUsername,
+                    Email = enterdtEmail,
+                    Password = hashedPassword,
+                    Role = selectedRole
                 };
 
 
@@ -99,14 +133,14 @@ namespace BarrocIntens.Pages.Beheer
                 Frame.GoBack();
             }
 
-            else
-            {
-                MessageText.Text = "Username/Email of Wachtwoord is niet ingevuld!";
-            }
-            
+        private void PasswordTextBox_KeyDown(object sender, KeyRoutedEventArgs e)
+        {
 
         }
 
-
+       private void ShowError(string message)
+        {
+            ErrorMessageText.Text = message;
+        }
     }
 }
