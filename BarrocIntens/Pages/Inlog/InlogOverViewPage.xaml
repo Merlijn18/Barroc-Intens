@@ -87,7 +87,8 @@
                                  BorderThickness="1"
                                  Background="#FAFAFA"
                                  Padding="10"
-                                 CornerRadius="6"/>
+                                 CornerRadius="6"
+                                 KeyDown="PasswordBox_KeyDown"/>
 
                     <Button x:Name="InlogButton"
                             Content="INLOGGEN"
@@ -113,7 +114,7 @@
                             BorderThickness="0"
                             HorizontalAlignment="Stretch"/>
 
-                    <TextBlock x:Name="MessageText"
+                    <TextBlock x:Name="ErrorMessage"
                                Foreground="Red"
                                FontWeight="Bold"
                                FontSize="14"

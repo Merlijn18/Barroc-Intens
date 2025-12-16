@@ -92,6 +92,18 @@
                          Padding="8"
                          PlaceholderText="Wachtwoord"/>
 
+            <PasswordBox x:Name="ConfirmPasswordBox"
+                         Width="400"
+                         Height="40"
+                         FontSize="16"
+                         BorderBrush="Black"
+                         BorderThickness="1"
+                         Background="White"
+                         Foreground="Black"
+                         Padding="8"
+                         PlaceholderText="Wachtwoord"
+                         KeyDown="PasswordTextBox_KeyDown"/>
+
             <DropDownButton x:Name="RoleDropDownButton" Content="Role"
                             HorizontalAlignment="Center">
                 <DropDownButton.Flyout>
@@ -117,7 +129,7 @@
                     BorderThickness="0"
                     HorizontalAlignment="Center"/>
 
-            <TextBlock x:Name="MessageText"
+            <TextBlock x:Name="ErrorMessageText"
                            Foreground="Red"
                            FontWeight="Bold"
                            FontSize="14"

@@ -83,6 +83,7 @@
                      Padding="8"/>
 
             <PasswordBox x:Name="PasswordTextBox"
+                         PlaceholderText="Nieuwe Wachtwoord (Optioneel)"
                          Width="400"
                          Height="40"
                          FontSize="16"
