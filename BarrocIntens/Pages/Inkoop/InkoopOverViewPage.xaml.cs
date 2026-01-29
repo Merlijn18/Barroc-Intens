@@ -1,6 +1,7 @@
 ﻿using BarrocIntens.Data;
 using BarrocIntens.Models;
 using BarrocIntens.Pages.Inlog;
+using Microsoft.UI;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Media;
@@ -108,6 +109,12 @@ namespace BarrocIntens.Pages.Inkoop
             ProductListView.Visibility = Visibility.Visible;
             HideMaterialsButton.Visibility = Visibility.Visible;
             ShowMaterialsButton.Visibility = Visibility.Collapsed;
+
+            ShowMachinesButton.Visibility = Visibility.Collapsed;
+            ShowCoffeeBeansButton.Visibility = Visibility.Collapsed;
+
+            BestellingenBorder.Visibility = Visibility.Collapsed;
+
         }
 
         private void HideMaterialsButton_Click(object sender, RoutedEventArgs e)
@@ -116,6 +123,10 @@ namespace BarrocIntens.Pages.Inkoop
             HideMaterialsButton.Visibility = Visibility.Collapsed;
             ShowMaterialsButton.Visibility = Visibility.Visible;
             LowStockWarning.Visibility = Visibility.Collapsed;
+
+            ShowMachinesButton.Visibility = Visibility.Visible;
+            ShowCoffeeBeansButton.Visibility = Visibility.Visible;
+            BestellingenBorder.Visibility = Visibility.Visible;
         }
 
         // --------------------
@@ -134,56 +145,36 @@ namespace BarrocIntens.Pages.Inkoop
 
         private async void GoedkeurenButton_Click(object sender, RoutedEventArgs e)
         {
-            var button = sender as Button;
-            if (button?.Tag == null) return;
-
-            int orderId = int.Parse(button.Tag.ToString());
+            if (sender is not Button button || button.Tag is not int orderId)
+                return;
 
             using var db = new AppDbContext();
             var order = await db.Bestellingen.FindAsync(orderId);
 
-            if (order == null) return;
+            if (order == null)
+                return;
 
-            // Status aanpassen
+            // Status opslaan
             order.Status = "Goedgekeurd";
             await db.SaveChangesAsync();
 
-            // Toevoegen aan helper
             BestellingHelper.AddNotification(order);
 
-            // UI bijwerken
-            _ = DispatcherQueue.TryEnqueue(() =>
-            {
-                // 1. Update de ListView binding voor deze bestelling
-                var itemContainer = BestellingenListView.ContainerFromItem(order) as ListViewItem;
-                if (itemContainer != null)
-                {
-                    // Zoek de TextBlock en Button binnen het item
-                    var statusTextBlock = FindChild<TextBlock>(itemContainer, tb => tb.Text == "Aangevraagd"); // of huidige status
-                    if (statusTextBlock != null)
-                        statusTextBlock.Text = "Goedgekeurd";
+            // ✅ KNOP AANPASSEN
+            button.Content = "Goedgekeurd";
+            button.IsEnabled = false;
+            button.Background = new SolidColorBrush(Colors.Gray);
 
-                    var goedkeurenButton = FindChild<Button>(itemContainer, b => b == button);
-                    if (goedkeurenButton != null)
-                    {
-                        goedkeurenButton.Content = "Goedgekeurd";
-                        goedkeurenButton.IsEnabled = false;
-                    }
-                }
-            });
-
-            // ✅ Toon bevestigingsmelding
-            var confirmationDialog = new ContentDialog
+            // Bevestiging tonen
+            await new ContentDialog
             {
                 Title = "Bestelling Goedgekeurd",
                 Content = "Je melding is goedgekeurd en doorgegeven aan de leverancierafdeling.",
                 CloseButtonText = "OK",
-                DefaultButton = ContentDialogButton.Close,
                 XamlRoot = this.XamlRoot
-            };
-
-            await confirmationDialog.ShowAsync();
+            }.ShowAsync();
         }
+
 
         // Hulpfunctie om child controls in ListViewItem te vinden
         private T FindChild<T>(DependencyObject parent, Func<T, bool> predicate) where T : DependencyObject

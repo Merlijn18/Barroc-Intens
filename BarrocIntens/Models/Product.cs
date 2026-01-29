@@ -10,9 +10,11 @@ namespace BarrocIntens.Models
     {
         public int Id { get; set; }
         public string Productname { get; set; }
-        public  float Price { get; set; }
+        public  decimal Price { get; set; }
         public int Stock { get; set; }
         public int OrderQuantity { get; set; }
+
+        public string PriceFormatted => "\u20AC" + Price.ToString("F2");
 
     }
 }

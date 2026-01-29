@@ -93,7 +93,12 @@
                                  Click="LeverancierBeheer_Click"/>
                         
                     </StackPanel>
-                    <Border BorderBrush="#D0D0D0" BorderThickness="1" CornerRadius="8" Padding="2" Margin="0,0,0,0">
+                    <Border x:Name="BestellingenBorder"
+                            BorderBrush="#D0D0D0"
+                            BorderThickness="1"
+                            CornerRadius="8"
+                            Padding="2"
+                            Margin="0,0,0,0">
 
                         <ListView x:Name="BestellingenListView"
                               HorizontalContentAlignment="Stretch"
@@ -102,7 +107,8 @@
                             <ListView.ItemTemplate>
                                 <DataTemplate x:DataType="localdata:Bestelling">
 
-                                    <Border BorderBrush="#CCC"
+                                    <Border x:Name="BestellingenBorder"
+                                        BorderBrush="#CCC"
                                         BorderThickness="1"
                                         CornerRadius="10"
                                         Padding="15"
@@ -173,7 +179,9 @@
                                                 <TextBlock Grid.Row="7" Grid.Column="0" Text="Status:" Foreground="#555"/>
                                                 <TextBlock Grid.Row="7" Grid.Column="1" Text="{x:Bind Status}"/>
 
+
                                             </Grid>
+                                            
                                             <Button x:Name="GoedkeurenButton"
                                                 Content="Goedkeuren"
                                                 Click="GoedkeurenButton_Click"
@@ -244,8 +252,8 @@
                                         <Border BorderBrush="#CCC" BorderThickness="1" CornerRadius="10" Padding="15" Margin="10" Background="White" Width="260">
                                             <StackPanel Spacing="6">
                                                 <TextBlock Text="{x:Bind Productname}" FontWeight="Bold" FontSize="15" Foreground="#333"/>
-                                                <TextBlock><Run Text="Prijs: €" /><Run Text="{x:Bind Price}" /></TextBlock>
-                                                <TextBlock><Run Text="Voorraad: " /><Run Text="{x:Bind Stock}" /></TextBlock>
+                                                <TextBlock><Run Text="Prijs: €" /><Run Text="{x:Bind PriceFormatted}" /></TextBlock>
+                                                <TextBlock><Run Text="Voorraad:" /><Run Text="{x:Bind Stock}" /></TextBlock>
                                             </StackPanel>
                                         </Border>
                                     </DataTemplate>
