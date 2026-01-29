@@ -162,9 +162,16 @@
             <!-- Handtekening -->
             <TextBlock Text="Handtekening voor akkoord" FontSize="18" FontWeight="Bold" Margin="0,20,0,5"/>
             <TextBlock Text="{Binding SignatureName}" Margin="0,0,0,30"/>
-
+            
+            <Button Content="Offerte goedkeuren and factuur maken"
+                Click="ApproveAndGenerateInvoice_Click"
+                Background="#FDD716"
+                Foreground="Black"
+                FontWeight="Bold"
+                Padding="10,6"
+                Margin="0,20,0,0"/>
         </StackPanel>
     </ScrollViewer>
-
+    
 </Page>
     

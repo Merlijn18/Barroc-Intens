@@ -1,4 +1,4 @@
-using BarrocIntens.Data;
+﻿using BarrocIntens.Data;
 using BarrocIntens.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.UI.Xaml;
@@ -19,6 +19,9 @@ using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading.Tasks;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.Storage;
+using Windows.Storage.Streams;
+using System.Text;
 
 namespace BarrocIntens.Pages.Sales
 {
@@ -85,6 +88,48 @@ namespace BarrocIntens.Pages.Sales
         {
             Frame.GoBack();
         }
-        
+        private async void ApproveAndGenerateInvoice_Click(object sender, RoutedEventArgs e)
+        {
+            using (var context = new AppDbContext())
+            {
+                var offer = await context.Offers
+                    .Include(o => o.Items)
+                    .Include(o => o.Customer)
+                    .FirstOrDefaultAsync(o => o.Id == SelectedOffer.Id);
+
+                if (offer == null) return;
+
+                // Markeer als goedgekeurd
+                offer.Status = OfferStatus.Goedgekeurd;
+
+                // Maak factuur aan
+                var factuur = new Factuur
+                {
+                    klant_Id = offer.CustomerId,
+                    offerte_id = offer.Id,
+                    datum = DateTime.Now,
+                    bedrag = offer.Total,
+                    btw = 21,
+                    valuta = "EUR",
+                    wisselkoers = 1,
+                    wisselkoersdatum = DateTime.Now,
+                    status = "Open",
+                    factuurnummer = await GenerateUniqueInvoiceNumber(context)
+                };
+
+                context.Factuurs.Add(factuur);
+                await context.SaveChangesAsync();
+            }
+
+
+        }
+        private async Task<int> GenerateUniqueInvoiceNumber(AppDbContext context)
+        {
+            var last = await context.Factuurs
+                .OrderByDescending(f => f.factuurnummer)
+                .FirstOrDefaultAsync();
+
+            return (last?.factuurnummer ?? 2025000) + 1;
+        }
     }
 }
