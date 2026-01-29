@@ -155,29 +155,34 @@
                                                 <TextBlock Grid.Row="1" Grid.Column="0" Text="Product:" Foreground="#555"/>
                                                 <TextBlock Grid.Row="1" Grid.Column="1" Text="{x:Bind Productname}"/>
 
+                                                <!-- Row 2: Koffieboon + kilo -->
+                                                <TextBlock Grid.Row="2" Grid.Column="0"
+                                                           Text="Koffieboon:" Foreground="#555"/>
+
                                                 <!-- Row 2 -->
                                                 <TextBlock Grid.Row="2" Grid.Column="0" Text="Koffieboon:" Foreground="#555"/>
                                                 <TextBlock Grid.Row="2" Grid.Column="1">
                                                     <Run Text="{x:Bind CoffeeBeans}" />
                                                     <Run Text=" " />
-                                                    <Run Text="{x:Bind AantalKilo}" />
+                                                    <Run Text="{x:Bind AantalKiloDisplay}" />
                                                     <Run Text=" kg" />
                                                 </TextBlock>
-                                                <!-- Row 2 -->
-                                                <TextBlock Grid.Row="2" Grid.Column="0" Text="Supplier:" Foreground="#555"/>
-                                                <TextBlock Grid.Row="2" Grid.Column="1" Text="{x:Bind Suppliername}"/>
 
                                                 <!-- Row 3 -->
-                                                <TextBlock Grid.Row="3" Grid.Column="0" Text="Quantity:" Foreground="#555"/>
-                                                <TextBlock Grid.Row="3" Grid.Column="1" Text="{x:Bind OrderQuantity}"/>
+                                                <TextBlock Grid.Row="3" Grid.Column="0" Text="Supplier:" Foreground="#555"/>
+                                                <TextBlock Grid.Row="3" Grid.Column="1" Text="{x:Bind Suppliername}"/>
 
                                                 <!-- Row 4 -->
-                                                <TextBlock Grid.Row="4" Grid.Column="0" Text="Expected Delivery:" Foreground="#555"/>
-                                                <TextBlock Grid.Row="4" Grid.Column="1" Text="{x:Bind ExpectedDeliveryDate}"/>
+                                                <TextBlock Grid.Row="4" Grid.Column="0" Text="Quantity:" Foreground="#555"/>
+                                                <TextBlock Grid.Row="4" Grid.Column="1" Text="{x:Bind OrderQuantity}"/>
 
-                                                <!-- Row 7 -->
-                                                <TextBlock Grid.Row="7" Grid.Column="0" Text="Status:" Foreground="#555"/>
-                                                <TextBlock Grid.Row="7" Grid.Column="1" Text="{x:Bind Status}"/>
+                                                <!-- Row 5 -->
+                                                <TextBlock Grid.Row="5" Grid.Column="0" Text="Expected Delivery:" Foreground="#555"/>
+                                                <TextBlock Grid.Row="5" Grid.Column="1" Text="{x:Bind ExpectedDeliveryDate}"/>
+
+                                                <!-- Row 6 -->
+                                                <TextBlock Grid.Row="6" Grid.Column="0" Text="Status:" Foreground="#555"/>
+                                                <TextBlock Grid.Row="6" Grid.Column="1" Text="{x:Bind Status}"/>
 
 
                                             </Grid>
@@ -252,7 +257,7 @@
                                         <Border BorderBrush="#CCC" BorderThickness="1" CornerRadius="10" Padding="15" Margin="10" Background="White" Width="260">
                                             <StackPanel Spacing="6">
                                                 <TextBlock Text="{x:Bind Productname}" FontWeight="Bold" FontSize="15" Foreground="#333"/>
-                                                <TextBlock><Run Text="Prijs: €" /><Run Text="{x:Bind PriceFormatted}" /></TextBlock>
+                                                <TextBlock><Run Text="Prijs:" /><Run Text="{x:Bind PriceFormatted}" /></TextBlock>
                                                 <TextBlock><Run Text="Voorraad:" /><Run Text="{x:Bind Stock}" /></TextBlock>
                                             </StackPanel>
                                         </Border>

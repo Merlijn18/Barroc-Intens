@@ -16,6 +16,12 @@ namespace BarrocIntens.Models
         public decimal UnitPrice { get; set; }
         public string CoffeeBeans { get; set; }
         public decimal AantalKilo { get; set; }
+
+        public string AantalKiloDisplay
+        {
+            get => AantalKilo.ToString("0.##");
+        }
+
         public decimal PrijsPerKilo { get; set; }
 
 
