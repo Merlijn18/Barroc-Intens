@@ -58,7 +58,7 @@
                         <TextBlock Text="Leveranciers" FontSize="18" FontWeight="Bold" Margin="0,0,0,8"/>
                         <ListView x:Name="LeverancierListView" MaxHeight="400">
                             <ListView.ItemTemplate>
-                                <DataTemplate x:DataType="localData:Leverancier">
+                                <DataTemplate x:DataType="localData:Supplier">
                                     <Border Background="#F7F7F7" CornerRadius="8" Padding="10" Margin="0,0,0,8" BorderBrush="#E0E0E0" BorderThickness="1">
                                         <StackPanel>
                                             <TextBlock FontWeight="SemiBold" FontSize="14">
@@ -110,7 +110,7 @@
                         <TextBlock Text="Overzicht van openstaande bestellingen en waarschuwingen." FontSize="12" Foreground="Gray" TextWrapping="Wrap" Margin="0,0,0,8"/>
                         <ListView x:Name="NotificationListView" MaxHeight="400">
                             <ListView.ItemTemplate>
-                                <DataTemplate x:DataType="localData:Bestelling">
+                                <DataTemplate x:DataType="localData:Order">
                                     <Border Background="#f0f0f0" CornerRadius="5" Padding="8" Margin="0,0,0,8">
                                         <StackPanel>
                                             <TextBlock Text="{x:Bind Productname}" FontWeight="Bold"/>

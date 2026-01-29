@@ -13,27 +13,20 @@ namespace BarrocIntens.Pages.Inkoop
 {
     public sealed partial class InkoopOverViewPage : Page
     {
-        private ObservableCollection<Product> Products { get; set; }
-        private ObservableCollection<Bestelling> Bestellingen { get; set; }
+        private ObservableCollection<Material> Products { get; set; }
+        private ObservableCollection<Order> Bestellingen { get; set; }
 
         public InkoopOverViewPage()
         {
             this.InitializeComponent();
 
-            LoadProducts();
             LoadBestellingen();
         }
 
         // --------------------
         // PRODUCTEN LADEN
         // --------------------
-        private void LoadProducts()
-        {
-            using var db = new AppDbContext();
-            var productList = db.Products.ToList();
-            Products = new ObservableCollection<Product>(productList);
-            ProductListView.ItemsSource = Products;
-        }
+      
 
         // --------------------
         // BESTELLINGEN LADEN
@@ -45,7 +38,7 @@ namespace BarrocIntens.Pages.Inkoop
                                      .OrderByDescending(b => b.OrderDate)
                                      .ToList();
 
-            Bestellingen = new ObservableCollection<Bestelling>(bestellingenList);
+            Bestellingen = new ObservableCollection<Order>(bestellingenList);
             BestellingenListView.ItemsSource = Bestellingen;
         }
 
@@ -80,55 +73,15 @@ namespace BarrocIntens.Pages.Inkoop
                                      .OrderByDescending(p => p.Productname)
                                      .ToList();
 
-            Products = new ObservableCollection<Product>(filteredProducts);
-            ProductListView.ItemsSource = Products;
+            Products = new ObservableCollection<Material>(filteredProducts);
         }
 
         // --------------------
         // PRODUCTEN HELPERS
         // --------------------
-        private void ShowMaterials_Click(object sender, RoutedEventArgs e)
-        {
-            using var db = new AppDbContext();
-            var lowStockProducts = db.Products
-                                     .Where(p => p.Stock < 3)
-                                     .ToList();
+       
 
-            if (lowStockProducts.Any())
-            {
-                LowStockWarning.Text = "De volgende producten zijn laag in voorraad:\n" +
-                                       string.Join("\n", lowStockProducts.Select(p => $"{p.Productname} (Stock: {p.Stock})"));
-
-                LowStockWarning.Visibility = Visibility.Visible;
-            }
-            else
-            {
-                LowStockWarning.Visibility = Visibility.Collapsed;
-            }
-
-            ProductListView.Visibility = Visibility.Visible;
-            HideMaterialsButton.Visibility = Visibility.Visible;
-            ShowMaterialsButton.Visibility = Visibility.Collapsed;
-
-            ShowMachinesButton.Visibility = Visibility.Collapsed;
-            ShowCoffeeBeansButton.Visibility = Visibility.Collapsed;
-
-            BestellingenBorder.Visibility = Visibility.Collapsed;
-
-        }
-
-        private void HideMaterialsButton_Click(object sender, RoutedEventArgs e)
-        {
-            ProductListView.Visibility = Visibility.Collapsed;
-            HideMaterialsButton.Visibility = Visibility.Collapsed;
-            ShowMaterialsButton.Visibility = Visibility.Visible;
-            LowStockWarning.Visibility = Visibility.Collapsed;
-
-            ShowMachinesButton.Visibility = Visibility.Visible;
-            ShowCoffeeBeansButton.Visibility = Visibility.Visible;
-            BestellingenBorder.Visibility = Visibility.Visible;
-        }
-
+        
         // --------------------
         // NIEUWE BESTELLING
         // --------------------
@@ -168,7 +121,7 @@ namespace BarrocIntens.Pages.Inkoop
             // Bevestiging tonen
             await new ContentDialog
             {
-                Title = "Bestelling Goedgekeurd",
+                Title = "Order Goedgekeurd",
                 Content = "Je melding is goedgekeurd en doorgegeven aan de leverancierafdeling.",
                 CloseButtonText = "OK",
                 XamlRoot = this.XamlRoot
@@ -193,14 +146,9 @@ namespace BarrocIntens.Pages.Inkoop
             return null;
         }
 
-        private void ShowMachinesButton_Click(object sender, RoutedEventArgs e)
+        private void MateriaalBeheer_Click(object sender, RoutedEventArgs e)
         {
-
-        }
-
-        private void ShowCoffeeBeansButton_Click(object sender, RoutedEventArgs e)
-        {
-
+            Frame.Navigate(typeof(Materials));
         }
     }
 }

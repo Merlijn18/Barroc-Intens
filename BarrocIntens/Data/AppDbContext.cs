@@ -11,11 +11,11 @@ namespace BarrocIntens.Data
     internal class AppDbContext : DbContext
     {
         public DbSet<User> Users { get; set; }
-        public DbSet<Product> Products { get; set; }
+        public DbSet<Material> Products { get; set; }
         public DbSet<Maintance> Maintances { get; set; }      
-        public DbSet<Bestelling> Bestellingen { get; set; }
+        public DbSet<Order> Bestellingen { get; set; }
 
-        public DbSet<Leverancier> Leveranciers { get; set; }
+        public DbSet<Supplier> Leveranciers { get; set; }
         
         public DbSet<Offer> Offers { get; set; }
         public DbSet<Customer> Customers { get; set; }
@@ -23,7 +23,7 @@ namespace BarrocIntens.Data
         public DbSet<CoffeeBean> CoffeeBeans { get; set; }
         public DbSet<OfferItem> OfferItems { get; set; }
         
-        public DbSet<Factuur> Factuurs { get; set; }
+        public DbSet<Invoice> Factuurs { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseMySql(
@@ -113,24 +113,24 @@ namespace BarrocIntens.Data
                 new User { Id = 70, Username = "Cora", Email = "cora@gmail.com", Password = "123", Role = "Sales" }
             );
 
-            modelBuilder.Entity<Product>().HasData(
-                 new Product { Id = 1, Productname = "Rubber (10 mm)", Price = 2, Stock = 10, OrderQuantity = 0 },
-                 new Product { Id = 2, Productname = "Rubber (14 mm)", Price = 3, Stock = 2, OrderQuantity = 0 },
+            modelBuilder.Entity<Material>().HasData(
+                 new Material { Id = 1, Productname = "Rubber (10 mm)", Price = 2, Stock = 10, OrderQuantity = 0 },
+                 new Material { Id = 2, Productname = "Rubber (14 mm)", Price = 3, Stock = 2, OrderQuantity = 0 },
 
-                 new Product { Id = 3, Productname = "Slang", Price = 4, Stock = 10, OrderQuantity = 0 },
-                 new Product { Id = 4, Productname = "Voeding (elektra)", Price = 6, Stock = 4, OrderQuantity = 0 },
-                 new Product { Id = 5, Productname = "Ontkalker", Price = 4, Stock = 1, OrderQuantity = 0 },
-                 new Product { Id = 6, Productname = "Waterfilter", Price = 8, Stock = 10, OrderQuantity = 0 },
-                 new Product { Id = 7, Productname = "Reservoir sensor", Price = 11, Stock = 10, OrderQuantity = 0 },
-                 new Product { Id = 8, Productname = "Druppelstop", Price = 1, Stock = 10, OrderQuantity = 0 },
-                 new Product { Id = 9, Productname = "Electrische pomp", Price = 20, Stock = 10, OrderQuantity = 0 },
-                 new Product { Id = 10, Productname = "Tandwiel 110mm", Price = 5, Stock = 10, OrderQuantity = 0 },
-                 new Product { Id = 11, Productname = "Tandwiel 70mm", Price = 3, Stock = 10, OrderQuantity = 0 },
-                 new Product { Id = 12, Productname = "Maalmotor", Price = 11, Stock = 0, OrderQuantity = 0 },
-                 new Product { Id = 13, Productname = "Zeef", Price = 28, Stock = 10, OrderQuantity = 0 },
-                 new Product { Id = 14, Productname = "Reinigingstabletten", Price = 4, Stock = 10, OrderQuantity = 0 },
-                 new Product { Id = 15, Productname = "Reinigingsborsteltjes", Price = 6, Stock = 10, OrderQuantity = 0 },
-                 new Product { Id = 16, Productname = "Ontkalkingspijp", Price = 21, Stock = 10, OrderQuantity = 0 }
+                 new Material { Id = 3, Productname = "Slang", Price = 4, Stock = 10, OrderQuantity = 0 },
+                 new Material { Id = 4, Productname = "Voeding (elektra)", Price = 6, Stock = 4, OrderQuantity = 0 },
+                 new Material { Id = 5, Productname = "Ontkalker", Price = 4, Stock = 1, OrderQuantity = 0 },
+                 new Material { Id = 6, Productname = "Waterfilter", Price = 8, Stock = 10, OrderQuantity = 0 },
+                 new Material { Id = 7, Productname = "Reservoir sensor", Price = 11, Stock = 10, OrderQuantity = 0 },
+                 new Material { Id = 8, Productname = "Druppelstop", Price = 1, Stock = 10, OrderQuantity = 0 },
+                 new Material { Id = 9, Productname = "Electrische pomp", Price = 20, Stock = 10, OrderQuantity = 0 },
+                 new Material { Id = 10, Productname = "Tandwiel 110mm", Price = 5, Stock = 10, OrderQuantity = 0 },
+                 new Material { Id = 11, Productname = "Tandwiel 70mm", Price = 3, Stock = 10, OrderQuantity = 0 },
+                 new Material { Id = 12, Productname = "Maalmotor", Price = 11, Stock = 0, OrderQuantity = 0 },
+                 new Material { Id = 13, Productname = "Zeef", Price = 28, Stock = 10, OrderQuantity = 0 },
+                 new Material { Id = 14, Productname = "Reinigingstabletten", Price = 4, Stock = 10, OrderQuantity = 0 },
+                 new Material { Id = 15, Productname = "Reinigingsborsteltjes", Price = 6, Stock = 10, OrderQuantity = 0 },
+                 new Material { Id = 16, Productname = "Ontkalkingspijp", Price = 21, Stock = 10, OrderQuantity = 0 }
 
 
             );
@@ -261,17 +261,17 @@ namespace BarrocIntens.Data
             );
 
             //======== Factuure ==========
-            modelBuilder.Entity<Factuur>().HasData(
-                new Factuur { Id = 1, klant_Id = 1, offerte_id = 1, datum = DateTime.Now.AddDays(-60), bedrag = 1200.50, btw = 21, valuta = "EUR", wisselkoersdatum = DateTime.Now.AddDays(-60), status = "Betaald", factuurnummer = 2025001 },
-                new Factuur { Id = 2, klant_Id = 2, offerte_id = 2, datum = DateTime.Now.AddDays(-54), bedrag = 850.00, btw = 21, valuta = "EUR", wisselkoersdatum = DateTime.Now.AddDays(-54), status = "Open", factuurnummer = 2025002 },
-                new Factuur { Id = 3, klant_Id = 3, offerte_id = 3, datum = DateTime.Now.AddDays(-47), bedrag = 425.75, btw = 6, valuta = "EUR", wisselkoersdatum = DateTime.Now.AddDays(-47), status = "Verzonden", factuurnummer = 2025003 },
-                new Factuur { Id = 4, klant_Id = 4, offerte_id = 4, datum = DateTime.Now.AddDays(-40), bedrag = 980.30, btw = 21, valuta = "USD", wisselkoersdatum = DateTime.Now.AddDays(-40), status = "Betaald", factuurnummer = 2025004 },
-                new Factuur { Id = 5, klant_Id = 5, offerte_id = 5, datum = DateTime.Now.AddDays(-34), bedrag = 1299.99, btw = 21, valuta = "EUR", wisselkoersdatum = DateTime.Now.AddDays(-34), status = "Open", factuurnummer = 2025005 },
-                new Factuur { Id = 6, klant_Id = 6, offerte_id = 6, datum = DateTime.Now.AddDays(-28), bedrag = 179.95, btw = 6, valuta = "GBP", wisselkoersdatum = DateTime.Now.AddDays(-28), status = "Verzonden", factuurnummer = 2025006 },
-                new Factuur { Id = 7, klant_Id = 7, offerte_id = 7, datum = DateTime.Now.AddDays(-21), bedrag = 3200.00, btw = 21, valuta = "EUR", wisselkoersdatum = DateTime.Now.AddDays(-21), status = "Achterstallig", factuurnummer = 2025007 },
-                new Factuur { Id = 8, klant_Id = 8, offerte_id = 8, datum = DateTime.Now.AddDays(-15), bedrag = 249.50, btw = 6, valuta = "EUR", wisselkoersdatum = DateTime.Now.AddDays(-15), status = "Open", factuurnummer = 2025008 },
-                new Factuur { Id = 9, klant_Id = 9, offerte_id = 9, datum = DateTime.Now.AddDays(-9), bedrag = 760.40, btw = 21, valuta = "USD", wisselkoersdatum = DateTime.Now.AddDays(-9), status = "Betaald", factuurnummer = 2025009 },
-                new Factuur { Id = 10, klant_Id = 10, offerte_id = 10, datum = DateTime.Now.AddDays(-3), bedrag = 555.55, btw = 21, valuta = "EUR", wisselkoersdatum = DateTime.Now.AddDays(-3), status = "Open", factuurnummer = 2025010 }
+            modelBuilder.Entity<Invoice>().HasData(
+                new Invoice { Id = 1, klant_Id = 1, offerte_id = 1, datum = DateTime.Now.AddDays(-60), bedrag = 1200.50, btw = 21, valuta = "EUR", wisselkoersdatum = DateTime.Now.AddDays(-60), status = "Betaald", factuurnummer = 2025001 },
+                new Invoice { Id = 2, klant_Id = 2, offerte_id = 2, datum = DateTime.Now.AddDays(-54), bedrag = 850.00, btw = 21, valuta = "EUR", wisselkoersdatum = DateTime.Now.AddDays(-54), status = "Open", factuurnummer = 2025002 },
+                new Invoice { Id = 3, klant_Id = 3, offerte_id = 3, datum = DateTime.Now.AddDays(-47), bedrag = 425.75, btw = 6, valuta = "EUR", wisselkoersdatum = DateTime.Now.AddDays(-47), status = "Verzonden", factuurnummer = 2025003 },
+                new Invoice { Id = 4, klant_Id = 4, offerte_id = 4, datum = DateTime.Now.AddDays(-40), bedrag = 980.30, btw = 21, valuta = "USD", wisselkoersdatum = DateTime.Now.AddDays(-40), status = "Betaald", factuurnummer = 2025004 },
+                new Invoice { Id = 5, klant_Id = 5, offerte_id = 5, datum = DateTime.Now.AddDays(-34), bedrag = 1299.99, btw = 21, valuta = "EUR", wisselkoersdatum = DateTime.Now.AddDays(-34), status = "Open", factuurnummer = 2025005 },
+                new Invoice { Id = 6, klant_Id = 6, offerte_id = 6, datum = DateTime.Now.AddDays(-28), bedrag = 179.95, btw = 6, valuta = "GBP", wisselkoersdatum = DateTime.Now.AddDays(-28), status = "Verzonden", factuurnummer = 2025006 },
+                new Invoice { Id = 7, klant_Id = 7, offerte_id = 7, datum = DateTime.Now.AddDays(-21), bedrag = 3200.00, btw = 21, valuta = "EUR", wisselkoersdatum = DateTime.Now.AddDays(-21), status = "Achterstallig", factuurnummer = 2025007 },
+                new Invoice { Id = 8, klant_Id = 8, offerte_id = 8, datum = DateTime.Now.AddDays(-15), bedrag = 249.50, btw = 6, valuta = "EUR", wisselkoersdatum = DateTime.Now.AddDays(-15), status = "Open", factuurnummer = 2025008 },
+                new Invoice { Id = 9, klant_Id = 9, offerte_id = 9, datum = DateTime.Now.AddDays(-9), bedrag = 760.40, btw = 21, valuta = "USD", wisselkoersdatum = DateTime.Now.AddDays(-9), status = "Betaald", factuurnummer = 2025009 },
+                new Invoice { Id = 10, klant_Id = 10, offerte_id = 10, datum = DateTime.Now.AddDays(-3), bedrag = 555.55, btw = 21, valuta = "EUR", wisselkoersdatum = DateTime.Now.AddDays(-3), status = "Open", factuurnummer = 2025010 }
             );
         }
     }

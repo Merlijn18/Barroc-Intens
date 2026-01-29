@@ -9,23 +9,23 @@ namespace BarrocIntens.Data
 {
     internal class BestellingHelper
     {
-        private static readonly List<Bestelling> _notifications = new();
+        private static readonly List<Order> _notifications = new();
 
         // Event dat wordt getriggerd wanneer er een nieuwe bestelling toegevoegd wordt
-        public static event Action<Bestelling> BestellingToegevoegd;
+        public static event Action<Order> BestellingToegevoegd;
 
-        public static void AddNotification(Bestelling order)
+        public static void AddNotification(Order order)
         {
             _notifications.Add(order);
             BestellingToegevoegd?.Invoke(order);
         }
 
-        public static List<Bestelling> GetNotifications()
+        public static List<Order> GetNotifications()
         {
             return _notifications;
         }
 
-        public static void RemoveNotification(Bestelling order)
+        public static void RemoveNotification(Order order)
         {
             _notifications.Remove(order);
         }

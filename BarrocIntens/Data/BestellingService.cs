@@ -10,8 +10,8 @@ namespace BarrocIntens.Data
 {
     class BestellingService
     {
-        public static event Action<Bestelling> BestellingToegevoegd;
-        public static void VoegBestellingToe(Bestelling bestelling)
+        public static event Action<Order> BestellingToegevoegd;
+        public static void VoegBestellingToe(Order bestelling)
         {
             using var db = new AppDbContext();
             db.Bestellingen.Add(bestelling);

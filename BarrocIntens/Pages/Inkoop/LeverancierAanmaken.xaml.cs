@@ -101,7 +101,7 @@ namespace BarrocIntens.Pages.Inkoop
 
             using var db = new AppDbContext();
 
-            var newSupplier = new Leverancier
+            var newSupplier = new Supplier
             {
                 Leveranciernaam = LeverancierNameTextBox.Text.Trim(),
                 Contactpersoon = ContactpersoonTextBox.Text.Trim(),
@@ -122,7 +122,7 @@ namespace BarrocIntens.Pages.Inkoop
             // Bevestiging tonen
             ContentDialog confirmationDialog = new ContentDialog
             {
-                Title = "Leverancier toegevoegd",
+                Title = "Supplier toegevoegd",
                 Content = "De nieuwe leverancier is succesvol opgeslagen!",
                 CloseButtonText = "OK",
                 DefaultButton = ContentDialogButton.Close,

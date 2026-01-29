@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BarrocIntens.Models
 {
-    internal class Factuur
+    internal class Invoice
     {
         public int Id { get; set; }
         public int klant_Id { get; set; }

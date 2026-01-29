@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BarrocIntens.Models
 {
-    class Bestelling
+    class Order
     {
         public int Id { get; set; }
        

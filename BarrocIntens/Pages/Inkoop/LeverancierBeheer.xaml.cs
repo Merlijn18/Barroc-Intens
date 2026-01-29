@@ -50,7 +50,7 @@ namespace BarrocIntens.Pages.Inkoop
             Frame.GoBack();
         }
 
-        private void ToonMelding(Bestelling bestelling)
+        private void ToonMelding(Order bestelling)
         {
             // Je kunt hier optioneel een pop-up of toast notificatie tonen
         }
@@ -84,7 +84,7 @@ namespace BarrocIntens.Pages.Inkoop
             NotificationListView.ItemsSource = BestellingHelper.GetNotifications();
         }
 
-        private void OnNieuweBestelling(Bestelling order)
+        private void OnNieuweBestelling(Order order)
         {
             _ = DispatcherQueue.TryEnqueue(() =>
             {

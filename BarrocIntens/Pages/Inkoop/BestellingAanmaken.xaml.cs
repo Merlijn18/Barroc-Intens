@@ -195,7 +195,7 @@ namespace BarrocIntens.Pages.Inkoop
 
             using var db = new AppDbContext();
 
-            var newOrder = new Bestelling
+            var newOrder = new Order
             {
                 Productname = selectedProduct,
                 CoffeeBeans = selectedCoffeeBeans,     // ✔️ toegevoegd
@@ -218,7 +218,7 @@ namespace BarrocIntens.Pages.Inkoop
 
             ContentDialog confirmationDialog = new ContentDialog
             {
-                Title = "Bestelling Toegevoegd",
+                Title = "Order Toegevoegd",
                 Content = "De nieuwe bestelling is succesvol opgeslagen!",
                 CloseButtonText = "OK",
                 DefaultButton = ContentDialogButton.Close,
