@@ -86,59 +86,10 @@ namespace BarrocIntens.Pages.Sales
             User.LoggedInUser = null;
             Frame.Navigate(typeof(Inlog.InlogOverViewPage));
         }
-        private async void CreateOffer_Click(object sender, RoutedEventArgs e)
+        private void CreateOffer_Click(object sender, RoutedEventArgs e)
         {
-            using (var db = new AppDbContext())
-            {
-                // 1. Nieuwe klant aanmaken met verplichte velden
-                var newCustomer = new Customer
-                {
-                    Name = "Nieuwe klant",
-                    Street = "Onbekend",
-                    PostalCode = "0000",
-                    City = "Onbekend"           
-                };
-
-                db.Customers.Add(newCustomer);
-                await db.SaveChangesAsync();
-
-                // 2. Nieuwe offerte aanmaken met verplichte velden
-                var newOffer = new Offer
-                {
-                    OfferNumber = GenerateOfferNumber(),
-                    ContractNumber = GenerateContractNumber(),
-                    CustomerNumber = GenerateCustomerNumber(),
-
-                    Status = OfferStatus.Concept,
-                    Date = DateTime.Now,
-                    ValidUntil = DateTime.Now.AddDays(30),
-
-                    CustomerId = newCustomer.Id,
-                    Customer = newCustomer, // ✔️ required navigatie
-
-                    PaymentTerms = "Betaling binnen 30 dagen na factuurdatum.",
-                    DeliveryTerms = "Levering binnen 7 werkdagen na akkoord.",
-                    ExtraConditions = "Prijzen exclusief btw.",
-
-                    ContactPerson = "Onbekend",
-                    SignatureName = "Barroc Intens BV",
-
-                    Items = new List<OfferItem>()
-                };
-                db.Offers.Add(newOffer);
-                await db.SaveChangesAsync();
-
-                // 3. Voeg toe aan ObservableCollection zodat het direct in de UI verschijnt
-                Offers.Add(newOffer);
-
-                // 4. Navigeer direct naar detailpagina voor bewerken
-                Frame.Navigate(typeof(OfferDetailsPage), newOffer);
-            }
+            Frame.Navigate(typeof(OfferCreatePage));
         }
-
-        private string GenerateOfferNumber() => $"OFF-{DateTime.Now:yyyyMMddHHmmss}";
-        private string GenerateContractNumber() => $"CN-{DateTime.Now:yyyyMMddHHmmss}";
-        private string GenerateCustomerNumber() => $"CUST-{DateTime.Now:yyyyMMddHHmmss}";
 
         private void EditOffer_Click(object sender, RoutedEventArgs e)
         {

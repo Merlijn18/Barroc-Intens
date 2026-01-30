@@ -34,6 +34,7 @@
     <None Remove="Pages\Maintenance\MaintenanceMachinesPage.xaml" />
     <None Remove="Pages\Maintenance\MaintenanceOverviewPage.xaml" />
     <None Remove="Pages\Maintenance\MaintenanceReportPage.xaml" />
+    <None Remove="Pages\Sales\OfferCreatePage.xaml" />
     <None Remove="Pages\Sales\OfferDetailsPage.xaml" />
     <None Remove="Pages\Sales\OfferEditPage.xaml" />
     <None Remove="Pages\Sales\SalesOverViewPage.xaml" />
@@ -72,6 +73,11 @@
     <PackageReference Include="Microsoft.Windows.SDK.BuildTools" Version="10.0.26100.6584" />
     <PackageReference Include="Microsoft.WindowsAppSDK" Version="1.8.250916003" />
     <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="8.0.3" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Pages\Sales\OfferCreatePage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Page Update="Pages\Inkoop\Materials.xaml">

@@ -1,0 +1,210 @@
+<Page
+    x:Class="BarrocIntens.Pages.Sales.OfferCreatePage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:BarrocIntens.Pages.Sales"
+    xmlns:models="using:BarrocIntens.Models"
+    xmlns:controls="using:Microsoft.UI.Xaml.Controls"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <Page.Resources>
+        <local:CurrencyConverter x:Key="CurrencyConverter"/>
+    </Page.Resources>
+
+    <ScrollViewer Margin="30">
+        <StackPanel>
+
+            <!-- HEADER -->
+            <Grid Background="Black" Height="100" Margin="0,0,0,20">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Text="Nieuwe Offerte"
+                           Foreground="#FDD716"
+                           FontSize="40"
+                           FontWeight="Bold"
+                           VerticalAlignment="Center"
+                           Margin="30,0,0,0"/>
+
+                <Button Content="Terug"
+                        Click="Back_Click"
+                        Background="#FDD716"
+                        Foreground="Black"
+                        FontWeight="Bold"
+                        Padding="10,6"
+                        Margin="0,0,20,0"
+                        Grid.Column="1"/>
+            </Grid>
+
+            <!-- KLANT ZOEKEN -->
+            <StackPanel Margin="0,0,0,20">
+                <TextBlock Text="Zoek klant:" FontWeight="Bold"/>
+
+                <TextBox x:Name="CustomerSearchBox"
+                         PlaceholderText="Typ naam of klantnummer"
+                         TextChanged="CustomerSearchBox_TextChanged"/>
+
+                <ListView x:Name="CustomerListView"
+                          Height="150"
+                          Visibility="Collapsed"
+                          SelectionChanged="CustomerListView_SelectionChanged">
+                    <ListView.ItemTemplate>
+                        <DataTemplate x:DataType="models:Customer">
+                            <TextBlock Text="{x:Bind Name}"/>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </StackPanel>
+
+            <!-- KLANTGEGEVENS -->
+            <TextBlock x:Name="NameBox" FontSize="20" FontWeight="Bold"/>
+            <TextBlock x:Name="StreetBox"/>
+
+            <StackPanel Orientation="Horizontal" Margin="0,0,0,20">
+                <TextBlock x:Name="PostalCodeBox" Width="100"/>
+                <TextBlock x:Name="CityBox" Margin="10,0,0,0" Width="200"/>
+            </StackPanel>
+
+            <!-- OFFERTE DETAILS -->
+            <TextBlock Text="Offerte Details"
+                       FontSize="22"
+                       FontWeight="Bold"
+                       Margin="0,20,0,10"/>
+
+            <StackPanel Spacing="10">
+
+                <TextBlock Text="Betalingsvoorwaarden"/>
+                <StackPanel Orientation="Horizontal" Spacing="5">
+                    <TextBlock Text="Betaling binnen"/>
+                    <TextBox x:Name="PaymentDaysBox" Width="50"/>
+                    <TextBlock Text="dagen na factuurdatum."/>
+                </StackPanel>
+
+                <TextBlock Text="Leveringsvoorwaarden"/>
+                <StackPanel Orientation="Horizontal" Spacing="5">
+                    <TextBlock Text="Levering binnen"/>
+                    <TextBox x:Name="DeliveryDaysBox" Width="50"/>
+                    <TextBlock Text="werkdagen na akkoord."/>
+                </StackPanel>
+
+                <TextBlock Text="Geldig tot"/>
+                <DatePicker x:Name="ValidUntilPicker"/>
+
+                <TextBlock Text="Extra voorwaarden"/>
+                <TextBox x:Name="ExtraConditionsBox"
+                         TextWrapping="Wrap"
+                         Height="80"/>
+
+                <TextBlock Text="Contactpersoon"/>
+                <TextBox x:Name="ContactPersonBox"/>
+
+                <TextBlock Text="Handtekening / Naam ondertekening"/>
+                <TextBox x:Name="SignatureNameBox"/>
+
+            </StackPanel>
+
+            <!-- PRODUCTEN -->
+            <TextBlock Text="Producten:"
+                       FontWeight="Bold"
+                       FontSize="20"
+                       Margin="0,20,0,5"/>
+
+            <Grid Margin="0,0,0,10">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="80"/>
+                    <ColumnDefinition Width="120"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="150"/>
+                    <ColumnDefinition Width="150"/>
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Text="Aantal" FontWeight="Bold"/>
+                <TextBlock Text="Product" Grid.Column="1" FontWeight="Bold"/>
+                <TextBlock Text="Productnummer" Grid.Column="2" FontWeight="Bold"/>
+                <TextBlock Text="Prijs" Grid.Column="3" FontWeight="Bold"
+                           TextAlignment="Right" Padding="0,0,10,0"/>
+                <TextBlock Text="Totaal" Grid.Column="4" FontWeight="Bold"
+                           TextAlignment="Right" Padding="0,0,10,0"/>
+            </Grid>
+
+            <ItemsControl x:Name="ItemsControlProducts"
+                          ItemsSource="{Binding Items}">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate x:DataType="models:OfferItem">
+                        <Grid Margin="0,4,0,4">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="80"/>
+                                <ColumnDefinition Width="120"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="150"/>
+                                <ColumnDefinition Width="150"/>
+                                <ColumnDefinition Width="120"/>
+                            </Grid.ColumnDefinitions>
+
+                            <StackPanel Orientation="Vertical"
+                                        Grid.Column="0"
+                                        HorizontalAlignment="Center">
+                                <RepeatButton Content="▲"
+                                              Click="IncreaseQuantity_Click"
+                                              Height="20"
+                                              Width="40"/>
+                                <TextBox Text="{x:Bind Quantity, Mode=TwoWay}"
+                                         Width="40"
+                                         TextAlignment="Center"/>
+                                <RepeatButton Content="▼"
+                                              Click="DecreaseQuantity_Click"
+                                              Height="20"
+                                              Width="40"/>
+                            </StackPanel>
+
+                            <TextBlock Text="{x:Bind ProductName}" Grid.Column="1"/>
+                            <TextBlock Text="{x:Bind ProductNumber}" Grid.Column="2"/>
+                            <TextBlock Text="{x:Bind UnitPrice, Converter={StaticResource CurrencyConverter}}"
+                                       Grid.Column="3"/>
+                            <TextBlock Text="{x:Bind Subtotal, Converter={StaticResource CurrencyConverter}}"
+                                       Grid.Column="4"/>
+
+                            <Button Content="Verwijder"
+                                    Grid.Column="5"
+                                    Tag="{x:Bind}"
+                                    Click="RemoveItem_Click"/>
+                        </Grid>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+
+            <!-- KNOPPEN -->
+            <StackPanel Orientation="Horizontal"
+                        Margin="0,10,0,0"
+                        Spacing="10">
+
+                <Button Content="Nieuwe Machine"
+                        Click="ShowMachineDialog_Click"
+                        Background="#FDD716"
+                        Foreground="Black"
+                        FontWeight="Bold"
+                        Padding="10,6"/>
+
+                <Button Content="Nieuwe Koffieboon"
+                        Click="ShowCoffeeBeanDialog_Click"
+                        Background="#FDD716"
+                        Foreground="Black"
+                        FontWeight="Bold"
+                        Padding="10,6"/>
+            </StackPanel>
+
+            <Button Content="Opslaan"
+                    Click="SaveOffer_Click"
+                    Background="#FDD716"
+                    Foreground="Black"
+                    FontWeight="Bold"
+                    Padding="10,6"
+                    Margin="0,20,0,0"/>
+
+        </StackPanel>
+    </ScrollViewer>
+</Page>
