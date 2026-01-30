@@ -103,7 +103,7 @@ namespace BarrocIntens.Pages.Sales
                 offer.Status = OfferStatus.Goedgekeurd;
 
                 // Maak factuur aan
-                var factuur = new Factuur
+                var factuur = new Invoice
                 {
                     klant_Id = offer.CustomerId,
                     offerte_id = offer.Id,
