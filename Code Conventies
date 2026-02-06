@@ -3,7 +3,14 @@
 - Schrijf code in **C#**
 - Houd code **simpel en duidelijk**
 
-## Naming conventions
+Classes & Pages
+- Gebruik PascalCase
 
-### Classes & Pages
-- Gebruik **PascalCase**
+Methoden
+-Gebruik PascalCase
+
+Variabelen
+-Gebruik camelCase (bv. searchQuery, enteredUsername)
+-Namen zijn duidelijk en beschrijvend
+
+Naam beschrijft wat de methode doet (bv. LoadMachines(), AttemptLogin())
