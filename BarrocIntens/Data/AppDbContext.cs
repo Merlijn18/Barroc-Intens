@@ -22,8 +22,9 @@ namespace BarrocIntens.Data
         public DbSet<Machine> Machines { get; set; }
         public DbSet<CoffeeBean> CoffeeBeans { get; set; }
         public DbSet<OfferItem> OfferItems { get; set; }
-        
         public DbSet<Invoice> Factuurs { get; set; }
+        public DbSet<Notes> Notes { get; set; }
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseMySql(

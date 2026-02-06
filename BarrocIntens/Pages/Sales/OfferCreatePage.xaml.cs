@@ -3,7 +3,6 @@ using BarrocIntens.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
-using Microsoft.UI.Xaml.Controls.Primitives;
 using System;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -14,17 +13,20 @@ namespace BarrocIntens.Pages.Sales
     public sealed partial class OfferCreatePage : Page
     {
         private readonly AppDbContext _context = new();
+
         public Offer NewOffer { get; set; }
         public ObservableCollection<OfferItem> Items { get; set; } = new();
-
         public ObservableCollection<Customer> CustomerResults { get; set; } = new();
 
         public OfferCreatePage()
         {
-            this.InitializeComponent();
+            InitializeComponent();
             DataContext = this;
         }
 
+        // ===============================
+        // NAVIGATIE
+        // ===============================
         private void Back_Click(object sender, RoutedEventArgs e)
         {
             if (Frame.CanGoBack)
@@ -36,11 +38,13 @@ namespace BarrocIntens.Pages.Sales
         // ===============================
         private void CustomerSearchBox_TextChanged(object sender, TextChangedEventArgs e)
         {
-            string query = CustomerSearchBox.Text.ToLower();
+            string query = CustomerSearchBox.Text.Trim().ToLower();
+
             if (string.IsNullOrWhiteSpace(query))
             {
                 CustomerListView.Visibility = Visibility.Collapsed;
                 CustomerResults.Clear();
+                NewCustomerPanel.Visibility = Visibility.Collapsed;
                 return;
             }
 
@@ -49,10 +53,13 @@ namespace BarrocIntens.Pages.Sales
                 .ToList();
 
             CustomerResults.Clear();
-            foreach (var c in results) CustomerResults.Add(c);
+            foreach (var c in results)
+                CustomerResults.Add(c);
 
             CustomerListView.ItemsSource = CustomerResults;
             CustomerListView.Visibility = CustomerResults.Any() ? Visibility.Visible : Visibility.Collapsed;
+            NewCustomerPanel.Visibility = CustomerResults.Any() ? Visibility.Collapsed : Visibility.Visible;
+            NewCustomerNameBox.Text = CustomerSearchBox.Text;
         }
 
         private void CustomerListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -72,12 +79,51 @@ namespace BarrocIntens.Pages.Sales
                 };
 
                 CustomerListView.Visibility = Visibility.Collapsed;
+                NewCustomerPanel.Visibility = Visibility.Collapsed;
                 CustomerSearchBox.Text = string.Empty;
             }
         }
 
         // ===============================
-        // PRODUCTEN TOEVOEGEN
+        // ITEMS HANDLING
+        // ===============================
+        private void IncreaseQuantity_Click(object sender, RoutedEventArgs e)
+        {
+            if ((sender as FrameworkElement)?.DataContext is OfferItem item)
+            {
+                item.Quantity++;
+                RefreshItems();
+            }
+        }
+
+        private void DecreaseQuantity_Click(object sender, RoutedEventArgs e)
+        {
+            if ((sender as FrameworkElement)?.DataContext is OfferItem item)
+            {
+                if (item.Quantity > 1)
+                    item.Quantity--;
+
+                RefreshItems();
+            }
+        }
+
+        private void RemoveItem_Click(object sender, RoutedEventArgs e)
+        {
+            if ((sender as FrameworkElement)?.DataContext is OfferItem item)
+            {
+                Items.Remove(item);
+                RefreshItems();
+            }
+        }
+
+        private void RefreshItems()
+        {
+            ItemsControlProducts.ItemsSource = null;
+            ItemsControlProducts.ItemsSource = Items;
+        }
+
+        // ===============================
+        // MACHINE SELECTOR
         // ===============================
         private async void ShowMachineDialog_Click(object sender, RoutedEventArgs e)
         {
@@ -110,11 +156,14 @@ namespace BarrocIntens.Pages.Sales
                     ProductName = selectedMachine.Name,
                     ProductNumber = selectedMachine.ArticleNumber,
                     Quantity = 1,
-                    UnitPrice = selectedMachine.LeasePrice
+                    UnitPrice = selectedMachine.LeasePrice,
                 });
             }
         }
 
+        // ===============================
+        // COFFEE SELECTOR
+        // ===============================
         private async void ShowCoffeeBeanDialog_Click(object sender, RoutedEventArgs e)
         {
             var coffeeBeans = await _context.CoffeeBeans.ToListAsync();
@@ -146,27 +195,9 @@ namespace BarrocIntens.Pages.Sales
                     ProductName = selectedBean.Name,
                     ProductNumber = selectedBean.ArticleNumber,
                     Quantity = 1,
-                    UnitPrice = selectedBean.PricePerKg
+                    UnitPrice = selectedBean.PricePerKg,
                 });
             }
-        }
-
-        private void RemoveItem_Click(object sender, RoutedEventArgs e)
-        {
-            if (sender is Button btn && btn.Tag is OfferItem item)
-                Items.Remove(item);
-        }
-
-        private void IncreaseQuantity_Click(object sender, RoutedEventArgs e)
-        {
-            if (sender is RepeatButton btn && btn.DataContext is OfferItem item)
-                item.Quantity++;
-        }
-
-        private void DecreaseQuantity_Click(object sender, RoutedEventArgs e)
-        {
-            if (sender is RepeatButton btn && btn.DataContext is OfferItem item && item.Quantity > 0)
-                item.Quantity--;
         }
 
         // ===============================
@@ -174,54 +205,80 @@ namespace BarrocIntens.Pages.Sales
         // ===============================
         private async void SaveOffer_Click(object sender, RoutedEventArgs e)
         {
-            if (NewOffer == null || NewOffer.Customer == null)
+            if (!Items.Any())
             {
-                var dialog = new ContentDialog
+                await new ContentDialog
+                {
+                    Title = "Geen producten",
+                    Content = "Voeg minimaal één product toe.",
+                    CloseButtonText = "OK",
+                    XamlRoot = this.XamlRoot
+                }.ShowAsync();
+                return;
+            }
+
+            Customer customer = null;
+
+            if (NewCustomerPanel.Visibility == Visibility.Visible)
+            {
+                customer = new Customer
+                {
+                    Name = NewCustomerNameBox.Text,
+                    Street = NewCustomerStreetBox.Text,
+                    PostalCode = NewCustomerPostalCodeBox.Text,
+                    City = NewCustomerCityBox.Text,
+                };
+
+                _context.Customers.Add(customer);
+                await _context.SaveChangesAsync();
+            }
+            else if (NewOffer?.Customer != null)
+            {
+                customer = NewOffer.Customer;
+            }
+            else
+            {
+                await new ContentDialog
                 {
                     Title = "Fout",
                     Content = "Selecteer eerst een klant.",
                     CloseButtonText = "OK",
                     XamlRoot = this.XamlRoot
-                };
-                await dialog.ShowAsync();
+                }.ShowAsync();
                 return;
             }
 
+            NewOffer ??= new Offer();
+            NewOffer.Customer = customer;
+            NewOffer.CustomerId = customer.Id;
+            NewOffer.Items = Items.ToList();
+
+            NewOffer.OfferNumber = $"OFF-{DateTime.Now:yyyyMMddHHmmss}";
+            NewOffer.ContractNumber = $"CN-{DateTime.Now:yyyyMMddHHmmss}";
+            NewOffer.CustomerNumber = $"CUST-{DateTime.Now:yyyyMMddHHmmss}";
+            NewOffer.Date = DateTime.Now;
+            NewOffer.ValidUntil = ValidUntilPicker.Date.DateTime;
+            NewOffer.PaymentTerms = $"Betaling binnen {PaymentDaysBox.Text} dagen.";
+            NewOffer.DeliveryTerms = $"Levering binnen {DeliveryDaysBox.Text} werkdagen.";
+            NewOffer.ExtraConditions = ExtraConditionsBox.Text;
+            NewOffer.ContactPerson = ContactPersonBox.Text;
+            NewOffer.SignatureName = SignatureNameBox.Text;
+
             try
             {
-                // Genereer nummers
-                NewOffer.OfferNumber = $"OFF-{DateTime.Now:yyyyMMddHHmmss}";
-                NewOffer.ContractNumber = $"CN-{DateTime.Now:yyyyMMddHHmmss}";
-                NewOffer.CustomerNumber = $"CUST-{DateTime.Now:yyyyMMddHHmmss}";
-
-                // Vul overige velden
-                NewOffer.Date = DateTime.Now;
-                NewOffer.ValidUntil = ValidUntilPicker.Date.DateTime;
-                NewOffer.PaymentTerms = $"Betaling binnen {PaymentDaysBox.Text} dagen na factuurdatum.";
-                NewOffer.DeliveryTerms = $"Levering binnen {DeliveryDaysBox.Text} werkdagen na akkoord.";
-                NewOffer.ExtraConditions = ExtraConditionsBox.Text;
-                NewOffer.ContactPerson = ContactPersonBox.Text;
-                NewOffer.SignatureName = SignatureNameBox.Text;
-
-                NewOffer.Items = Items.ToList();
-
-                // Opslaan
                 _context.Offers.Add(NewOffer);
                 await _context.SaveChangesAsync();
-
-                // Terug of navigeren
                 Frame.GoBack();
             }
             catch (DbUpdateException ex)
             {
-                var dialog = new ContentDialog
+                await new ContentDialog
                 {
                     Title = "Database fout",
                     Content = ex.InnerException?.Message ?? ex.Message,
                     CloseButtonText = "OK",
                     XamlRoot = this.XamlRoot
-                };
-                await dialog.ShowAsync();
+                }.ShowAsync();
             }
         }
     }

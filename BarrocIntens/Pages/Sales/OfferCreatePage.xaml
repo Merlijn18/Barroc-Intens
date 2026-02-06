@@ -43,7 +43,6 @@
             <!-- KLANT ZOEKEN -->
             <StackPanel Margin="0,0,0,20">
                 <TextBlock Text="Zoek klant:" FontWeight="Bold"/>
-
                 <TextBox x:Name="CustomerSearchBox"
                          PlaceholderText="Typ naam of klantnummer"
                          TextChanged="CustomerSearchBox_TextChanged"/>
@@ -60,10 +59,20 @@
                 </ListView>
             </StackPanel>
 
-            <!-- KLANTGEGEVENS -->
+            <!-- NIEUWE KLANT GEGEVENS (verborgen standaard) -->
+            <StackPanel x:Name="NewCustomerPanel" Margin="0,0,0,20" Visibility="Collapsed">
+                <TextBlock Text="Nieuwe klant toevoegen:" FontWeight="Bold" FontSize="18"/>
+                <TextBox x:Name="NewCustomerNameBox" PlaceholderText="Naam"/>
+                <TextBox x:Name="NewCustomerStreetBox" PlaceholderText="Straat"/>
+                <StackPanel Orientation="Horizontal" Spacing="10">
+                    <TextBox x:Name="NewCustomerPostalCodeBox" PlaceholderText="Postcode" Width="100"/>
+                    <TextBox x:Name="NewCustomerCityBox" PlaceholderText="Stad" Width="200"/>
+                </StackPanel>
+            </StackPanel>
+
+            <!-- KLANTGEGEVENS (voor bestaande klanten) -->
             <TextBlock x:Name="NameBox" FontSize="20" FontWeight="Bold"/>
             <TextBlock x:Name="StreetBox"/>
-
             <StackPanel Orientation="Horizontal" Margin="0,0,0,20">
                 <TextBlock x:Name="PostalCodeBox" Width="100"/>
                 <TextBlock x:Name="CityBox" Margin="10,0,0,0" Width="200"/>
@@ -76,7 +85,6 @@
                        Margin="0,20,0,10"/>
 
             <StackPanel Spacing="10">
-
                 <TextBlock Text="Betalingsvoorwaarden"/>
                 <StackPanel Orientation="Horizontal" Spacing="5">
                     <TextBlock Text="Betaling binnen"/>
@@ -95,23 +103,17 @@
                 <DatePicker x:Name="ValidUntilPicker"/>
 
                 <TextBlock Text="Extra voorwaarden"/>
-                <TextBox x:Name="ExtraConditionsBox"
-                         TextWrapping="Wrap"
-                         Height="80"/>
+                <TextBox x:Name="ExtraConditionsBox" TextWrapping="Wrap" Height="80"/>
 
                 <TextBlock Text="Contactpersoon"/>
                 <TextBox x:Name="ContactPersonBox"/>
 
                 <TextBlock Text="Handtekening / Naam ondertekening"/>
                 <TextBox x:Name="SignatureNameBox"/>
-
             </StackPanel>
 
             <!-- PRODUCTEN -->
-            <TextBlock Text="Producten:"
-                       FontWeight="Bold"
-                       FontSize="20"
-                       Margin="0,20,0,5"/>
+            <TextBlock Text="Producten:" FontWeight="Bold" FontSize="20" Margin="0,20,0,5"/>
 
             <Grid Margin="0,0,0,10">
                 <Grid.ColumnDefinitions>
@@ -125,14 +127,11 @@
                 <TextBlock Text="Aantal" FontWeight="Bold"/>
                 <TextBlock Text="Product" Grid.Column="1" FontWeight="Bold"/>
                 <TextBlock Text="Productnummer" Grid.Column="2" FontWeight="Bold"/>
-                <TextBlock Text="Prijs" Grid.Column="3" FontWeight="Bold"
-                           TextAlignment="Right" Padding="0,0,10,0"/>
-                <TextBlock Text="Totaal" Grid.Column="4" FontWeight="Bold"
-                           TextAlignment="Right" Padding="0,0,10,0"/>
+                <TextBlock Text="Prijs" Grid.Column="3" FontWeight="Bold" TextAlignment="Right" Padding="0,0,10,0"/>
+                <TextBlock Text="Totaal" Grid.Column="4" FontWeight="Bold" TextAlignment="Right" Padding="0,0,10,0"/>
             </Grid>
 
-            <ItemsControl x:Name="ItemsControlProducts"
-                          ItemsSource="{Binding Items}">
+            <ItemsControl x:Name="ItemsControlProducts" ItemsSource="{Binding Items}">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate x:DataType="models:OfferItem">
                         <Grid Margin="0,4,0,4">
@@ -145,65 +144,30 @@
                                 <ColumnDefinition Width="120"/>
                             </Grid.ColumnDefinitions>
 
-                            <StackPanel Orientation="Vertical"
-                                        Grid.Column="0"
-                                        HorizontalAlignment="Center">
-                                <RepeatButton Content="▲"
-                                              Click="IncreaseQuantity_Click"
-                                              Height="20"
-                                              Width="40"/>
-                                <TextBox Text="{x:Bind Quantity, Mode=TwoWay}"
-                                         Width="40"
-                                         TextAlignment="Center"/>
-                                <RepeatButton Content="▼"
-                                              Click="DecreaseQuantity_Click"
-                                              Height="20"
-                                              Width="40"/>
+                            <StackPanel Orientation="Vertical" Grid.Column="0" HorizontalAlignment="Center">
+                                <RepeatButton Content="▲" Click="IncreaseQuantity_Click" Height="20" Width="40"/>
+                                <TextBox Text="{x:Bind Quantity, Mode=TwoWay}" Width="40" TextAlignment="Center"/>
+                                <RepeatButton Content="▼" Click="DecreaseQuantity_Click" Height="20" Width="40"/>
                             </StackPanel>
 
                             <TextBlock Text="{x:Bind ProductName}" Grid.Column="1"/>
                             <TextBlock Text="{x:Bind ProductNumber}" Grid.Column="2"/>
-                            <TextBlock Text="{x:Bind UnitPrice, Converter={StaticResource CurrencyConverter}}"
-                                       Grid.Column="3"/>
-                            <TextBlock Text="{x:Bind Subtotal, Converter={StaticResource CurrencyConverter}}"
-                                       Grid.Column="4"/>
+                            <TextBlock Text="{x:Bind UnitPrice, Converter={StaticResource CurrencyConverter}}" Grid.Column="3"/>
+                            <TextBlock Text="{x:Bind Subtotal, Converter={StaticResource CurrencyConverter}}" Grid.Column="4"/>
 
-                            <Button Content="Verwijder"
-                                    Grid.Column="5"
-                                    Tag="{x:Bind}"
-                                    Click="RemoveItem_Click"/>
+                            <Button Content="Verwijder" Grid.Column="5" Tag="{x:Bind}" Click="RemoveItem_Click"/>
                         </Grid>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
 
             <!-- KNOPPEN -->
-            <StackPanel Orientation="Horizontal"
-                        Margin="0,10,0,0"
-                        Spacing="10">
-
-                <Button Content="Nieuwe Machine"
-                        Click="ShowMachineDialog_Click"
-                        Background="#FDD716"
-                        Foreground="Black"
-                        FontWeight="Bold"
-                        Padding="10,6"/>
-
-                <Button Content="Nieuwe Koffieboon"
-                        Click="ShowCoffeeBeanDialog_Click"
-                        Background="#FDD716"
-                        Foreground="Black"
-                        FontWeight="Bold"
-                        Padding="10,6"/>
+            <StackPanel Orientation="Horizontal" Margin="0,10,0,0" Spacing="10">
+                <Button Content="Nieuwe Machine" Click="ShowMachineDialog_Click" Background="#FDD716" Foreground="Black" FontWeight="Bold" Padding="10,6"/>
+                <Button Content="Nieuwe Koffieboon" Click="ShowCoffeeBeanDialog_Click" Background="#FDD716" Foreground="Black" FontWeight="Bold" Padding="10,6"/>
             </StackPanel>
 
-            <Button Content="Opslaan"
-                    Click="SaveOffer_Click"
-                    Background="#FDD716"
-                    Foreground="Black"
-                    FontWeight="Bold"
-                    Padding="10,6"
-                    Margin="0,20,0,0"/>
+            <Button Content="Opslaan" Click="SaveOffer_Click" Background="#FDD716" Foreground="Black" FontWeight="Bold" Padding="10,6" Margin="0,20,0,0"/>
 
         </StackPanel>
     </ScrollViewer>

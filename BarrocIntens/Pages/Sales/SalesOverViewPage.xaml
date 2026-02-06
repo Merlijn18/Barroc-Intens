@@ -13,128 +13,223 @@
         <local:CurrencyConverter x:Key="CurrencyConverter"/>
     </Page.Resources>
 
-    <Grid>
+    <!-- ================= ROOT ================= -->
+    <Grid x:Name="LayoutRoot">
+
+        <!-- ===== VISUAL STATES ===== -->
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup x:Name="NotesStates">
+
+                <VisualState x:Name="NotesClosed">
+                    <Storyboard>
+                        <DoubleAnimation
+                            Storyboard.TargetName="NotesTransform"
+                            Storyboard.TargetProperty="X"
+                            To="420"
+                            Duration="0:0:0.25"/>
+
+                        <DoubleAnimation
+                            Storyboard.TargetName="MainContentTransform"
+                            Storyboard.TargetProperty="X"
+                            To="0"
+                            Duration="0:0:0.25"/>
+                    </Storyboard>
+                </VisualState>
+
+                <VisualState x:Name="NotesOpen">
+                    <Storyboard>
+                        <DoubleAnimation
+                            Storyboard.TargetName="NotesTransform"
+                            Storyboard.TargetProperty="X"
+                            To="0"
+                            Duration="0:0:0.25"/>
+
+                        <DoubleAnimation
+                            Storyboard.TargetName="MainContentTransform"
+                            Storyboard.TargetProperty="X"
+                            To="-200"
+                            Duration="0:0:0.25"/>
+                    </Storyboard>
+                </VisualState>
+
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
+
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <!-- ======= HEADER ======= -->
+        <!-- ===== HEADER ===== -->
         <Grid Grid.Row="0" Background="Black" Height="100">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
+                <ColumnDefinition/>
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
 
             <TextBlock Text="Sales Pagina"
                        Foreground="#FDD716"
                        FontSize="40"
-                       FontFamily="Segoe UI"
                        FontWeight="Bold"
                        VerticalAlignment="Center"
                        Margin="30,0,0,0"/>
 
-            <StackPanel Orientation="Horizontal" Grid.Column="1" VerticalAlignment="Center" Margin="0,0,20,0" Spacing="10">
-                <Button x:Name="Back"
-                        Content="Terug"
+            <StackPanel Orientation="Horizontal"
+                        Grid.Column="1"
+                        VerticalAlignment="Center"
+                        Margin="0,0,20,0"
+                        Spacing="10">
+                <Button Content="Terug"
                         Click="Back_Click"
                         Background="Black"
                         Foreground="White"
-                        FontSize="16"
-                        FontWeight="SemiBold"
                         Padding="12,6"
                         BorderBrush="White"
                         BorderThickness="1"/>
 
-                <Button x:Name="Logout"
-                        Content="Uitloggen"
+                <Button Content="Uitloggen"
                         Click="Logout_Click"
                         Background="#FDD716"
                         Foreground="Black"
-                        FontSize="16"
                         FontWeight="Bold"
-                        Padding="12,6"
-                        BorderThickness="0"/>
+                        Padding="12,6"/>
             </StackPanel>
         </Grid>
 
-        <!-- ======= MAIN CONTENT ======= -->
-        <Grid Grid.Row="1" Margin="30,20,30,30">
-            <StackPanel>
-                <TextBlock Text="Lopende Offertes"
-                           FontSize="28"
-                           FontWeight="Bold"
-                           Margin="0,0,0,20"/>
+        <!-- ===== BODY ===== -->
+        <Grid Grid.Row="1">
 
-                <Button Content="Nieuwe Offerte Aanmaken"
-                        x:Name="CreateOfferButton"
-                        Click="CreateOffer_Click"
-                        Background="#FDD716"
-                        Foreground="Black"
+            <!-- 📝 NOTITIES KNOP -->
+            <StackPanel HorizontalAlignment="Right"
+                        Margin="0,10,30,0">
+                <Button Content="📝 Notities"
+                        Click="ToggleNotes_Click"
+                        Background="#FFF8B0"
+                        BorderBrush="#E0C200"
+                        BorderThickness="2"
                         FontWeight="Bold"
-                        Padding="10,6"
-                        Width="250"
-                        HorizontalAlignment="Left"
-                        Margin="0,0,0,20"/>
+                        Padding="12,6"
+                        CornerRadius="6"/>
+            </StackPanel>
 
-                <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="0,0,0,20" Spacing="10">
-                    <Button Content="Concepten" 
-                            Click="FilterConcept_Click"
+            <!-- ===== MAIN CONTENT ===== -->
+            <Grid x:Name="MainContent"
+                  Margin="30,50,30,30">
+                <Grid.RenderTransform>
+                    <TranslateTransform x:Name="MainContentTransform"/>
+                </Grid.RenderTransform>
+
+                <StackPanel>
+
+                    <TextBlock Text="Lopende Offertes"
+                               FontSize="28"
+                               FontWeight="Bold"
+                               Margin="0,0,0,20"/>
+
+                    <Button Content="Nieuwe Offerte Aanmaken"
+                            Click="CreateOffer_Click"
                             Background="#FDD716"
-                            Foreground="Black"
                             FontWeight="Bold"
-                            Padding="10,6"
-                            Width="250"/>
-                    <Button Content="Verstuurd" 
-                            Click="FilterVerstuurd_Click"
-                            Background="#FDD716"
-                            Foreground="Black"
-                            FontWeight="Bold"
-                            Padding="10,6"
-                            Width="250"/>
-                    <Button Content="Alles"
-                            Click="FilterAll_Click"
-                            Background="#FDD716"
-                            Foreground="Black"
-                            FontWeight="Bold"
-                            Padding="10,6"
-                            Width="250"/>
+                            Width="250"
+                            Margin="0,0,0,20"/>
+
+                    <StackPanel Orientation="Horizontal"
+                                Spacing="10"
+                                Margin="0,0,0,20">
+                        <Button Content="Concepten"
+                                Click="FilterConcept_Click"
+                                Width="250"
+                                Background="#FDD716"
+                                FontWeight="Bold"/>
+                        <Button Content="Verstuurd"
+                                Click="FilterVerstuurd_Click"
+                                Width="250"
+                                Background="#FDD716"
+                                FontWeight="Bold"/>
+                        <Button Content="Alles"
+                                Click="FilterAll_Click"
+                                Width="250"
+                                Background="#FDD716"
+                                FontWeight="Bold"/>
+                    </StackPanel>
+
+                    <ListView x:Name="OfferListView"
+                              IsItemClickEnabled="True"
+                              ItemClick="OfferListView_ItemClick"
+                              Height="500">
+
+                        <ListView.ItemTemplate>
+                            <DataTemplate x:DataType="models:Offer">
+                                <Border BorderBrush="#CCCCCC"
+                                        BorderThickness="0,0,0,1"
+                                        Padding="10">
+                                    <StackPanel Orientation="Horizontal" Spacing="20">
+                                        <TextBlock Text="{x:Bind OfferNumber}" Width="150"/>
+                                        <TextBlock Text="{x:Bind Customer.Name}" Width="200"/>
+                                        <Button Content="Bewerken"
+                                                Tag="{x:Bind}"
+                                                Click="EditOffer_Click"
+                                                Background="#FDD716"
+                                                Width="100"/>
+                                    </StackPanel>
+
+                                </Border>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+
+                    </ListView>
 
                 </StackPanel>
+            </Grid>
 
-                <!-- Offerte overzicht -->
-                <ListView x:Name="OfferListView"
-                          ItemClick="OfferListView_ItemClick"
-                          IsItemClickEnabled="True"
-                          BorderBrush="#DDD"
-                          BorderThickness="1"
-                          CornerRadius="5"
-                          Height="500">
-                    <ListView.Header>
-                        <StackPanel Orientation="Horizontal" Spacing="20" Margin="10,0,0,0">
-                            <TextBlock Text="Offertenummer" Width="130" FontWeight="Bold"/>
-                            <TextBlock Text="Klantnaam" Width="200" FontWeight="Bold"/>
-                        </StackPanel>
-                    </ListView.Header>
+            <!-- ===== NOTES PANEL ===== -->
+            <Border Width="420"
+                    Background="#FFF8B0"
+                    BorderBrush="#E0C200"
+                    BorderThickness="2"
+                    Padding="15"
+                    HorizontalAlignment="Right">
 
-                    <ListView.ItemTemplate>
-                        <DataTemplate x:DataType="models:Offer">
-                            <StackPanel Orientation="Horizontal" Spacing="20" Margin="10,5,0,5">
-                                <TextBlock Text="{x:Bind OfferNumber}" Width="130"/>
-                                <TextBlock Text="{x:Bind Customer.Name}" Width="200"/>
-                                <Button Content="Bewerken"
-                                        Tag="{x:Bind}"
-                                        Click="EditOffer_Click"
-                                        Background="#FDD716"
-                                        Foreground="Black"
-                                        FontWeight="Bold"
-                                        Padding="6,2"
-                                        Width="100"/>
-                            </StackPanel>
-                        </DataTemplate>
-                    </ListView.ItemTemplate>
-                </ListView>
-            </StackPanel>
+                <Border.RenderTransform>
+                    <TranslateTransform x:Name="NotesTransform" X="420"/>
+                </Border.RenderTransform>
+
+                <StackPanel>
+
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+
+                        <TextBlock Text="📝 Notities"
+                                   FontSize="20"
+                                   FontWeight="Bold"/>
+
+                        <Button Content="✖"
+                                Click="ToggleNotes_Click"
+                                Background="Transparent"
+                                BorderThickness="0"
+                                FontSize="18"
+                                Grid.Column="1"/>
+                    </Grid>
+
+                    <TextBox x:Name="NotesTextBox"
+                             AcceptsReturn="True"
+                             Height="400"
+                             Margin="0,10,0,0"
+                             Background="#FFFDE1"
+                             BorderThickness="0"/>
+
+                    <Button Content="Opslaan"
+                            Click="SaveNotes_Click"
+                            HorizontalAlignment="Right"
+                            Background="#FDD716"
+                            FontWeight="Bold"
+                            Margin="0,10,0,0"/>
+                </StackPanel>
+            </Border>
+
         </Grid>
     </Grid>
 </Page>
